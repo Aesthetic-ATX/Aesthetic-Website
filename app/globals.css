@@ -1,0 +1,157 @@
+/* ===========================================================
+   Risograph Bulletin  ·  Aesthetic Church
+   Implements DESIGN.md. Every token here maps 1:1 to that file.
+   Fluorescent inks on warm stock. No gradients, shadows or blur.
+   =========================================================== */
+
+@font-face{
+  font-family:'Jost';
+  src:url('/fonts/jost-var-latin.woff2') format('woff2-variations');
+  font-weight:400 700;
+  font-style:normal;
+  font-display:swap;
+}
+@font-face{
+  font-family:'Spectral';
+  src:url('/fonts/spectral-italic-500-latin.woff2') format('woff2');
+  font-weight:500;
+  font-style:italic;
+  font-display:swap;
+}
+
+:root{
+  /* colour — the 2025 brand guidelines, nothing added */
+  --ink:#000000;
+  --sheet:#FEFCF9;
+  --white:#FFFFFF;
+  --neutral:#E8E4DC;      /* sheet stock darkened, pending approval */
+  --violet:#3E08E0;       /* the only colour that means clickable */
+  --sky:#66CCFF;          /* field only */
+  --green:#97F900;        /* field only */
+  --citron:#E2FE0C;       /* field only, tagline block */
+
+  --key:3px solid var(--ink);
+  --wrap:1180px;
+  --pad:clamp(20px,4vw,56px);
+
+  --space-xs:4px; --space-sm:8px; --space-md:16px;
+  --space-lg:32px; --space-xl:64px; --space-section:96px;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+body{
+  margin:0;
+  background:var(--sheet);
+  color:var(--ink);
+  font-family:'Jost','Futura','Century Gothic',system-ui,sans-serif;
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+.sp{font-family:'Spectral',Georgia,'Times New Roman',serif;font-style:italic;font-weight:500;}
+
+/* type scale ------------------------------------------------ */
+.h1{font-size:clamp(46px,7vw,76px);font-weight:700;line-height:.95;letter-spacing:-.03em;margin:0;}
+.h2{font-size:clamp(34px,4.6vw,52px);font-weight:700;line-height:1;letter-spacing:-.02em;margin:0;}
+.h3{font-size:clamp(26px,3vw,34px);font-weight:700;line-height:1.1;letter-spacing:-.01em;margin:0;}
+.lbl{font-size:13px;font-weight:700;line-height:1.2;letter-spacing:.1em;}
+.bl{font-size:clamp(17px,1.4vw,19px);line-height:1.6;max-width:62ch;margin:0;}
+.bd{font-size:17px;line-height:1.65;max-width:62ch;margin:0;}
+.sm{font-size:14px;line-height:1.5;margin:0;}
+.quote{font-size:clamp(38px,6vw,68px);line-height:1;letter-spacing:-.02em;margin:0;}
+
+/* structure ------------------------------------------------- */
+.wrap{width:100%;max-width:var(--wrap);margin:0 auto;}
+.sec{padding:clamp(48px,6vw,76px) var(--pad);}
+.f-sky{background:var(--sky);}
+.f-green{background:var(--green);}
+.f-ink{background:var(--ink);color:var(--sheet);}
+.rule{height:3px;background:var(--ink);border:0;}
+.f-ink .rule{background:var(--sheet);}
+
+/* links: violet signals interaction, on every field ---------- */
+a{color:var(--violet);text-decoration:none;}
+a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:5px;}
+.f-ink a{color:var(--sky);}
+:focus-visible{outline:3px solid var(--violet);outline-offset:3px;}
+.f-ink :focus-visible{outline-color:var(--sky);}
+.skip{position:absolute;left:-9999px;background:var(--sheet);color:var(--ink);padding:14px 20px;border:var(--key);z-index:99;}
+.skip:focus{left:8px;top:8px;}
+
+/* buttons: 0px is paper, 9999px is die-cut ------------------ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  border-radius:9999px;padding:15px 28px;min-height:52px;border:3px solid transparent;
+  font-size:13px;font-weight:700;letter-spacing:.1em;cursor:pointer;text-align:center;}
+.btn,.btn:hover{text-decoration:none;}
+.btn-v{background:var(--violet);color:var(--white);border-color:var(--violet);}
+.btn-v:hover{background:var(--ink);border-color:var(--ink);color:var(--white);}
+.btn-o{background:transparent;color:var(--ink);border-color:var(--ink);}
+.btn-o:hover{background:var(--ink);color:var(--sheet);}
+
+/* nav -------------------------------------------------------- */
+.nav{position:sticky;top:0;z-index:50;background:var(--sheet);border-bottom:var(--key);}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:24px;
+  padding:16px var(--pad);max-width:var(--wrap);margin:0 auto;}
+.wm{font-size:clamp(28px,3vw,38px);color:var(--sky);}   /* brand primary logotype */
+.wm:hover{text-decoration:none;}
+.nav-links{display:flex;align-items:center;gap:28px;font-size:15px;font-weight:700;}
+.burger{display:none;width:44px;height:44px;border:0;background:none;cursor:pointer;
+  flex-direction:column;justify-content:center;align-items:flex-end;gap:5px;padding:0;}
+.burger span{display:block;width:30px;height:3px;background:var(--ink);}
+
+/* blocks ----------------------------------------------------- */
+.frame{border:var(--key);background:var(--neutral);display:flex;flex-direction:column;
+  justify-content:flex-end;padding:18px;gap:3px;min-width:0;}
+.frame .fl{font-size:13px;font-weight:700;letter-spacing:.1em;color:var(--violet);}
+.split{display:grid;gap:clamp(28px,4vw,56px);align-items:start;}
+.split>*,.grid2>*,.grid3>*,.grid6>*,.col>*{min-width:0;}
+.s-hero{grid-template-columns:1.05fr .95fr;}
+.s-even{grid-template-columns:1fr 1fr;}
+.s-photo{grid-template-columns:.85fr 1.15fr;}
+.s-bio{grid-template-columns:1.1fr .9fr;}
+.col{display:flex;flex-direction:column;gap:22px;}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;}
+.grid6{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;}
+.card-green{background:var(--green);padding:28px;display:flex;flex-direction:column;gap:12px;}
+.card-plain{background:var(--sheet);border:var(--key);padding:28px;display:flex;flex-direction:column;gap:12px;}
+
+/* the one deliberate risk: contained, centred, keylined ------ */
+.tagline-block{background:var(--citron);border:var(--key);
+  padding:clamp(26px,4vw,40px) clamp(20px,4vw,48px);
+  max-width:820px;margin:0 auto clamp(44px,6vw,68px);
+  display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center;}
+
+.ig-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-bottom:30px;}
+.ig-t{aspect-ratio:1;border:var(--key);background:var(--neutral);display:grid;place-items:center;min-width:0;}
+.ig-t span{font-size:13px;font-weight:700;letter-spacing:.1em;color:var(--violet);}
+
+/* what is still needed, marked without colour ---------------- */
+.need{font-weight:700;border-left:var(--key);padding-left:14px;display:block;}
+.need::before{content:"NEEDED";display:block;font-size:11px;letter-spacing:.14em;margin-bottom:4px;}
+
+/* footer ----------------------------------------------------- */
+.foot-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:44px;}
+.foot-col{display:flex;flex-direction:column;gap:12px;}
+.foot-col .rule{width:44px;background:var(--citron);}
+.foot-lbl{color:var(--citron);}
+
+@media (max-width:900px){
+  .nav-links{display:none;}
+  .nav-links[data-open="true"]{display:flex;position:absolute;left:0;right:0;top:100%;
+    flex-direction:column;align-items:flex-start;gap:0;background:var(--sheet);
+    border-bottom:var(--key);padding:8px var(--pad) 22px;}
+  .nav-links[data-open="true"] a{padding:10px 0;}
+  .burger{display:flex;}
+  .s-hero,.s-even,.s-photo,.s-bio{grid-template-columns:1fr;}
+  .s-photo .frame{order:2;}
+  .grid3{grid-template-columns:1fr;}
+  .grid6{grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@media (max-width:560px){
+  .grid2{grid-template-columns:1fr;}
+  .btn{width:100%;}
+  .foot-grid{grid-template-columns:1fr;gap:30px;}
+}
