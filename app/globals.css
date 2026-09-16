@@ -32,7 +32,7 @@
   --about-exp:#F8FFEF;    /* EXPERIMENT 2026-09-16, not in the brand guidelines */
 
   --key:3px solid var(--ink);
-  --hair:1px solid var(--ink);   /* nav and the photo inset only */
+  --hair:1px solid var(--ink);   /* nav rule, nav capsule, hero inset, About edge */
   --wrap:1180px;
   --pad:clamp(20px,4vw,56px);
 
@@ -139,9 +139,9 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .facts li{display:flex;align-items:center;gap:12px;}
 .facts li+li::before{content:"";width:4px;height:4px;border-radius:9999px;background:var(--ink);}
 .hero-media{grid-column:2;position:relative;min-height:672px;}
-.hero-media .frame-fill{position:absolute;inset:0;border:0;padding:44px;}
+.hero-img{object-fit:cover;object-position:50% 45%;}
 .inset{position:absolute;inset:20px;border:var(--hair);pointer-events:none;}
-/* over a real photo the inset turns to sheet: .hero-media.has-photo .inset */
+/* over a real photo the inset is sheet, over a placeholder it stays ink */
 .hero-media.has-photo .inset{border-color:var(--sheet);}
 
 /* blocks ----------------------------------------------------- */
@@ -212,7 +212,6 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
   .hero{grid-template-columns:1fr;}
   .hero-copy{grid-column:1;justify-self:stretch;padding:clamp(48px,8vw,72px) var(--pad);}
   .hero-media{grid-column:1;min-height:0;aspect-ratio:4/3;}
-  .hero-media .frame-fill{padding:28px;}
   .inset{inset:12px;}
 }
 @media (max-width:900px){

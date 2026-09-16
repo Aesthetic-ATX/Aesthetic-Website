@@ -1,6 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Fragment } from "react";
-import { Frame } from "@/components/Frame";
 import { site } from "@/data/site";
 import { posts } from "@/data/instagram";
 
@@ -35,11 +35,16 @@ export default function Home() {
             <li>Come as you are</li>
           </ul>
         </div>
-        <div className="hero-media">
-          <Frame
-            waitingFor="PHOTO PLACEHOLDER"
-            note="Sunday gathering at Morelos St, wide, people visible. Landscape, at least 1600px on the long side."
-            className="frame-fill"
+        <div className="hero-media has-photo">
+          {/* Source: ~/Desktop/Redefined Image Final.png (1254px square), supplied 2026-09-16. */}
+          <Image
+            src="/images/hero-stage-final.jpg"
+            alt="A bassist plays on stage at a table of pedals, in front of green and yellow chevron projections"
+            fill
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            loading="eager"
+            fetchPriority="high"
+            className="hero-img"
           />
           <span className="inset" aria-hidden />
         </div>
