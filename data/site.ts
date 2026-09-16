@@ -15,6 +15,10 @@ export const site = {
   },
   mapsUrl: "https://maps.google.com/?q=2316+Morelos+St+Austin+TX+78702",
   instagram: { handle: "@aesthetic_atx", url: "https://www.instagram.com/aesthetic_atx/" },
+  /** Venue, YouTube and parent org: from Aesthetic_ATX.md in the earlier project. */
+  venue: "Sapien Center",
+  youtube: { handle: "@Aesthetic_Church", url: "https://www.youtube.com/@Aesthetic_Church" },
+  parentOrg: { name: "GLI Church Planting", url: "https://www.glichurchplanting.com/" },
   giving: {
     partner: "GLI Church Planting",
     formUrl: "https://give.tithe.ly/?formId=249375b4-0fa6-4b56-9ee9-3b4d77039b72",
