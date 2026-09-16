@@ -6,7 +6,7 @@ export const metadata = metaFor("bibleStudy");
 
 export default function BibleStudy() {
   return (
-    <section className="sec">
+    <section className="sec page-bible">
       <div className="wrap" style={{ display: "flex", flexDirection: "column", gap: "clamp(32px,4vw,44px)" }}>
         <div className="col" style={{ gap: 18 }}>
           <span className="lbl">GROUPS</span>
@@ -20,29 +20,26 @@ export default function BibleStudy() {
           </p>
         </div>
 
-        <div className="col" style={{ gap: 16 }}>
-          <span className="lbl">THIS WEEK&rsquo;S MESSAGE</span>
-          <Frame
-            waitingFor="VIDEO PLACEHOLDER"
-            note="YouTube embed, 16:9, full width. Hand updated for now. Channel ID needed before this can pull the latest automatically."
-            ratio="16/9"
-            style={{ width: "100%" }}
-          />
-        </div>
-
-        <div className="grid3">
-          {groups.map((g, i) => (
-            <div key={g.name} className={i === 0 ? "card-green" : "card-plain"}>
-              <Frame waitingFor={`PHOTO ${i + 1} OF 3`} note={g.photo.waitingFor} ratio="4/3" style={{ marginBottom: 6 }} />
-              <h2 className="h3" style={{ fontSize: "clamp(22px,2.2vw,26px)" }}>{g.name}</h2>
-              <hr className="rule" style={{ width: 44 }} />
-              <p className="bd" style={{ fontWeight: 700 }}>{g.when}</p>
-              <p className="bd">{g.where.map((w, k) => <span key={k}>{w}<br /></span>)}</p>
-              <p className="sm">
-                Interested? Contact {g.contact.name}<br />
-                <a href={`tel:${g.contact.tel}`}>{g.contact.phone}</a>
-              </p>
-            </div>
+        {/* Each group is a printed ticket: ink stub, tear line, details, photo.
+            Chosen 2026-09-16 from prototypes/groups.html, option B. */}
+        <div className="tickets">
+          {[...groups].sort((a, b) => a.weekday - b.weekday).map((g) => (
+            <article key={g.name} className="ticket" aria-label={`${g.name}, ${g.when}`}>
+              <div className={`stub stub-${g.ink}`}>
+                <p className="stub-day">{g.day}</p>
+                <p className="stub-time">{g.time}</p>
+              </div>
+              <div className="ticket-main">
+                <h2 className="ticket-name">{g.name}</h2>
+                <p className="ticket-where">{g.where.map((w, k) => <span key={k}>{w}<br /></span>)}</p>
+                <p className="sm">
+                  Interested? Contact {g.contact.name}<br />
+                  <a href={`tel:${g.contact.tel}`} className="ticket-tel">{g.contact.phone}</a>
+                </p>
+                <p className="ticket-fine">TURNING UP IS THE WHOLE REQUIREMENT</p>
+              </div>
+              <Frame waitingFor="PHOTO PLACEHOLDER" note={g.photo.waitingFor} className="ticket-photo" />
+            </article>
           ))}
         </div>
       </div>

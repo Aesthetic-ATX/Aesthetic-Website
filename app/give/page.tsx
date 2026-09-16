@@ -14,7 +14,7 @@ const donateSchema = {
 
 export default function Give() {
   return (
-    <section className="sec">
+    <section className="sec page-give">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(donateSchema) }} />
       <div className="wrap split s-even">
         <div className="col" style={{ gap: 24 }}>

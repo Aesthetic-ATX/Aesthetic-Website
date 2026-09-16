@@ -31,6 +31,8 @@
   --citron:#E2FE0C;       /* field only, tagline block */
   --about-exp:#F8FFEF;    /* EXPERIMENT 2026-09-16, not in the brand guidelines */
   --about-page-exp:#EDEBF3; /* EXPERIMENT 2026-09-16, not in the guidelines: violet's hue (255deg) lightened */
+  --bible-page-exp:#E8F2F7; /* EXPERIMENT 2026-09-16, not in the guidelines: sky's hue (200deg) lightened */
+  --give-page-exp:#FCFDF2;  /* EXPERIMENT 2026-09-16, not in the guidelines: citron's hue (~66deg) lightened */
 
   --key:3px solid var(--ink);
   --hair:1px solid var(--ink);   /* nav rule, nav capsule, About edge */
@@ -150,17 +152,13 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
   justify-content:flex-end;padding:18px;gap:3px;min-width:0;}
 .frame .fl{font-size:13px;font-weight:700;letter-spacing:.1em;color:var(--violet);}
 .split{display:grid;gap:clamp(28px,4vw,56px);align-items:start;}
-.split>*,.grid2>*,.grid3>*,.grid6>*,.col>*{min-width:0;}
-.s-hero{grid-template-columns:1.05fr .95fr;}
+.split>*,.grid2>*,.grid6>*,.col>*{min-width:0;}
 .s-even{grid-template-columns:1fr 1fr;}
-.s-photo{grid-template-columns:.85fr 1.15fr;}
 .s-bio{grid-template-columns:5fr 7fr;}   /* one portrait beside the story */
 .col{display:flex;flex-direction:column;gap:22px;}
 .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;}
-.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;}
 .grid6{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;}
 .card-green{background:var(--green);padding:28px;display:flex;flex-direction:column;gap:12px;}
-.card-plain{background:var(--sheet);border:var(--key);padding:28px;display:flex;flex-direction:column;gap:12px;}
 
 /* about preview: text only ------------------------------------------ */
 .f-about{background:var(--about-exp);}
@@ -181,7 +179,10 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .highlight{background:var(--green);padding:10px 22px;font-size:clamp(22px,2vw,28px);line-height:1.2;}
 
 /* about page: values as an order of service, beliefs as a wall ---------- */
-.page-about{background:var(--about-page-exp);}
+/* page grounds: --page also colours anything cut out of the page, like ticket notches */
+.page-about{--page:var(--about-page-exp);background:var(--page);}
+.page-bible{--page:var(--bible-page-exp);background:var(--page);}
+.page-give{--page:var(--give-page-exp);background:var(--page);}
 .values{display:flex;flex-direction:column;gap:20px;}
 .values-lbl{margin:0;}
 .values-list{list-style:none;margin:0;padding:0;border-top:var(--key);}
@@ -223,6 +224,25 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .found-toggle{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:9999px;border:var(--hair);
   background:var(--white);color:var(--ink);display:grid;place-items:center;cursor:pointer;padding:0;}
 .found-toggle:hover{background:var(--ink);color:var(--white);}
+
+/* bible study: each group is a printed ticket ------------------------- */
+.tickets{display:flex;flex-direction:column;gap:clamp(28px,3.5vw,40px);}
+.ticket{display:grid;grid-template-columns:230px minmax(0,1fr) 260px;width:100%;max-width:min(1000px,90%);border:var(--key);background:var(--white);}
+.ticket:nth-child(2){margin-left:auto;}   /* the middle ticket steps right */
+.stub{position:relative;padding:24px 22px;display:flex;flex-direction:column;justify-content:space-between;gap:18px;border-right:3px dashed var(--ink);}
+.stub-green{background:var(--green);} .stub-citron{background:var(--citron);} .stub-sky{background:var(--sky);}
+/* half-circle notches where the ticket tears, cut in the page colour */
+.stub::before,.stub::after{content:"";position:absolute;right:-17px;width:30px;height:30px;border-radius:50%;background:var(--page,var(--sheet));border:var(--key);}
+.stub::before{top:-17px;clip-path:inset(50% 0 0 0);}
+.stub::after{bottom:-17px;clip-path:inset(0 0 50% 0);}
+.stub-day{margin:0;font-size:clamp(46px,4.6vw,64px);font-weight:700;line-height:.85;letter-spacing:-.03em;}
+.stub-time{margin:0;font-size:24px;font-weight:700;line-height:1;}
+.ticket-main{padding:24px 28px;display:flex;flex-direction:column;gap:10px;}
+.ticket-name{margin:0;font-size:clamp(24px,2.4vw,32px);font-weight:700;line-height:1.1;letter-spacing:-.01em;}
+.ticket-where{margin:0;font-size:18px;line-height:1.4;}
+.ticket-tel{font-weight:700;}
+.ticket-fine{margin:auto 0 0;padding-top:10px;border-top:var(--hair);font-size:11px;font-weight:700;letter-spacing:.14em;line-height:1.3;}
+.frame.ticket-photo{border:0;border-left:var(--key);min-height:220px;}
 
 /* the one deliberate risk: contained, centred, keylined ------ */
 .tagline-block{background:var(--citron);border:var(--key);
@@ -312,6 +332,12 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
   .map-view iframe{inset:15px;width:calc(100% - 30px);height:calc(100% - 30px);}
 }
 @media (max-width:900px){
+  .ticket{grid-template-columns:1fr;max-width:none;}
+  .ticket:nth-child(2){margin-left:0;}
+  .stub{border-right:0;border-bottom:3px dashed var(--ink);flex-direction:row;align-items:flex-end;}
+  .stub::before{top:auto;bottom:-17px;left:-17px;right:auto;clip-path:inset(0 0 0 50%);}
+  .stub::after{bottom:-17px;right:-17px;clip-path:inset(0 50% 0 0);}
+  .frame.ticket-photo{border-left:0;border-top:var(--key);aspect-ratio:16/9;min-height:0;}
   .found{grid-template-columns:1fr;}
   .course:nth-child(even){padding:0 4%;}
   .value-row{grid-template-columns:1fr;}
@@ -321,9 +347,7 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
   .about-lbl{padding-top:0;}
   .about-grid{row-gap:24px;}
   .about-copy{margin-top:16px;}
-  .s-hero,.s-even,.s-photo,.s-bio{grid-template-columns:1fr;}
-  .s-photo .frame{order:2;}
-  .grid3{grid-template-columns:1fr;}
+  .s-even,.s-bio{grid-template-columns:1fr;}
   .grid6{grid-template-columns:repeat(2,minmax(0,1fr));}
 }
 @media (max-width:560px){

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Frame } from "@/components/Frame";
 import { Fragment } from "react";
 import { site } from "@/data/site";
 import { posts } from "@/data/instagram";
@@ -121,6 +122,19 @@ export default function Home() {
             Six posts, chosen rather than fetched. Hand updated, no external script, and you decide
             which six a first time visitor sees.
           </p>
+        </div>
+      </section>
+
+      {/* This week's message, moved from /bible-study (2026-09-16). */}
+      <section className="sec" aria-labelledby="message-title">
+        <div className="wrap col" style={{ gap: 16 }}>
+          <h2 className="lbl" id="message-title">THIS WEEK&rsquo;S MESSAGE</h2>
+          <Frame
+            waitingFor="VIDEO PLACEHOLDER"
+            note={`YouTube embed, 16:9, full width. Hand updated for now; the latest video can be pulled automatically from ${site.youtube.handle} (channel ${site.youtube.channelId}).`}
+            ratio="16/9"
+            style={{ width: "100%" }}
+          />
         </div>
       </section>
     </>

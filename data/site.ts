@@ -20,7 +20,11 @@ export const site = {
   instagram: { handle: "@aesthetic_atx", url: "https://www.instagram.com/aesthetic_atx/" },
   /** Venue, YouTube and parent org: from Aesthetic_ATX.md in the earlier project. */
   venue: "Sapien Center",
-  youtube: { handle: "@Aesthetic_Church", url: "https://www.youtube.com/@Aesthetic_Church" },
+  youtube: {
+    handle: "@Aesthetic_Church",
+    url: "https://www.youtube.com/@Aesthetic_Church",
+    channelId: "UCMowPF9BRrL-qWKVh4xdriw",
+  },
   parentOrg: { name: "GLI Church Planting", url: "https://www.glichurchplanting.com/" },
   giving: {
     partner: "GLI Church Planting",
