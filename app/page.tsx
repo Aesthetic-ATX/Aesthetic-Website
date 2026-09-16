@@ -6,38 +6,43 @@ import { posts } from "@/data/instagram";
 export default function Home() {
   return (
     <>
-      {/* Hero: details left, image right. Service time is the headline. */}
-      <section className="sec" id="visit">
-        <div className="wrap split s-hero">
-          <div className="col">
-            <span className="lbl">NON-DENOMINATIONAL &middot; EAST AUSTIN</span>
-            <h1 className="h1">{site.service.day}<br />at {site.service.time}</h1>
-            <hr className="rule" style={{ width: 180 }} />
-            <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-              <p className="bl" style={{ fontWeight: 700 }}>
-                {site.address.street}, {site.address.city} {site.address.region} {site.address.postalCode}
-              </p>
-              <a className="bl" href={site.mapsUrl}>Get directions</a>
-            </div>
-            <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-              <a href={site.mapsUrl} className="btn btn-v">Plan your visit</a>
-              <Link href="/about" className="btn btn-o">What to expect</Link>
-            </div>
-            <p className="bd" style={{ maxWidth: "46ch" }}>
-              {site.mission} Whether you have followed Jesus for years or are working out what you
-              think, there is room for you on Sunday.
-            </p>
+      {/* Hero: details on a sky field, image bleeding to the right edge with an
+          inset hairline frame. The sky band for this page lives here. */}
+      <section className="hero f-sky" id="visit">
+        <div className="hero-copy">
+          <span className="lbl">NON-DENOMINATIONAL &middot; EAST AUSTIN</span>
+          <h1 className="h1">{site.service.day}<br />at {site.service.time}</h1>
+          <p className="hero-sub">
+            {site.address.street}, {site.address.city} {site.address.region} {site.address.postalCode}
+          </p>
+          <p className="bd hero-body">
+            {site.mission} Whether you have followed Jesus for years or are working out what you
+            think, there is room for you on Sunday.
+          </p>
+          <div className="hero-actions">
+            <a href={site.mapsUrl} className="btn btn-v">Plan your visit</a>
+            <Link href="/about" className="arrow-link">
+              What to expect <span aria-hidden>&rarr;</span>
+            </Link>
           </div>
+          <ul className="facts">
+            <li>Doors {site.service.doors}</li>
+            <li>{site.address.street}</li>
+            <li>Come as you are</li>
+          </ul>
+        </div>
+        <div className="hero-media">
           <Frame
             waitingFor="PHOTO PLACEHOLDER"
-            note="Sunday gathering at Morelos St, wide, people visible. Vertical crop 4:5."
-            minHeight="clamp(280px,42vw,560px)"
+            note="Sunday gathering at Morelos St, wide, people visible. Landscape, at least 1600px on the long side."
+            className="frame-fill"
           />
+          <span className="inset" aria-hidden />
         </div>
       </section>
 
-      {/* About preview. One sky field per page. */}
-      <section className="sec f-sky">
+      {/* About preview. One green field per page. */}
+      <section className="sec f-green">
         <div className="wrap split s-photo" style={{ alignItems: "center" }}>
           <Frame
             waitingFor="PHOTO PLACEHOLDER"
