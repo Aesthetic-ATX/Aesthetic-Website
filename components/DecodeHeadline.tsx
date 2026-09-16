@@ -1,37 +1,33 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 
 type Cell = { el: HTMLSpanElement | null; ch: string };
+type Controls = { pause: () => void; play: () => void };
 
 export type DecodeHeadlineProps = {
   /** Each inner array is one phrase; each string is a line of that phrase. */
   phrases?: string[][];
-  /** How long the first phrase rests, still, after the pass starts. */
+  /** How long the first phrase rests, still, once the block is in view. */
   firstHoldMs?: number;
-  /** Gap between the starts of successive decodes. */
+  /** Gap between the starts of successive decodes: ~1.3s scramble + ~2.9s hold. */
   stepMs?: number;
   frameMs?: number;
   trackRatio?: number;
   wordGapRatio?: number;
-  /** Any CSS colour. Flat, per DESIGN.md — no gradient text. */
+  /** Any CSS colour. Flat, per DESIGN.md: no gradient text. */
   color?: string;
   className?: string;
 };
 
-// Module-level so the default is referentially stable. The effect below lists
-// `phrases` in its dependency array, so a caller passing an inline array
-// literal would re-run (and restart) the animation on every render.
+// Module-level so the default is referentially stable. The effect lists
+// `phrases` in its dependencies, so an inline array literal would restart it.
 //
-// Plays once and rests on the last phrase, the tagline. WCAG 2.2.2 exempts
-// motion only if it ends within five seconds, so the pass is budgeted from the
-// moment it starts: GOD IS AN ARTIST decodes 1.2s in (settles within ~1.26s at
-// 45ms frames), COME AS YOU ARE decodes at 3.6s and settles by ~4.8s. Adding a
-// phrase or slowing frames means re-budgeting this.
-//
-// Ported 2026-09-16 from the earlier build's footer. It lives in the footer, so it waits:
-// AESTHETIC sits still until the headline is at least half in view, and only
-// then does the pass start. Played on page load, it would finish unseen.
+// Loops AESTHETIC -> GOD IS AN ARTIST -> COME AS YOU ARE (user's call,
+// 2026-09-16). Because it moves for longer than five seconds, WCAG 2.2.2
+// requires a way to pause it, so a pause/play button always sits beside it.
+// It only runs while at least half in view, and reduced motion gets the
+// tagline, still, with no button. Ported from the earlier build's footer.
 const DEFAULT_PHRASES: string[][] = [
   ["AESTHETIC"],
   ["GOD IS", "AN ARTIST"],
@@ -40,26 +36,61 @@ const DEFAULT_PHRASES: string[][] = [
 
 const POOL = "ABCDEFGHKNOPQRSTUVXYZ";
 
-export default function DecodeHeadline({
+export default function DecodeHeadline(props: DecodeHeadlineProps) {
+  const controls = useRef<Controls | null>(null);
+  const [paused, setPaused] = useState(false);
+  const [moving, setMoving] = useState(false);
+
+  useEffect(() => {
+    setMoving(!window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }, []);
+
+  const toggle = () => {
+    if (paused) controls.current?.play();
+    else controls.current?.pause();
+    setPaused(!paused);
+  };
+
+  return (
+    <>
+      <DecodeLine {...props} controls={controls} />
+      {moving ? (
+        <button
+          type="button"
+          className="decode-toggle"
+          onClick={toggle}
+          aria-label={paused ? "Play animation" : "Pause animation"}
+        >
+          {paused ? (
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden><path d="M8 5v14l11-7-11-7Z" fill="currentColor" /></svg>
+          ) : (
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor" /></svg>
+          )}
+        </button>
+      ) : null}
+    </>
+  );
+}
+
+/**
+ * The letter grid. Memoised with stable props so the button's state changes
+ * never re-render it: this subtree is written directly to the DOM (each cell
+ * sized to its own glyph and repainted ~22x a second while scrambling), and a
+ * React re-render would fight those writes.
+ */
+const DecodeLine = memo(function DecodeLine({
   phrases = DEFAULT_PHRASES,
   firstHoldMs = 1200,
-  stepMs = 2400,
+  stepMs = 4200,
   frameMs = 45,
   trackRatio = 0.12,
   wordGapRatio = 0.42,
   color = "var(--ink)",
   className,
-}: DecodeHeadlineProps) {
+  controls,
+}: DecodeHeadlineProps & { controls: React.RefObject<Controls | null> }) {
   const lineRef = useRef<HTMLDivElement>(null);
 
-  // This builds its letter cells with direct DOM writes rather than React
-  // state, on purpose: each cell is sized to its own glyph's measured advance
-  // width and repainted ~22x/second during a scramble. Driving that through
-  // React would mean a re-render per frame per letter.
-  //
-  // It is safe to own this subtree imperatively because React never re-renders
-  // it — the component holds no state, and the JSX child below is only the
-  // pre-hydration fallback, which build() replaces on mount.
   useEffect(() => {
     const line = lineRef.current;
     if (!line) return;
@@ -71,7 +102,7 @@ export default function DecodeHeadline({
     let cells: Cell[] = [];
     let current = phrases[0] ?? DEFAULT_PHRASES[0];
     let timer: number | undefined;
-    const steps: number[] = [];
+    let step: number | undefined;
     let io: IntersectionObserver | undefined;
     let ro: ResizeObserver | undefined;
     let cancelled = false;
@@ -209,12 +240,9 @@ export default function DecodeHeadline({
 
     const start = () => {
       if (cancelled) return;
-      const first = phrases[0] ?? DEFAULT_PHRASES[0];
-      const last = phrases[phrases.length - 1] ?? first;
+      const last = phrases[phrases.length - 1] ?? phrases[0];
 
-      // Re-measure when the container's width changes. Height changes are
-      // ignored on purpose: building the cells changes the height, which would
-      // otherwise re-trigger this in a loop.
+      // Re-measure on width changes only; building cells changes the height.
       let lastWidth = line.clientWidth;
       ro = new ResizeObserver(() => {
         const w = line.clientWidth;
@@ -224,44 +252,65 @@ export default function DecodeHeadline({
       });
       ro.observe(line);
 
-      // Reduced motion gets the resting phrase immediately — the same state
-      // everyone else ends on.
       if (reduce) {
         renderStatic(last);
         return;
       }
 
-      // One pass, once the headline is at least half in view: the first phrase
-      // sits still, then each later phrase decodes once. No interval, so
-      // nothing moves after the last phrase settles.
-      renderStatic(first);
+      let index = 0;
+      let visible = false;
+      let paused = false;
+
+      const schedule = (delay: number) => {
+        window.clearTimeout(step);
+        if (paused || !visible) return;
+        step = window.setTimeout(() => {
+          index = (index + 1) % phrases.length;
+          decodeTo(phrases[index]);
+          schedule(stepMs);
+        }, delay);
+      };
+
+      controls.current = {
+        // Pausing settles the phrase in flight, so what stays on screen is readable.
+        pause: () => {
+          paused = true;
+          window.clearTimeout(step);
+          renderStatic(phrases[index]);
+        },
+        play: () => {
+          paused = false;
+          schedule(800);
+        },
+      };
+
+      renderStatic(phrases[0]);
       io = new IntersectionObserver(
         (entries) => {
-          if (!entries.some((e) => e.isIntersecting)) return;
-          io?.disconnect();
-          phrases.slice(1).forEach((phrase, i) => {
-            steps.push(window.setTimeout(() => decodeTo(phrase), firstHoldMs + i * stepMs));
-          });
+          const now = entries.some((e) => e.isIntersecting);
+          if (now === visible) return;
+          visible = now;
+          if (visible) schedule(firstHoldMs);
+          else window.clearTimeout(step); // off screen: finish the current scramble, then rest
         },
         { threshold: 0.5 },
       );
       io.observe(line);
     };
 
-    // Cells are sized from measured glyph widths, so measuring before the
-    // webfont loads would size every cell to the fallback face and leave the
-    // line visibly mis-tracked once Jost swaps in.
+    // Cells are sized from measured glyph widths, so wait for Jost.
     const ready = (document as Document & { fonts?: FontFaceSet }).fonts?.ready ?? Promise.resolve();
     ready.then(start);
 
     return () => {
       cancelled = true;
       window.clearInterval(timer);
-      steps.forEach((id) => window.clearTimeout(id));
+      window.clearTimeout(step);
       io?.disconnect();
       ro?.disconnect();
+      controls.current = null;
     };
-  }, [phrases, firstHoldMs, stepMs, frameMs, trackRatio, wordGapRatio, color]);
+  }, [phrases, firstHoldMs, stepMs, frameMs, trackRatio, wordGapRatio, color, controls]);
 
   return (
     <div
@@ -298,4 +347,4 @@ export default function DecodeHeadline({
       </span>
     </div>
   );
-}
+});

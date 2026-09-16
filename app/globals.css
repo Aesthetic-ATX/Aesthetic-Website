@@ -215,6 +215,11 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .foot-tag{position:relative;background:var(--white);color:var(--ink);display:flex;align-items:center;justify-content:center;
   min-height:280px;padding:56px clamp(40px,5vw,64px);min-width:0;}
 .foot-decode{width:100%;}
+/* WCAG 2.2.2: the looping headline always has a pause control, inside the keyline */
+.decode-toggle{position:absolute;right:34px;bottom:34px;z-index:1;width:44px;height:44px;border-radius:9999px;
+  border:var(--hair);background:var(--white);color:var(--ink);display:grid;place-items:center;cursor:pointer;padding:0;}
+.decode-toggle:hover{background:var(--ink);color:var(--white);}
+.f-ink .foot-tag :focus-visible{outline-color:var(--violet);}
 .foot-ask{display:flex;flex-direction:column;gap:32px;min-width:0;}
 .foot-news{display:flex;flex-direction:column;gap:14px;}
 .foot-news .bd{max-width:48ch;}
@@ -258,6 +263,7 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
   .hero-copy{grid-column:1;justify-self:stretch;padding:clamp(48px,8vw,72px) var(--pad);}
   .hero-media{grid-column:1;min-height:0;aspect-ratio:4/3;}
   .inset{inset:12px;}
+  .decode-toggle{right:22px;bottom:22px;}
   .map-view iframe{inset:15px;width:calc(100% - 30px);height:calc(100% - 30px);}
 }
 @media (max-width:900px){
