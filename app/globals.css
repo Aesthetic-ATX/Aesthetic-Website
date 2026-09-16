@@ -71,7 +71,7 @@ body{
 .f-sky{background:var(--sky);}
 .f-green{background:var(--green);}
 .f-ink{background:var(--ink);color:var(--sheet);}
-.rule{height:3px;background:var(--ink);border:0;}
+.rule{height:3px;background:var(--ink);border:0;margin:0;}  /* hr centres itself by default */
 .f-ink .rule{background:var(--sheet);}
 
 /* links: violet signals interaction, on every field ---------- */
@@ -153,7 +153,7 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .s-hero{grid-template-columns:1.05fr .95fr;}
 .s-even{grid-template-columns:1fr 1fr;}
 .s-photo{grid-template-columns:.85fr 1.15fr;}
-.s-bio{grid-template-columns:1.1fr .9fr;}
+.s-bio{grid-template-columns:5fr 7fr;}   /* one portrait beside the story */
 .col{display:flex;flex-direction:column;gap:22px;}
 .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;}
 .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;}
@@ -178,6 +178,49 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .highlight-row{margin-top:32px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:16px 24px;}
 .highlight-lbl{letter-spacing:.18em;text-align:center;text-wrap:balance;}
 .highlight{background:var(--green);padding:10px 22px;font-size:clamp(22px,2vw,28px);line-height:1.2;}
+
+/* about page: values as an order of service, beliefs as a wall ---------- */
+.values{display:flex;flex-direction:column;gap:20px;}
+.values-lbl{margin:0;}
+.values-list{list-style:none;margin:0;padding:0;border-top:var(--key);}
+.value-row{display:grid;grid-template-columns:5fr 7fr;gap:12px 40px;align-items:baseline;
+  padding:clamp(20px,2.6vw,30px) 0;border-bottom:var(--key);}
+.value-name{margin:0;font-size:clamp(28px,3.4vw,42px);font-weight:700;line-height:1.05;letter-spacing:-.02em;}
+.value-text{max-width:46ch;}
+
+.beliefs{display:flex;flex-direction:column;gap:18px;}
+.beliefs .lbl{margin:0;}
+.beliefs-intro{max-width:62ch;}
+
+/* core beliefs as a wall (the foundation of the community), panel beside */
+.found{display:grid;grid-template-columns:7fr 5fr;gap:clamp(28px,4vw,56px);align-items:end;margin-top:clamp(20px,3vw,32px);}
+.wall{display:flex;flex-direction:column;}
+.course{display:flex;margin-top:-3px;}
+.course:first-child{margin-top:0;}
+.course:nth-child(even){padding:0 6%;}
+.stone{flex:1 1 auto;margin-left:-3px;border:var(--key);background:var(--sheet);padding:clamp(14px,1.8vw,22px) 12px;
+  font-weight:700;font-size:clamp(14px,1.35vw,18px);letter-spacing:.08em;text-transform:uppercase;line-height:1.15;
+  cursor:pointer;color:var(--ink);text-align:center;border-radius:0;}
+.stone:first-child{margin-left:0;}
+.stone:hover{background:var(--sky);}
+.stone[aria-pressed="true"]{background:var(--citron);}   /* black on citron 18.42:1 */
+.stone:focus-visible{position:relative;z-index:1;}
+.stone.base{padding-block:clamp(22px,2.6vw,32px);font-size:clamp(18px,1.8vw,24px);}
+.found-hint{margin-top:14px;}
+.found-panel{position:relative;border:var(--key);background:var(--white);min-height:100%;
+  padding:clamp(24px,3vw,36px) clamp(24px,3vw,36px) clamp(30px,3.6vw,42px);display:flex;flex-direction:column;justify-content:flex-end;gap:14px;}
+.found-panel .lbl{padding-right:56px;}
+.found-stack{display:grid;}
+.found-item{grid-area:1/1;display:flex;flex-direction:column;justify-content:flex-end;gap:14px;visibility:hidden;}
+.found-item.on{visibility:visible;}
+.found-item h3{margin:0;font-size:clamp(30px,3.2vw,42px);line-height:1;letter-spacing:-.02em;}
+.found-item p{margin:0;font-size:clamp(20px,1.9vw,24px);line-height:1.4;}
+/* a flat bar fills along the panel's foot until the next stone */
+.found-progress{position:absolute;left:0;bottom:0;height:6px;width:0;background:var(--ink);animation:found-fill linear forwards;}
+@keyframes found-fill{to{width:100%;}}
+.found-toggle{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:9999px;border:var(--hair);
+  background:var(--white);color:var(--ink);display:grid;place-items:center;cursor:pointer;padding:0;}
+.found-toggle:hover{background:var(--ink);color:var(--white);}
 
 /* the one deliberate risk: contained, centred, keylined ------ */
 .tagline-block{background:var(--citron);border:var(--key);
@@ -267,6 +310,9 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
   .map-view iframe{inset:15px;width:calc(100% - 30px);height:calc(100% - 30px);}
 }
 @media (max-width:900px){
+  .found{grid-template-columns:1fr;}
+  .course:nth-child(even){padding:0 4%;}
+  .value-row{grid-template-columns:1fr;}
   .foot-top{grid-template-columns:repeat(2,minmax(0,1fr));}
   .foot-top>.foot-col:first-child{grid-column:1 / -1;}
   .about-lbl,.about-title,.about-copy{grid-column:1 / -1;grid-row:auto;}
@@ -279,6 +325,9 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
   .grid6{grid-template-columns:repeat(2,minmax(0,1fr));}
 }
 @media (max-width:560px){
+  .course{flex-wrap:wrap;}
+  .stone{flex-basis:48%;margin-top:-3px;}
+  .stone.base{flex-basis:100%;}
   .statement-part{display:block;}
   .statement-dot{display:none;}
   .highlight-row{flex-direction:column;}

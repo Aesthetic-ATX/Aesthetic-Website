@@ -1,5 +1,6 @@
-import { Frame, Needed } from "@/components/Frame";
-import { site } from "@/data/site";
+import { Frame } from "@/components/Frame";
+import { BeliefsWall } from "@/components/BeliefsWall";
+import { mission, vision, values, beliefsIntro } from "@/data/commitment";
 import { metaFor } from "@/data/meta";
 
 export const metadata = metaFor("about");
@@ -32,44 +33,39 @@ export default function About() {
         <div className="grid2">
           <div className="card-green">
             <span className="lbl">OUR MISSION</span><hr className="rule" style={{ width: 44 }} />
-            <p className="h3" style={{ fontSize: "clamp(22px,2.4vw,28px)" }}>{site.mission}</p>
+            <p className="h3" style={{ fontSize: "clamp(22px,2.4vw,28px)" }}>{mission}</p>
           </div>
           <div className="card-green">
             <span className="lbl">OUR VISION</span><hr className="rule" style={{ width: 44 }} />
-            <p className="h3" style={{ fontSize: "clamp(22px,2.4vw,28px)" }}>{site.vision}</p>
+            <p className="h3" style={{ fontSize: "clamp(22px,2.4vw,28px)" }}>{vision}</p>
           </div>
         </div>
 
-        <hr className="rule" />
+        {/* Values read like an order of service: one row each, name left, line right. */}
+        <section className="values" aria-labelledby="values-title">
+          <h2 className="lbl values-lbl" id="values-title">OUR VALUES</h2>
+          <ol className="values-list">
+            {values.map((v) => (
+              <li key={v.name} className="value-row">
+                <h3 className="value-name">{v.name}</h3>
+                <p className="bl value-text">{v.text}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
 
-        <div className="split s-even">
-          <div className="col" style={{ gap: 16 }}>
-            <span className="lbl">WHAT TO EXPECT</span>
-            <h2 className="h2" style={{ fontSize: "clamp(28px,3.4vw,38px)", maxWidth: "18ch" }}>
-              Grab a coffee, settle in, engage at your own pace.
-            </h2>
-          </div>
-          <div className="col" style={{ gap: 16 }}>
-            <p className="bd">
-              You will find an environment that feels warm and welcoming. Original artwork through
-              the space, music led by musicians and DJs, and people who genuinely care about making
-              somewhere others feel comfortable and connected.
-            </p>
-            <p className="bd">
-              Messages are centered around real life and the Bible, speaking into identity,
-              relationships, and everyday challenges.
-            </p>
-          </div>
-        </div>
+        {/* Beliefs as a wall with The Bible as the base stone; the panel reads up it. */}
+        <section className="beliefs" aria-labelledby="beliefs-title">
+          <h2 className="lbl" id="beliefs-title">OUR CORE BELIEFS</h2>
+          <p className="bd beliefs-intro">{beliefsIntro}</p>
+          <BeliefsWall />
+        </section>
 
         <hr className="rule" />
 
-        {/* Bio layout modelled on Axiom: two photos, then the story. */}
+        {/* Bio: one portrait, then the story. */}
         <div className="split s-bio">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-            <Frame waitingFor="PHOTO 1 OF 2" note="John Lee, headshot. Portrait crop 3:4." ratio="3/4" />
-            <Frame waitingFor="PHOTO 2 OF 2" note="The Lee family, outdoors. Same crop, shot the same day." ratio="3/4" />
-          </div>
+          <Frame waitingFor="PHOTO PLACEHOLDER" note="John Lee, portrait. Crop 3:4." ratio="3/4" />
           <div className="col" style={{ gap: 18 }}>
             <span className="lbl">MEET OUR PASTOR</span>
             <h2 className="h2" style={{ fontSize: "clamp(32px,4vw,44px)" }}>John Lee</h2>

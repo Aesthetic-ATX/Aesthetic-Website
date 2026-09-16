@@ -1,10 +1,13 @@
+import { mission, vision } from "./commitment";
+
 /** Facts about the church. Single source for every page and for Phases 2 and 3. */
 export const site = {
   name: "Aesthetic Church",
   shortName: "Aesthetic",
   tagline: "come as you are",
-  mission: "Helping people see the beauty of God in life and culture.",
-  vision: "A church where heaven meets culture.",
+  /** From John Lee's "Commitment to Community"; the full set lives in data/commitment.ts. */
+  mission: mission,
+  vision: vision,
   service: { day: "Sundays", time: "11am", doors: "10:30am" },
   address: {
     street: "2316 Morelos St",
