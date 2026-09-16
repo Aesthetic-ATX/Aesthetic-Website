@@ -7,7 +7,7 @@ export const metadata = metaFor("about");
 
 export default function About() {
   return (
-    <section className="sec">
+    <section className="sec page-about">
       <div className="wrap" style={{ display: "flex", flexDirection: "column", gap: "clamp(36px,5vw,56px)" }}>
         <div className="split s-even">
           <div className="col">
