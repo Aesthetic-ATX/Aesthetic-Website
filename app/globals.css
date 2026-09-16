@@ -29,6 +29,7 @@
   --sky:#66CCFF;          /* field only */
   --green:#97F900;        /* field only */
   --citron:#E2FE0C;       /* field only, tagline block */
+  --about-exp:#F8FFEF;    /* EXPERIMENT 2026-09-16, not in the brand guidelines */
 
   --key:3px solid var(--ink);
   --hair:1px solid var(--ink);   /* nav and the photo inset only */
@@ -160,6 +161,24 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .card-green{background:var(--green);padding:28px;display:flex;flex-direction:column;gap:12px;}
 .card-plain{background:var(--sheet);border:var(--key);padding:28px;display:flex;flex-direction:column;gap:12px;}
 
+/* about preview: text only ------------------------------------------ */
+.f-about{background:var(--about-exp);}
+/* #F8FFEF measures 1.0:1 against the sheet, so the hairline marks where the field ends */
+.about{padding:clamp(72px,9vw,120px) var(--pad);border-bottom:var(--hair);}
+.about-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(24px,4.5vw,64px);row-gap:48px;}
+.about-lbl{grid-column:1 / 5;grid-row:1;padding-top:16px;}
+.about-title{grid-column:6 / 13;grid-row:1;margin:0;font-size:clamp(38px,5vw,64px);font-weight:700;
+  line-height:1.02;letter-spacing:-.03em;text-wrap:balance;}
+.about-title em{display:inline-block;margin-top:.08em;font-size:1.06em;letter-spacing:-.01em;}
+.about-copy{grid-column:1 / 6;grid-row:2;display:flex;flex-direction:column;align-items:flex-start;gap:24px;}
+.about-copy .bd{max-width:48ch;}
+.statement{margin:clamp(72px,9vw,112px) 0 0;text-align:center;font-size:clamp(26px,2.6vw,36px);line-height:1.25;}
+.statement-part{white-space:nowrap;}
+.statement-dot{display:inline-block;margin:0 .45em;font-family:'Jost',system-ui,sans-serif;font-style:normal;}
+.highlight-row{margin-top:32px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:16px 24px;}
+.highlight-lbl{letter-spacing:.18em;text-align:center;text-wrap:balance;}
+.highlight{background:var(--green);padding:10px 22px;font-size:clamp(22px,2vw,28px);line-height:1.2;}
+
 /* the one deliberate risk: contained, centred, keylined ------ */
 .tagline-block{background:var(--citron);border:var(--key);
   padding:clamp(26px,4vw,40px) clamp(20px,4vw,48px);
@@ -197,12 +216,19 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
   .inset{inset:12px;}
 }
 @media (max-width:900px){
+  .about-lbl,.about-title,.about-copy{grid-column:1 / -1;grid-row:auto;}
+  .about-lbl{padding-top:0;}
+  .about-grid{row-gap:24px;}
+  .about-copy{margin-top:16px;}
   .s-hero,.s-even,.s-photo,.s-bio{grid-template-columns:1fr;}
   .s-photo .frame{order:2;}
   .grid3{grid-template-columns:1fr;}
   .grid6{grid-template-columns:repeat(2,minmax(0,1fr));}
 }
 @media (max-width:560px){
+  .statement-part{display:block;}
+  .statement-dot{display:none;}
+  .highlight-row{flex-direction:column;}
   .facts{flex-direction:column;align-items:flex-start;}
   .facts li+li::before{display:none;}
   .grid2{grid-template-columns:1fr;}
