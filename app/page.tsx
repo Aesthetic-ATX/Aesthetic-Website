@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Frame } from "@/components/Frame";
 import { Fragment } from "react";
 import { site } from "@/data/site";
-import { posts } from "@/data/instagram";
+import { Weekly } from "@/components/Weekly";
 
 /** DUMMY COPY, drawn from the existing About text until the church writes the final line. */
 const statement = ["Explore faith", "Grow at your own pace", "Take a next step"];
@@ -92,7 +92,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Tagline block, then the grid. One merged section, one citron block. */}
+      {/* Tagline block, then The Aesthetic Weekly. */}
       <section className="sec">
         <div className="wrap">
           <div className="tagline-block">
@@ -100,28 +100,8 @@ export default function Home() {
             <p className="sp quote">{site.tagline}</p>
           </div>
 
-          <div className="ig-head">
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <span className="lbl">ON INSTAGRAM</span>
-              <h2 className="h2" style={{ maxWidth: "16ch" }}>Hear the stories, see the room.</h2>
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 14, alignItems: "flex-start" }}>
-              <a href={site.instagram.url} className="lbl" style={{ letterSpacing: ".22em" }}>
-                {site.instagram.handle}
-              </a>
-              <a href={site.instagram.url} className="btn btn-v">Follow on Instagram</a>
-            </div>
-          </div>
-
-          <div className="grid6">
-            {posts.map((p, i) => (
-              <div className="ig-t" key={i}><span>{String(i + 1).padStart(2, "0")}</span></div>
-            ))}
-          </div>
-          <p className="sm" style={{ marginTop: 22, maxWidth: "70ch" }}>
-            Six posts, chosen rather than fetched. Hand updated, no external script, and you decide
-            which six a first time visitor sees.
-          </p>
+          {/* Instagram, as the front page of a printed bulletin. */}
+          <Weekly />
         </div>
       </section>
 
