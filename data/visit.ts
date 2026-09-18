@@ -60,7 +60,7 @@ export const visit = {
       label: "THE ROOM",
       heading: "It is not a church building, and it does not pretend to be",
       body: [
-        "We meet inside Sapien Center, a co-working space on Morelos Street with good light and a concrete floor. It takes about four seconds to work out that you are not in a sanctuary. Most people find that easier rather than harder.",
+        "We meet inside Sapien Center, a co-working space on Morelos Street with good light and a concrete floor. It takes about four seconds to work out that you are not in a sanctuary.",
       ],
     },
     {
@@ -90,7 +90,7 @@ export const visit = {
       label: "THE MUSIC\nAND THE\nMESSAGE",
       heading: "A DJ on the way in, and a message about an ordinary week",
       body: [
-        "King Khary plays as people arrive and again on the way out, which is the first clue about how the rest of the morning goes. He is part of the leadership here, not a hired act. The worship team is small and close enough that you can hear the room over them. Nobody minds whether you sing.",
+        "King Khary plays as people arrive and again on the way out, which is the first clue about how the rest of the morning goes. He is on the leadership team here. The worship team is small and close enough that you can hear the room over them. Nobody minds whether you sing.",
         "John teaches out of a passage and talks about what it has to do with the ordinary parts of a life: who you are, who you are with, and the thing you are currently avoiding. You will not need to have read anything first.",
       ],
       media: [
