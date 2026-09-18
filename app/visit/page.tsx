@@ -105,7 +105,10 @@ export default function Visit() {
                 {visit.practical.rows.map((r) => (
                   <Fragment key={r.term}>
                     <dt>{r.term}</dt>
-                    <dd style={"owed" in r && r.owed ? { color: "var(--violet)" } : undefined}>
+                    {/* A fact the church still owes is marked the way DESIGN.md
+                        specifies: weight and a keyline, no colour. Violet means
+                        clickable and nothing else. */}
+                    <dd className={"owed" in r && r.owed ? "need" : undefined}>
                       {r.value}
                     </dd>
                   </Fragment>
