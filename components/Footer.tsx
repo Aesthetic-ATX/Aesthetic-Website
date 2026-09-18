@@ -5,6 +5,7 @@ import { SignUp } from "@/components/SignUp";
 import { MapCard } from "@/components/MapCard";
 
 const explore = [
+  { href: "/visit", label: "Plan your visit" },
   { href: "/about", label: "About" },
   { href: "/bible-study", label: "Bible study" },
   { href: "/give", label: "Give" },

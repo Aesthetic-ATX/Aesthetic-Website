@@ -32,7 +32,7 @@ export function Nav() {
 
         <nav className="nav-desk" aria-label="Main">
           <Capsule active={active} />
-          <Link href="/#visit" className="btn btn-v nav-cta">Plan your visit</Link>
+          <Link href="/visit" className="btn btn-v nav-cta">Plan your visit</Link>
         </nav>
 
         <button
@@ -57,7 +57,7 @@ export function Nav() {
             {l.label}
           </Link>
         ))}
-        <Link href="/#visit" className="btn btn-v" onClick={() => setOpen(false)}>
+        <Link href="/visit" className="btn btn-v" onClick={() => setOpen(false)}>
           Plan your visit
         </Link>
       </nav>

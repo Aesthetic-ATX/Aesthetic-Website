@@ -26,7 +26,7 @@ export default function Home() {
           </p>
           <div className="hero-actions">
             <a href={site.mapsUrl} className="btn btn-v">Plan your visit</a>
-            <Link href="/about" className="arrow-link">
+            <Link href="/visit" className="arrow-link">
               What to expect <span aria-hidden>&rarr;</span>
             </Link>
           </div>

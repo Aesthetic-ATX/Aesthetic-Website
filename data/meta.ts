@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { site } from "./site";
 
 /** Titles and descriptions come from the approved SEO keyword map. Do not rewrite. */
-type Route = "home" | "about" | "bibleStudy" | "give";
+type Route = "home" | "about" | "bibleStudy" | "give" | "visit";
 
 const copy: Record<Route, { title: string; description: string; path: string }> = {
   home: {
@@ -22,6 +22,17 @@ const copy: Record<Route, { title: string; description: string; path: string }> 
     description:
       "Looking for bible study groups in Austin? Three Aesthetic groups meet through the week for honest conversation, over coffee, on the trail, and on Saturday mornings.",
     path: "/bible-study",
+  },
+  /**
+   * NOT FROM THE SEO MAP. The map defines no Plan your visit page, so this
+   * title and description are mine and need the church's approval before
+   * launch. Every other entry here is approved copy and must not be rewritten.
+   */
+  visit: {
+    title: "Plan Your Visit | Aesthetic Church Austin",
+    description:
+      "What a Sunday at Aesthetic Church looks like, in order. Doors open at 10:30 in East Austin, the service starts at 11am, and you can come exactly as you are.",
+    path: "/visit",
   },
   give: {
     title: "Give | Aesthetic Church Austin",
