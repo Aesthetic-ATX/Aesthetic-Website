@@ -32,12 +32,12 @@ function Item({ item }: { item: Brief }) {
 export function Weekly() {
   const { lead } = weekly;
   return (
-    <article className="weekly" aria-labelledby="weekly-title">
-      <header className="weekly-mast">
+    <article className="weekly sheet" aria-labelledby="weekly-title">
+      <header className="mast">
         <p className="lbl">{weekly.kicker}</p>
-        <h2 id="weekly-title" className="weekly-name">{weekly.masthead}</h2>
+        <h2 id="weekly-title" className="mast-name">{weekly.masthead}</h2>
       </header>
-      <div className="weekly-dateline">
+      <div className="dateline">
         <span>EAST AUSTIN</span>
         <span>
           {site.service.day.toUpperCase()} AT {site.service.time.toUpperCase()} &middot; {site.address.street.toUpperCase()}

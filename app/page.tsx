@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Frame } from "@/components/Frame";
 import { Fragment } from "react";
 import { site } from "@/data/site";
-import { Weekly } from "@/components/Weekly";
+import { Message } from "@/components/Message";
+import { VisitTeaser } from "@/components/VisitTeaser";
 
 /** DUMMY COPY, drawn from the existing About text until the church writes the final line. */
 const statement = ["Explore faith", "Grow at your own pace", "Take a next step"];
@@ -92,7 +92,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Tagline block, then The Aesthetic Weekly. */}
+      {/* This week's message, under the bulletin masthead (2026-09-17). Moved
+          above the tagline so the newest thing on the page comes first. */}
+      <section className="sec">
+        <div className="wrap">
+          <Message />
+        </div>
+      </section>
+
+      {/* The tagline, then the invitation to visit. The Aesthetic Weekly was
+          removed from the homepage on 2026-09-17: its story became /visit,
+          and this card is what hands off to it. */}
       <section className="sec">
         <div className="wrap">
           <div className="tagline-block">
@@ -100,21 +110,7 @@ export default function Home() {
             <p className="sp quote">{site.tagline}</p>
           </div>
 
-          {/* Instagram, as the front page of a printed bulletin. */}
-          <Weekly />
-        </div>
-      </section>
-
-      {/* This week's message, moved from /bible-study (2026-09-16). */}
-      <section className="sec" aria-labelledby="message-title">
-        <div className="wrap col" style={{ gap: 16 }}>
-          <h2 className="lbl" id="message-title">THIS WEEK&rsquo;S MESSAGE</h2>
-          <Frame
-            waitingFor="VIDEO PLACEHOLDER"
-            note={`YouTube embed, 16:9, full width. Hand updated for now; the latest video can be pulled automatically from ${site.youtube.handle} (channel ${site.youtube.channelId}).`}
-            ratio="16/9"
-            style={{ width: "100%" }}
-          />
+          <VisitTeaser />
         </div>
       </section>
     </>

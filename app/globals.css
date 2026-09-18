@@ -244,13 +244,33 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .ticket-fine{margin:auto 0 0;padding-top:10px;border-top:var(--hair);font-size:11px;font-weight:700;letter-spacing:.14em;line-height:1.3;}
 .frame.ticket-photo{border:0;border-left:var(--key);min-height:100%;}
 
-/* homepage instagram: the front page of a printed bulletin ------------- */
-.weekly{background:var(--white);border:var(--key);padding:clamp(18px,3vw,36px);}
-.weekly-mast{text-align:center;border-bottom:var(--key);padding-bottom:12px;}
-.weekly-name{margin:0;font-size:clamp(40px,7.6vw,104px);font-weight:700;line-height:.9;letter-spacing:-.04em;text-transform:uppercase;text-wrap:balance;}
-.weekly-dateline{display:flex;justify-content:space-between;gap:6px 16px;flex-wrap:wrap;border-bottom:var(--hair);padding:8px 0;
+/* bulletin furniture, shared by the message card and the Weekly --------- */
+.sheet{background:var(--white);border:var(--key);padding:clamp(18px,3vw,36px);}
+.mast{text-align:center;border-bottom:var(--key);padding-bottom:12px;}
+.mast-name{margin:0;font-size:clamp(40px,7.6vw,104px);font-weight:700;line-height:.9;letter-spacing:-.04em;text-transform:uppercase;text-wrap:balance;}
+.dateline{display:flex;justify-content:space-between;gap:6px 16px;flex-wrap:wrap;border-bottom:var(--hair);padding:8px 0;
   font-size:11px;font-weight:700;letter-spacing:.14em;}
-.weekly-dateline a{color:var(--violet);}
+.dateline a{color:var(--violet);}
+
+/* this week's message: same masthead, sized for a long episode title.
+   The series carries line one; the episode sets smaller underneath it. */
+.msg-name{font-size:clamp(34px,6.4vw,86px);}
+.msg-sub{display:block;margin-top:.14em;font-size:clamp(15px,2.1vw,27px);line-height:1.02;letter-spacing:-.02em;}
+.msg-video{margin-top:clamp(14px,2vw,22px);}
+
+/* plan your visit teaser: the card that replaced the Weekly ------------- */
+.teaser{border:var(--key);background:var(--white);display:grid;grid-template-columns:1fr 1.05fr;}
+.teaser-body{padding:clamp(20px,2.6vw,34px);display:flex;flex-direction:column;gap:12px;}
+.teaser-h{margin:0;font-size:clamp(26px,3vw,40px);font-weight:700;line-height:1.02;letter-spacing:-.025em;text-wrap:balance;}
+.teaser-body p{margin:0;}
+.teaser-link{margin-top:auto;padding-top:14px;border-top:var(--hair);}
+.frame.teaser-media{border:0;border-left:var(--key);min-height:100%;}
+@media (max-width:760px){
+  .teaser{grid-template-columns:1fr;}
+  .frame.teaser-media{border-left:0;border-top:var(--key);min-height:230px;}
+}
+
+/* homepage instagram: the front page of a printed bulletin ------------- */
 .weekly-cols{display:grid;grid-template-columns:5fr 4fr 3fr;margin-top:18px;}
 .weekly-cols>*{min-width:0;padding:0 clamp(12px,1.8vw,22px);border-left:var(--hair);display:flex;flex-direction:column;gap:12px;}
 .weekly-cols>*:first-child{border-left:0;padding-left:0;}
