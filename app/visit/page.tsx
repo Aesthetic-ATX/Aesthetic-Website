@@ -20,7 +20,9 @@ function Ch({ ch }: { ch: Chapter }) {
         </span>
       </div>
       <div className="ch-body">
-        <h3 id={`ch-${ch.num}`}>{ch.heading}</h3>
+        {/* h2, not h3: the chapters sit directly under the page h1, and
+            skipping a level breaks the heading order for screen readers. */}
+        <h2 id={`ch-${ch.num}`}>{ch.heading}</h2>
         {ch.body.map((p) => <p key={p.slice(0, 24)}>{p}</p>)}
         {ch.media ? (
           <div className={`ch-media${ch.media.length > 1 ? " two" : ""}`}>
