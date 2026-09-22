@@ -5,8 +5,10 @@ import { site } from "@/data/site";
 import { Message } from "@/components/Message";
 import { VisitTeaser } from "@/components/VisitTeaser";
 
-/** DUMMY COPY, drawn from the existing About text until the church writes the final line. */
-const statement = ["Explore faith", "Grow at your own pace", "Take a next step"];
+/** DUMMY COPY, drawn from the existing About text until the church writes the final line.
+ *  Both phrases come from the approved .docx. "Take a next step" was cut in the 2026-09-22
+ *  anti-slop pass: stock church phrasing, and it was mine, not the church's. */
+const statement = ["Explore faith", "Grow at your own pace"];
 
 export default function Home() {
   return (
@@ -18,7 +20,7 @@ export default function Home() {
           in the caption. */}
       <section className="hero" id="visit">
         <div className="hero-plate">
-          {/* Source: ~/Desktop/Hero Section (Testing #2).png (1672x941), supplied 2026-09-22. */}
+          {/* Source: ~/Desktop/Hero Section Image (09/22).png (1672x941), supplied 2026-09-22, retyped lettering. */}
           <Image
             src="/images/hero-full.jpg"
             alt="King Khary plays bass on stage at a table of pedals, in front of green and yellow chevron projections, beside the words come as you are"
