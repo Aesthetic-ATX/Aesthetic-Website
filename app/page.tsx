@@ -39,11 +39,11 @@ export default function Home() {
             </div>
             <p className="hero-where">
               {site.address.street}, {site.address.city} {site.address.region} {site.address.postalCode}
-              <br />
-              Doors {site.service.doors}
             </p>
+            {/* This button opens Google Maps, so it is labelled for where it goes.
+                "Plan your visit" belongs to the nav and footer links to /visit. */}
             <div className="hero-actions">
-              <a href={site.mapsUrl} className="btn btn-v">Plan your visit</a>
+              <a href={site.mapsUrl} className="btn btn-v">Directions</a>
               <Link href="/visit" className="arrow-link">
                 What to expect <span aria-hidden>&rarr;</span>
               </Link>
