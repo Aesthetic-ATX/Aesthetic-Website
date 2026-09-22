@@ -46,16 +46,16 @@ export const visit = {
   },
   promise: {
     kicker: "THE ONLY THING YOU HAVE TO DO",
-    text: "Show up. No welcome desk, no visitor card, and nobody will ask you to stand.",
+    text: "Show up. No welcome desk to navigate, and no moment where we ask you to stand.",
   },
   chapters: [
     {
       num: "01",
       label: "THE HALF\nHOUR",
-      heading: "The doors open half an hour early, on purpose",
+      heading: "Come early, or don't",
       body: [
-        "Doors are at 10:30. There is coffee and something to eat, and by five to eleven the room is loud. Most people are still talking when the music starts. Nobody has to be on, though. Sitting down early, or standing near the coffee without talking to anyone yet, is a normal way to spend the half hour.",
-        "Whether you grew up in church, walked away from it years ago, or have never worked out what you believe, this is an ordinary Sunday to walk into.",
+        "Doors open at 10:30, half an hour before the service, on purpose. Grab a coffee, sit down, meet someone, or take a breath before anything starts. Most Sundays people are still talking when the music begins. There is no pressure to be on. Standing quietly with a coffee counts as settling in.",
+        "Whether you have been in church your whole life, you are coming back after a long time away, or you have never worked out what you believe, you are welcome here.",
       ],
       media: [
         {
@@ -70,16 +70,16 @@ export const visit = {
       label: "THE ROOM",
       heading: "Sunday service happens in a co-working space",
       body: [
-        "We meet at Sapien Center on Morelos Street, in East Austin. Natural light, a concrete floor, and the room the rest of the week leaves behind. It takes about four seconds to work out that you are not in a sanctuary.",
-        "We like it that way. A room does not have to look religious for God to be in it.",
+        "Aesthetic meets at Sapien Center on Morelos Street, in East Austin. Natural light, concrete floors, and the gear the rest of the week leaves behind. Within a few seconds you will know this is not a typical sanctuary.",
+        "That is part of why we are here. God turns up in ordinary places, and church is easier to walk into when it looks like one.",
       ],
     },
     {
       num: "03",
       label: "THE WALLS",
-      heading: "The art is made by people who go here",
+      heading: "The art around the room is made by people who go here",
       body: [
-        "Original work hangs through the space and it changes. We think making things is one of the ways God shows up in a person, so the work goes on the wall rather than in a folder. Sometimes an artist paints on stage while the room watches.",
+        "Creativity is not a side project here. Original work hangs around the room and it changes, and some Sundays an artist paints on stage while the room watches. We think God is creative, and that making something beautiful is one way a person reflects him.",
       ],
       media: [
         {
@@ -99,10 +99,11 @@ export const visit = {
     {
       num: "04",
       label: "THE MUSIC\nAND THE\nMESSAGE",
-      heading: "A DJ on the way in, then contemporary worship and a message",
+      heading: "Contemporary worship, a DJ, and a message from John",
       body: [
-        "King Khary plays as people arrive and again on the way out, which is the first clue about how the rest of the morning goes. He is on the leadership team here. The worship is contemporary and the team is small, close enough that you can hear the room over them. Sing, or listen, or take it in at whatever pace you are moving at. Nobody minds.",
-        "John teaches out of a passage and talks about what it has to do with the ordinary parts of a life: who you are, who you are with, and the thing you are currently avoiding. You will not need to have read anything first, and there is no dress code. Wear what you have on.",
+        "Every Sunday runs a little differently, but the shape holds. The worship is contemporary and the team is small, close enough that you can hear the room over them. Sing, reflect, listen, or take it in at your own pace. Nobody minds which.",
+        "King Khary plays as people arrive and again on the way out. He is on the leadership team here, and he is the first clue about how the rest of the morning goes: we do not think God is distant from music, or art, or the week you have just had.",
+        "John teaches from a passage and connects it to the ordinary parts of a life: your questions, the people you live with, the thing you are currently avoiding. You will not need to know the Bible beforehand, and there is no dress code. Wear what you have on.",
       ],
       media: [
         {
