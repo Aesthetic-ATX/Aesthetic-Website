@@ -10,10 +10,9 @@
  * brief's anti-slop rules: its em dashes are gone, its headings are sentence
  * case, and its claims are stated plainly rather than sold.
  *
- * Where the sources disagreed about the DJ, the 2026-09-17 draft won and the
- * church confirmed it: King Khary is in house and on the leadership team.
- * John's new file hedges with "sometimes", which is the same stale hedge the
- * .docx carried as "(occasionally)". FLAGGED FOR THE USER, not reinstated.
+ * THE DJ: the page says "some Sundays" and does not name him. The user chose
+ * this on 2026-09-22, preferring John's hedge over the 2026-09-17 correction
+ * that named King Khary and called him in house. Do not put the name back.
  *
  * Chapter 05 ("Short prayers, and then people stay") was cut on 2026-09-22 at
  * the user's request: the page is four chapters now.
@@ -70,8 +69,8 @@ export const visit = {
       label: "THE ROOM",
       heading: "Sunday service happens in a co-working space",
       body: [
-        "Aesthetic meets at Sapien Center on Morelos Street, in East Austin. Natural light, concrete floors, and the gear the rest of the week leaves behind. Within a few seconds you will know this is not a typical sanctuary.",
-        "That is part of why we are here. God turns up in ordinary places, and church is easier to walk into when it looks like one.",
+        "We do not meet in a traditional church building, and we think that is part of the beauty of it. Aesthetic meets at Sapien Center, a co-working space on Morelos Street in East Austin, with natural light, concrete floors and a creative, eclectic feel.",
+        "Within a few seconds you will know you are not walking into a typical sanctuary. The room says something about us: God is present in everyday places, and church can be both meaningful and easy to walk into.",
       ],
     },
     {
@@ -79,7 +78,8 @@ export const visit = {
       label: "THE WALLS",
       heading: "The art around the room is made by people who go here",
       body: [
-        "Creativity is not a side project here. Original work hangs around the room and it changes, and some Sundays an artist paints on stage while the room watches. We think God is creative, and that making something beautiful is one way a person reflects him.",
+        "Creativity is part of who we are. You may see original art around the room, creative visuals, or work that came out of the gifts of people in this community, and some Sundays an artist paints on stage while the room watches.",
+        "We believe God is beautiful, creative and alive, and that making beautiful things is one way we reflect him.",
       ],
       media: [
         {
@@ -102,7 +102,7 @@ export const visit = {
       heading: "Contemporary worship, a DJ, and a message from John",
       body: [
         "Every Sunday runs a little differently, but the shape holds. The worship is contemporary and the team is small, close enough that you can hear the room over them. Sing, reflect, listen, or take it in at your own pace. Nobody minds which.",
-        "King Khary plays as people arrive and again on the way out. He is on the leadership team here, and he is the first clue about how the rest of the morning goes: we do not think God is distant from music, or art, or the week you have just had.",
+        "Some Sundays there is a DJ playing as people arrive and again on the way out. It is one of the ways Aesthetic bridges faith and the culture around it, because we do not think God is distant from music, or art, or the week you have just had.",
         "John teaches from a passage and connects it to the ordinary parts of a life: your questions, the people you live with, the thing you are currently avoiding. You will not need to know the Bible beforehand, and there is no dress code. Wear what you have on.",
       ],
       media: [

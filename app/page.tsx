@@ -23,7 +23,7 @@ export default function Home() {
           {/* Source: ~/Desktop/Hero Image - Optimal.png (1672x941), supplied 2026-09-22, final graded version. */}
           <Image
             src="/images/hero-full-v2.jpg"
-            alt="King Khary plays bass on stage at a table of pedals, in front of green and yellow chevron projections, beside the words come as you are"
+            alt="A musician plays bass on stage at a table of pedals, in front of green and yellow chevron projections, beside the words come as you are"
             fill
             sizes="100vw"
             loading="eager"
