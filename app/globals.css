@@ -124,26 +124,20 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .burger span{display:block;width:30px;height:3px;background:var(--ink);}
 .nav-mob{display:none;}
 
-/* hero: copy on a sky field, image bleeding right ------------------------ */
-/* The copy block shrinks to its own content and centres in the sky half, so
-   the space either side of the words is equal at every desktop width. */
-.hero{display:grid;scroll-margin-top:80px;grid-template-columns:1fr 1fr;}
-.hero-copy{grid-column:1;justify-self:center;align-self:center;display:flex;flex-direction:column;gap:22px;
-  padding:clamp(64px,8vw,112px) clamp(32px,4vw,64px);}
-/* 26em is the paragraph's own longest line, so its box has no empty right edge
-   pushing the centred block off balance. Re-measure if this copy changes. */
-.hero-body{max-width:26em;}
-.hero-sub{margin:0;font-size:clamp(20px,1.9vw,24px);font-weight:700;line-height:1.3;max-width:24ch;}
-.hero-actions{display:flex;align-items:center;flex-wrap:wrap;gap:16px 32px;margin-top:10px;}
+/* hero: the whole 16:9 photo, then a caption row on the sky field ---------- */
+/* The photo carries the wordmark, the tagline and the handle, so the plate
+   keeps the file's own 1672:941 at every width. Any crop would cut words. */
+.hero{scroll-margin-top:80px;}
+.hero-plate{position:relative;aspect-ratio:1672/941;background:var(--ink);}
+.hero-img{object-fit:cover;}
+.hero-cap-in{display:grid;grid-template-columns:auto 1fr auto;align-items:end;
+  gap:16px clamp(24px,4vw,56px);padding:clamp(32px,4vw,52px) var(--pad);}
+.hero-when{display:flex;flex-direction:column;gap:14px;}
+.hero-where{margin:0;padding-bottom:6px;white-space:nowrap;font-size:clamp(17px,1.5vw,20px);font-weight:500;line-height:1.45;}
+.hero-actions{display:flex;align-items:center;flex-wrap:wrap;gap:16px 32px;padding-bottom:4px;}
 .arrow-link{font-size:15px;font-weight:700;display:inline-flex;gap:10px;align-items:center;
   padding-bottom:4px;border-bottom:var(--hair);border-color:var(--violet);}
 .arrow-link:hover{text-decoration:none;border-bottom-width:3px;padding-bottom:2px;}
-.facts{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-wrap:wrap;align-items:center;
-  gap:6px 12px;font-size:14px;font-weight:700;}
-.facts li{display:flex;align-items:center;gap:12px;}
-.facts li+li::before{content:"";width:4px;height:4px;border-radius:9999px;background:var(--ink);}
-.hero-media{grid-column:2;position:relative;min-height:672px;}
-.hero-img{object-fit:cover;object-position:50% 45%;}
 /* same 3px ink keyline as the Instagram tiles, over photo or placeholder alike */
 .inset{position:absolute;inset:20px;border:var(--key);pointer-events:none;}
 
@@ -366,9 +360,9 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
   .nav-mob a[aria-current="page"]{color:var(--ink);}
   .nav-mob .btn{margin-top:12px;}
 
-  .hero{grid-template-columns:1fr;}
-  .hero-copy{grid-column:1;justify-self:stretch;padding:clamp(48px,8vw,72px) var(--pad);}
-  .hero-media{grid-column:1;min-height:0;aspect-ratio:4/3;}
+  .hero-cap-in{grid-template-columns:1fr;align-items:start;gap:20px;}
+  .hero-where,.hero-actions{padding-bottom:0;}
+  .hero-where{white-space:normal;}
   .inset{inset:12px;}
   .decode-toggle{right:22px;bottom:22px;}
   .map-view iframe{inset:15px;width:calc(100% - 30px);height:calc(100% - 30px);}
@@ -410,8 +404,6 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
   .statement-part{display:block;}
   .statement-dot{display:none;}
   .highlight-row{flex-direction:column;}
-  .facts{flex-direction:column;align-items:flex-start;}
-  .facts li+li::before{display:none;}
   .grid2{grid-template-columns:1fr;}
   .btn{width:100%;}
   .foot-top{grid-template-columns:1fr;gap:36px;}

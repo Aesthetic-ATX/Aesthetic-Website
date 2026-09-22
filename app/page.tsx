@@ -11,43 +11,42 @@ const statement = ["Explore faith", "Grow at your own pace", "Take a next step"]
 export default function Home() {
   return (
     <>
-      {/* Hero: details on a sky field, image bleeding to the right edge with an
-          inset hairline frame. The sky band for this page lives here. */}
-      <section className="hero f-sky" id="visit">
-        <div className="hero-copy">
-          <span className="lbl">NON-DENOMINATIONAL &middot; EAST AUSTIN</span>
-          <h1 className="h1">{site.service.day}<br />at {site.service.time}</h1>
-          <p className="hero-sub">
-            {site.address.street}, {site.address.city} {site.address.region} {site.address.postalCode}
-          </p>
-          <p className="bd hero-body">
-            {site.mission} Whether you have followed Jesus for years or are working out what you
-            think, there is room for you on Sunday.
-          </p>
-          <div className="hero-actions">
-            <a href={site.mapsUrl} className="btn btn-v">Plan your visit</a>
-            <Link href="/visit" className="arrow-link">
-              What to expect <span aria-hidden>&rarr;</span>
-            </Link>
-          </div>
-          <ul className="facts">
-            <li>Doors {site.service.doors}</li>
-            <li>{site.address.street}</li>
-            <li>Come as you are</li>
-          </ul>
-        </div>
-        <div className="hero-media has-photo">
-          {/* Source: ~/Desktop/Redefined Image Final.png (1254px square), supplied 2026-09-16. */}
+      {/* Hero: the whole 16:9 photo as a plate, then a caption row on the sky
+          field (prototypes/hero-full.html, variant B, 2026-09-22). The photo
+          carries the wordmark, the tagline and the handle, so it is never
+          cropped and nothing is set over it. The sky band for this page lives
+          in the caption. */}
+      <section className="hero" id="visit">
+        <div className="hero-plate">
+          {/* Source: ~/Desktop/Hero Section (Testing #2).png (1672x941), supplied 2026-09-22. */}
           <Image
-            src="/images/hero-stage-final.jpg"
-            alt="A bassist plays on stage at a table of pedals, in front of green and yellow chevron projections"
+            src="/images/hero-full.jpg"
+            alt="King Khary plays bass on stage at a table of pedals, in front of green and yellow chevron projections, beside the words come as you are"
             fill
-            sizes="(min-width: 1024px) 50vw, 100vw"
+            sizes="100vw"
             loading="eager"
             fetchPriority="high"
             className="hero-img"
           />
-          <span className="inset" aria-hidden />
+        </div>
+        <div className="hero-cap f-sky">
+          <div className="wrap hero-cap-in">
+            <div className="hero-when">
+              <span className="lbl">NON-DENOMINATIONAL &middot; EAST AUSTIN</span>
+              <h1 className="h1">{site.service.day}<br />at {site.service.time}</h1>
+            </div>
+            <p className="hero-where">
+              {site.address.street}, {site.address.city} {site.address.region} {site.address.postalCode}
+              <br />
+              Doors {site.service.doors}
+            </p>
+            <div className="hero-actions">
+              <a href={site.mapsUrl} className="btn btn-v">Plan your visit</a>
+              <Link href="/visit" className="arrow-link">
+                What to expect <span aria-hidden>&rarr;</span>
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
