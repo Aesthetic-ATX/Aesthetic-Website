@@ -130,11 +130,18 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .hero{scroll-margin-top:80px;}
 .hero-plate{position:relative;aspect-ratio:1672/941;background:var(--ink);}
 .hero-img{object-fit:cover;}
-.hero-cap-in{display:grid;grid-template-columns:auto 1fr auto;align-items:end;
-  gap:16px clamp(24px,4vw,56px);padding:clamp(32px,4vw,52px) var(--pad);}
-.hero-when{display:flex;flex-direction:column;gap:14px;}
-.hero-where{margin:0;padding-bottom:6px;white-space:nowrap;font-size:clamp(17px,1.5vw,20px);font-weight:500;line-height:1.45;}
-.hero-actions{display:flex;align-items:center;flex-wrap:wrap;gap:16px 32px;padding-bottom:4px;}
+/* Two columns: the time on the left, and on the right the address sitting
+   directly over the two actions it belongs to (user's call, 2026-09-22). */
+.hero-cap-in{display:grid;grid-template-columns:auto max-content;grid-template-rows:1fr auto auto;
+  justify-content:space-between;align-items:end;gap:14px clamp(24px,4vw,56px);
+  padding:clamp(32px,4vw,52px) var(--pad);}
+/* Row 1 is empty on purpose: it takes the slack the tall h1 leaves, so the
+   address stays tight above the actions instead of drifting up the column. */
+.hero-when{display:flex;flex-direction:column;gap:14px;grid-row:1/4;}
+.hero-where{grid-column:2;grid-row:2;justify-self:start;
+  margin:0;white-space:nowrap;font-size:clamp(17px,1.5vw,20px);font-weight:500;line-height:1.45;}
+.hero-actions{grid-column:2;grid-row:3;justify-self:start;
+  display:flex;align-items:center;flex-wrap:wrap;gap:16px 32px;padding-bottom:4px;}
 .arrow-link{font-size:15px;font-weight:700;display:inline-flex;gap:10px;align-items:center;
   padding-bottom:4px;border-bottom:var(--hair);border-color:var(--violet);}
 .arrow-link:hover{text-decoration:none;border-bottom-width:3px;padding-bottom:2px;}
@@ -361,6 +368,8 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
   .nav-mob .btn{margin-top:12px;}
 
   .hero-cap-in{grid-template-columns:1fr;align-items:start;gap:20px;}
+  /* one column: drop the desktop row and column placement */
+  .hero-when,.hero-where,.hero-actions{grid-column:1;grid-row:auto;justify-self:stretch;}
   .hero-where,.hero-actions{padding-bottom:0;}
   .hero-where{white-space:normal;}
   .inset{inset:12px;}
