@@ -78,7 +78,7 @@ export const visit = {
       label: "THE WALLS",
       heading: "The art around the room is made by people who go here",
       body: [
-        "Creativity is part of who we are. You may see original art around the room, creative visuals, or work that came out of the gifts of people in this community, and some Sundays an artist paints on stage while the room watches.",
+        "Creativity is part of who we are. You may see original art around the room, creative visuals, or work that came out of the gifts of people in this community, and now and then an artist paints on stage while the room watches.",
         "We believe God is beautiful, creative and alive, and that making beautiful things is one way we reflect him.",
       ],
       media: [
