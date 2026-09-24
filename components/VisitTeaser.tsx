@@ -14,7 +14,8 @@ import { Frame } from "@/components/Frame";
  * a photo never goes behind text and nothing takes an intermediate radius.
  */
 const plates = [
-  /* Captions are the user's (Revision #1 and #2, 2026-09-23). */
+  /* "Sapien Center" is the user's caption (Revision #2, 2026-09-23). "God in everyday places"
+     replaced "A church that feels real" the same day; it is John's line from /visit's "The room" chapter. */
   {
     title: "Sapien Center",
     note: "The room at Sapien Center, 2316 Morelos St.",
@@ -24,7 +25,7 @@ const plates = [
       alt: "Inside Sapien Center: long wooden tables and stools on a concrete floor, copper pendant lights, and a small stage under a stair",
     },
   },
-  { title: "A church that feels real", note: "Shot 1. Wide, from the back of the room as it fills up.", photo: null },
+  { title: "God in everyday places", note: "Shot 1. Wide, from the back of the room as it fills up.", photo: null },
 ];
 
 export function VisitTeaser() {

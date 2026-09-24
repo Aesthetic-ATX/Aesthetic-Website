@@ -16,7 +16,7 @@ function long(iso: string) {
  * This week's message, under the bulletin masthead from Screenshot #1:
  * kicker, two-line title, then the three-slot dateline. Below it, a magazine
  * contents page: the series poster on the left, the lead pastor's note and
- * the five Sundays on the right, this week marked in citron.
+ * the five Sundays on the right, this week marked in green.
  */
 export function Message() {
   const first = message.weeks[0].date;

@@ -281,7 +281,7 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .toc-n{font-size:24px;font-weight:700;letter-spacing:-.02em;line-height:1;justify-self:start;}
 .toc-t{font-size:16px;line-height:1.3;}
 .toc-d{font-size:11px;font-weight:700;letter-spacing:.14em;white-space:nowrap;}
-.toc li.now .toc-n{background:var(--citron);padding:2px 6px;}   /* black on citron 18.42:1 */
+.toc li.now .toc-n{background:var(--green);padding:2px 6px;}   /* black on green 15.87:1; citron stays with the tagline band */
 .toc li.now .toc-t{font-weight:700;}
 /* a topic not yet announced prints as a black redaction bar, like a proof
    with the line blacked out; the Sunday it is revealed sits beside it */
