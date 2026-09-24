@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Frame } from "@/components/Frame";
 import { groups } from "@/data/groups";
 import { metaFor } from "@/data/meta";
@@ -38,7 +39,19 @@ export default function BibleStudy() {
                 </p>
                 <p className="ticket-fine">TURNING UP IS THE WHOLE REQUIREMENT</p>
               </div>
-              <Frame waitingFor="PHOTO PLACEHOLDER" note={g.photo.waitingFor} className="ticket-photo" />
+              {g.photo.src ? (
+                <div className="ticket-img">
+                  <Image
+                    src={g.photo.src}
+                    alt={g.photo.alt}
+                    fill
+                    sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 380px"
+                    style={{ objectPosition: g.photo.position }}
+                  />
+                </div>
+              ) : (
+                <Frame waitingFor="PHOTO PLACEHOLDER" note={g.photo.waitingFor} className="ticket-photo" />
+              )}
             </article>
           ))}
         </div>

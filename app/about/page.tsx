@@ -1,4 +1,4 @@
-import { Frame } from "@/components/Frame";
+import Image from "next/image";
 import { BeliefsWall } from "@/components/BeliefsWall";
 import { mission, vision, values, beliefsIntro } from "@/data/commitment";
 import { metaFor } from "@/data/meta";
@@ -65,7 +65,17 @@ export default function About() {
 
         {/* Bio: one portrait, then the story. */}
         <div className="split s-bio">
-          <Frame waitingFor="PHOTO PLACEHOLDER" note="John Lee, portrait. Crop 3:4." ratio="3/4" />
+          {/* Source: ~/Desktop/John's Bio Picture.png (1086x1448, already 3:4), supplied 2026-09-23.
+              Filename is versioned on every swap: a reused name leaves browsers on the cached copy. */}
+          <div className="bio-photo">
+            <Image
+              src="/images/john-lee-v1.jpg"
+              alt="John Lee speaking into a microphone on stage, smiling, in front of orange and blue projections"
+              width={1086}
+              height={1448}
+              sizes="(max-width: 900px) 100vw, 42vw"
+            />
+          </div>
           <div className="col" style={{ gap: 18 }}>
             <span className="lbl">MEET OUR PASTOR</span>
             <h2 className="h2" style={{ fontSize: "clamp(32px,4vw,44px)" }}>John Lee</h2>
