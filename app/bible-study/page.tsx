@@ -34,10 +34,17 @@ export default function BibleStudy() {
                 <h2 className="ticket-name">{g.name}</h2>
                 <p className="ticket-where">{g.where.map((w, k) => <span key={k}>{w}<br /></span>)}</p>
                 <p className="sm">
-                  Interested? Contact {g.contact.name}<br />
+                  Interested?<br />
+                  Contact {g.contact.name} at{" "}
                   <a href={`tel:${g.contact.tel}`} className="ticket-tel">{g.contact.phone}</a>
                 </p>
-                <p className="ticket-fine">TURNING UP IS THE WHOLE REQUIREMENT</p>
+                {g.directions ? (
+                  <p className="ticket-dir">
+                    <a href={g.directions} className="arrow-link">
+                      Directions <span aria-hidden>&rarr;</span>
+                    </a>
+                  </p>
+                ) : null}
               </div>
               {g.photo.src ? (
                 <div className="ticket-img">

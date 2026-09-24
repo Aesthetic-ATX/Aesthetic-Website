@@ -1,4 +1,3 @@
-import { Needed } from "@/components/Frame";
 import { site } from "@/data/site";
 import { metaFor } from "@/data/meta";
 
@@ -18,7 +17,6 @@ export default function Give() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(donateSchema) }} />
       <div className="wrap split s-even">
         <div className="col" style={{ gap: 24 }}>
-          <span className="lbl">GIVE</span>
           <h1 className="h1" style={{ fontSize: "clamp(40px,5.6vw,62px)" }}>Give</h1>
           <hr className="rule" style={{ width: 180 }} />
           <p className="bl">
@@ -36,10 +34,11 @@ export default function Give() {
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             <h2 className="h3" style={{ fontSize: "clamp(22px,2.2vw,26px)" }}>Where your giving goes</h2>
-            <Needed>
-              Three or four concrete line items from John, not categories. This is the last unknown
-              on the page.
-            </Needed>
+            {/* Tightened from the user's wording and approved, 2026-09-23. */}
+            <p className="bd">
+              Your giving covers our operating costs and pays our small staff, so we can keep serving
+              Austin.
+            </p>
           </div>
         </div>
 

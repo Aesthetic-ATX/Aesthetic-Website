@@ -25,7 +25,15 @@ const plates = [
       alt: "Inside Sapien Center: long wooden tables and stools on a concrete floor, copper pendant lights, and a small stage under a stair",
     },
   },
-  { title: "God in everyday places", note: "Shot 1. Wide, from the back of the room as it fills up.", photo: null },
+  {
+    title: "God in everyday places",
+    note: "Shot 1. Wide, from the back of the room as it fills up.",
+    /* Source: Aesthetic Website Images/God in Everyday Places Picture.JPG (5472x3648), 2026-09-23. */
+    photo: {
+      src: "/images/everyday-places-v1.jpg",
+      alt: "People stand during worship under string lights on a concrete floor, several in come as you are T-shirts.",
+    },
+  },
 ];
 
 export function VisitTeaser() {

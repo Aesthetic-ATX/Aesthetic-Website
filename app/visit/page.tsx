@@ -68,10 +68,15 @@ export default function Visit() {
                 <p className="mag-deck">{visit.deck}</p>
               </div>
               <figure style={{ margin: 0 }}>
-                <Frame waitingFor={visit.opener.waitingFor} note={visit.opener.note} ratio="4/3" />
-                <figcaption>
-                  <b>{visit.opener.caption.kicker}</b> {visit.opener.caption.text}
-                </figcaption>
+                <span className="mag-open-photo">
+                  <Image
+                    src={visit.opener.photo.src}
+                    alt={visit.opener.photo.alt}
+                    fill
+                    sizes="(max-width: 820px) 100vw, 45vw"
+                    loading="eager"
+                  />
+                </span>
               </figure>
             </div>
           </header>
@@ -93,7 +98,15 @@ export default function Visit() {
 
           <div className="foot-pair">
             <figure>
-              <Frame waitingFor={visit.parking.waitingFor} note={visit.parking.note} ratio="16/10" />
+              <span className="parking-map">
+                <Image
+                  src={visit.parking.photo.src}
+                  alt={visit.parking.photo.alt}
+                  width={visit.parking.photo.width}
+                  height={visit.parking.photo.height}
+                  sizes="(max-width: 820px) 100vw, 60vw"
+                />
+              </span>
               <figcaption>
                 <b>{visit.parking.caption.kicker}</b> {visit.parking.caption.text}
               </figcaption>
@@ -111,7 +124,16 @@ export default function Visit() {
                         specifies: weight and a keyline, no colour. Violet means
                         clickable and nothing else. */}
                     <dd className={"owed" in r && r.owed ? "need" : undefined}>
-                      {r.value}
+                      {"href" in r && r.href ? (
+                        <a href={site.mapsUrl} className="dept-link">
+                          {r.value} <span aria-hidden>&rarr;</span>
+                        </a>
+                      ) : (
+                        r.value
+                      )}
+                      {"tagline" in r && r.tagline ? (
+                        <span className="sp dept-tag">{r.tagline}</span>
+                      ) : null}
                     </dd>
                   </Fragment>
                 ))}
@@ -123,7 +145,7 @@ export default function Visit() {
           <div className="band citron">
             <p className="band-k">THIS SUNDAY</p>
             <p className="band-big">
-              {site.address.street}, doors at half past ten.{" "}
+              {site.address.street}, doors open at half past ten.{" "}
               <a href={site.mapsUrl}>Get directions <span aria-hidden>&rarr;</span></a>
             </p>
           </div>

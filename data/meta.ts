@@ -37,7 +37,7 @@ const copy: Record<Route, { title: string; description: string; path: string }> 
   give: {
     title: "Give | Aesthetic Church Austin",
     description:
-      "Support the work of Aesthetic Church in Austin. Giving is processed securely through our partner GLI Church Planting, and every gift is tax deductible.",
+      "Support the work of Aesthetic Church in Austin. Giving is processed securely through our partner Global Frontiers Project, and every gift is tax deductible.",
     path: "/give",
   },
 };

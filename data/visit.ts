@@ -17,9 +17,9 @@
  * Chapter 05 ("Short prayers, and then people stay") was cut on 2026-09-22 at
  * the user's request: the page is four chapters now.
  *
- * STILL OWED BY THE CHURCH: the parking line and the parking image, plus two
- * photographs (the room filling up, and the coffee table). Everything marked
- * `owed` renders as a visible marker rather than as invented copy.
+ * Every photograph and fact has now been supplied (2026-09-23). Anything
+ * marked `owed` in future still renders as a visible marker rather than as
+ * invented copy.
  */
 
 export type Chapter = {
@@ -39,9 +39,11 @@ export const visit = {
   headline: "Come early. Nothing starts until eleven.",
   deck: "Four things worth knowing before your first Sunday, in the order you would notice them.",
   opener: {
-    waitingFor: "PHOTO NEEDED · SHOT 1",
-    note: "Wide, from the back, the room filling up.",
-    caption: { kicker: "SUNDAY.", text: "About twenty minutes before anything happens." },
+    /* Source: Aesthetic Website Images/Plan Your Visit (Main) Picture.jpg (2048x1365), 2026-09-23. */
+    photo: {
+      src: "/images/visit-main-v1.jpg",
+      alt: "People lean over a long paper banner, painting the word Aesthetic in bright colors.",
+    },
   },
   promise: {
     kicker: "THE ONLY THING YOU HAVE TO DO",
@@ -57,17 +59,18 @@ export const visit = {
         "Whether you have been in church your whole life, you are coming back after a long time away, or you have never worked out what you believe, you are welcome here.",
       ],
       media: [
+        /* Source: Aesthetic Website Images/Come Early or Don't Picture.jpg (2048x1365), 2026-09-23. */
         {
-          kind: "needed",
-          waitingFor: "PHOTO NEEDED \u00b7 SHOT 5",
-          note: "The coffee table. People standing, talking, holding cups.",
+          kind: "photo",
+          src: "/images/visit-come-early-v1.jpg",
+          alt: "About fifteen people cheer and wave outside the open roll-up door of a corrugated metal building.",
         },
       ],
     },
     {
       num: "02",
       label: "THE ROOM",
-      heading: "Sunday service happens in a co-working space",
+      heading: "Our Sunday service happens in a co-working space",
       body: [
         "We do not meet in a traditional church building, and we think that is part of the beauty of it. Aesthetic meets at Sapien Center, a co-working space on Morelos Street in East Austin, with natural light, concrete floors and a creative, eclectic feel.",
         "Within a few seconds you will know you are not walking into a typical sanctuary. The room says something about us: God is present in everyday places, and church can be both meaningful and easy to walk into.",
@@ -76,7 +79,7 @@ export const visit = {
     {
       num: "03",
       label: "THE WALLS",
-      heading: "The art around the room is made by people who go here",
+      heading: "The art around the room is made by local artists in our church",
       body: [
         "Creativity is part of who we are. You may see original art around the room, creative visuals, or work that came out of the gifts of people in this community, and now and then an artist paints on stage while the room watches.",
         "We believe God is beautiful, creative and alive, and that making beautiful things is one way we reflect him.",
@@ -86,13 +89,11 @@ export const visit = {
           kind: "photo",
           src: "/images/instagram/ig-03.jpg",
           alt: "A woman looks at a wall of paintings at an Aesthetic art night.",
-          caption: { kicker: "THE ART.", text: "Hung where you can stand in front of it." },
         },
         {
           kind: "photo",
           src: "/images/instagram/ig-02.jpg",
           alt: "An artist paints live on stage while people watch.",
-          caption: { kicker: "SOMETIMES.", text: "An artist works through the service." },
         },
       ],
     },
@@ -106,29 +107,39 @@ export const visit = {
         "John teaches from a passage and connects it to the ordinary parts of a life: your questions, the people you live with, the thing you are currently avoiding. You will not need to know the Bible beforehand, and there is no dress code. Wear what you have on.",
       ],
       media: [
+        /* Source: Aesthetic Website Images/The Music & The Message Picture.JPG (6000x4000), 2026-09-23. */
         {
-          kind: "needed",
-          waitingFor: "PHOTO NEEDED \u00b7 SHOT 3",
-          note: "Worship team mid-song, close and tight, so the room reads small.",
+          kind: "photo",
+          src: "/images/visit-music-message-v1.jpg",
+          alt: "A speaker on a low stage between two screens reading Aesthetic, with the room seated in rows of folding chairs.",
         },
       ],
     },
   ] as Chapter[],
   quote: { text: "You don’t have to clean yourself up first.", by: "JOHN LEE, LEAD PASTOR" },
   parking: {
-    waitingFor: "PARKING INSTRUCTIONS · SUPPLIED",
-    note: "The church's own parking image goes here.",
-    caption: { kicker: "PARKING.", text: "Where to leave the car, and how to get from it to the door." },
+    /* Source: Aesthetic Website Images/Parking Instructions Picture.PNG (1229x1280), 2026-09-23.
+       Shown uncropped: the street names and parking labels are printed on it. */
+    photo: {
+      src: "/images/visit-parking-v1.jpg",
+      width: 1229,
+      height: 1280,
+      alt: "Aerial map. Aesthetic's green building is on Morelos Street, just off East 7th Street. Parking is marked along both sides of Northwest Avenue, which runs north from East 7th Street to Coronado Street.",
+    },
+    caption: { kicker: "PARKING INSTRUCTIONS.", text: "Where to leave the car, and how to get to the entrance of Sapien Center." },
   },
   practical: {
     kicker: "BEFORE YOU COME",
     heading: "The practical part",
     /** `owed` marks a fact the church has not given us yet. Never guessed. */
     rows: [
-      { term: "WHEN", value: "Sundays at 11am, doors 10:30" },
-      { term: "WHERE", value: "2316 Morelos St, Austin" },
-      { term: "PARKING", value: "One line, once you have it", owed: true },
-      { term: "WHAT PEOPLE WEAR", value: "Whatever you have on" },
+      { term: "WHEN", value: "Sundays at 11am, doors open at 10:30" },
+      /* Links to the Sapien Center pin in Google Maps, styled like "Get directions" (2026-09-23). */
+      { term: "WHERE", value: "2316 Morelos St, Austin, TX 78702", href: "place" },
+      /* Read off the church's parking map (2026-09-23): parking is marked on both sides of Northwest Ave. */
+      { term: "PARKING", value: "Street parking on both sides of Northwest Ave" },
+      /* Second line sets in Spectral italic: it is the church's tagline (user's wording, 2026-09-23). */
+      { term: "WHAT PEOPLE WEAR", value: "You do not need to dress a certain way.", tagline: "Just come as you are." },
     ],
   },
 } as const;

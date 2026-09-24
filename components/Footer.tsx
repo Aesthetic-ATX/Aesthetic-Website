@@ -101,7 +101,11 @@ export function Footer() {
           <p className="sm">&copy; {new Date().getFullYear()} {site.name}. All rights reserved.</p>
           <p className="sm">
             A church plant of{" "}
-            <a href={site.parentOrg.url} target="_blank" rel="noreferrer" className="foot-link">{site.parentOrg.name}</a>
+            {site.parentOrg.url ? (
+              <a href={site.parentOrg.url} target="_blank" rel="noreferrer" className="foot-link">{site.parentOrg.name}</a>
+            ) : (
+              site.parentOrg.name
+            )}
           </p>
         </div>
       </div>
