@@ -45,7 +45,13 @@
 
 *,*::before,*::after{box-sizing:border-box;}
 button,input{font:inherit;}  /* form controls do not inherit Jost on their own */
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth;scroll-padding-top:var(--nav-h);}
+/* Scroll targets stop under the sticky nav, not behind it. --nav-h is the
+   nav's own height: 14px padding twice + 1px rule + its tallest item, which
+   is the wordmark line (font size x body line-height 1.65) or else the 52px
+   capsule on desktop / 44px burger below 1024px. Keep in step with .nav-in. */
+:root{--wm:clamp(28px,3vw,38px);--nav-h:calc(29px + max(52px,var(--wm)*1.65));}
+@media (max-width:1023px){:root{--nav-h:calc(29px + max(44px,var(--wm)*1.65));}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
 body{
   margin:0;
@@ -104,7 +110,7 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .nav{position:sticky;top:0;z-index:50;background:var(--sheet);border-bottom:var(--hair);}
 .nav-in{display:flex;align-items:center;justify-content:space-between;gap:24px;
   padding:14px var(--pad);max-width:var(--wrap);margin:0 auto;}
-.wm{font-size:clamp(28px,3vw,38px);color:var(--sky);}   /* brand primary logotype */
+.wm{font-size:var(--wm);color:var(--sky);}   /* brand primary logotype */
 .wm:hover{text-decoration:none;}
 .nav-desk{display:flex;align-items:center;gap:16px;}
 .nav-cta{min-height:48px;padding:12px 24px;}
@@ -131,7 +137,6 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 /* hero: the whole 16:9 photo, then a caption row on the sky field ---------- */
 /* The photo carries the wordmark, the tagline and the handle, so the plate
    keeps the file's own 1672:941 at every width. Any crop would cut words. */
-.hero{scroll-margin-top:80px;}
 .hero-plate{position:relative;aspect-ratio:1672/941;background:var(--ink);}
 .hero-img{object-fit:cover;}
 /* Two columns: the time on the left, and on the right the address sitting
