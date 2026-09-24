@@ -45,6 +45,7 @@ export function Message() {
             width={message.poster.width}
             height={message.poster.height}
             sizes="(max-width: 820px) min(420px, 100vw), 460px"
+            fetchPriority="low"   /* off-screen at load: yields bandwidth to the hero, the LCP image */
           />
         </div>
         <div className="msg-text">

@@ -65,7 +65,7 @@ export function VisitTeaser() {
           <figure key={p.title} className="plate">
             {p.photo ? (
               <div className="plate-img">
-                <Image src={p.photo.src} alt={p.photo.alt} fill sizes="(max-width: 760px) 100vw, 50vw" />
+                <Image src={p.photo.src} alt={p.photo.alt} fill sizes="(max-width: 760px) 100vw, 50vw" fetchPriority="low" />
               </div>
             ) : (
               <Frame className="plate-photo" waitingFor="PHOTO PLACEHOLDER" note={p.note} ratio="4/3" />

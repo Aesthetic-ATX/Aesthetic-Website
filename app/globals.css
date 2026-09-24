@@ -259,7 +259,7 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .mast-name{margin:0;font-size:clamp(40px,7.6vw,104px);font-weight:700;line-height:.9;letter-spacing:-.04em;text-transform:uppercase;text-wrap:balance;}
 .dateline{display:flex;justify-content:space-between;gap:6px 16px;flex-wrap:wrap;border-bottom:var(--hair);padding:8px 0;
   font-size:11px;font-weight:700;letter-spacing:.14em;}
-.dateline a{color:var(--violet);}
+.dateline a{color:var(--violet);display:inline-block;padding:4px 0;margin:-4px 0;}   /* 24px tap target (WCAG 2.5.8) without moving the line */
 
 /* this week's message: same masthead, sized for a long episode title.
    The series carries line one; the episode sets smaller underneath it. */
@@ -401,7 +401,8 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 /* the card is sheet stock, so links inside it go back to violet (sky here would be 1.76) */
 .f-ink .map-card a{color:var(--violet);}
 .f-ink .map-card :focus-visible{outline-color:var(--violet);}
-.map-dir{font-weight:700;text-decoration:underline;text-underline-offset:4px;white-space:nowrap;}
+.map-dir{font-weight:700;text-decoration:underline;text-underline-offset:4px;white-space:nowrap;
+  display:inline-block;padding:2px 0;margin:-2px 0;}   /* 24px tap target (WCAG 2.5.8) */
 
 .foot-base{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
   padding-top:24px;border-top:var(--hair);border-color:var(--sheet);}

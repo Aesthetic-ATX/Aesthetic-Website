@@ -28,6 +28,7 @@ const copy: Record<Route, { title: string; description: string; path: string }> 
    * title and description are mine and need the church's approval before
    * launch. Every other entry here is approved copy and must not be rewritten.
    */
+  /* Written by Claude, approved by the user on 2026-09-23 (the SEO keyword map defines no /visit page). */
   visit: {
     title: "Plan Your Visit | Aesthetic Church Austin",
     description:
