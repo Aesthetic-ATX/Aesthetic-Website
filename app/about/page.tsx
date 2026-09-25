@@ -66,14 +66,15 @@ export default function About() {
 
         {/* Bio: one portrait, then the story. */}
         <div className="split s-bio">
-          {/* Source: ~/Desktop/John's Bio Picture.jpeg (1169x1841), trimmed to 3:4, supplied 2026-09-25.
+          {/* Source: ~/Desktop/John's Bio Picture.jpeg (1169x1841), uncropped at the user's request
+              (2026-09-25), so this frame is taller than the team's 3:4 portraits.
               Filename is versioned on every swap: a reused name leaves browsers on the cached copy. */}
           <div className="bio-photo">
             <Image
-              src="/images/john-lee-v2.jpg"
+              src="/images/john-lee-v3.jpg"
               alt="Pastor John Lee in a white T-shirt, seated and smiling, looking off to one side"
               width={1169}
-              height={1559}
+              height={1841}
               sizes="(max-width: 900px) 100vw, 42vw"
             />
           </div>
