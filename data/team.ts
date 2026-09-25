@@ -26,8 +26,8 @@ export const team: Member[] = [
       height: 1267,
     },
     bio: [
-      "Khary runs Sunday tech at Aesthetic Church: sound, lighting, and the visuals on screen. He supports the worship team, brings music and other creative pieces into the service, and on some Sundays and at church gatherings he is the DJ.",
-      "All of it serves the reason Aesthetic exists, to help people see the beauty of God. Khary cares about closing the distance between God and the culture people live in every day.",
+      "Khary runs Sunday tech at Aesthetic Church: sound, lighting, and the visuals on screen. He also works with the worship team, and on some Sundays and at church gatherings he is the DJ.",
+      "He does it to help people see the beauty of God in the culture they already live in.",
     ],
   },
   {
@@ -41,7 +41,7 @@ export const team: Member[] = [
       height: 1600,
     },
     bio: [
-      "Tori leads and looks after the volunteer team at Aesthetic Church. She coordinates the Sunday setup at Sapien Center and keeps track of the moving parts of church life, so the room is warm and ready when doors open at 10:30.",
+      "Tori leads and looks after the volunteer team at Aesthetic Church. She coordinates the Sunday setup at Sapien Center, so the room is warm and ready when doors open at 10:30.",
       "If you would like to join the volunteer team, Tori is the person to talk to.",
     ],
   },
