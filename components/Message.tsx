@@ -15,7 +15,7 @@ function long(iso: string) {
 /**
  * This week's message, under the bulletin masthead from Screenshot #1:
  * kicker, two-line title, then the three-slot dateline. Below it, a magazine
- * contents page: the series poster on the left, the lead pastor's note and
+ * contents page: the series poster on the left, the pastor's note and
  * the five Sundays on the right, this week marked in green.
  */
 export function Message() {
@@ -49,7 +49,7 @@ export function Message() {
           />
         </div>
         <div className="msg-text">
-          <p className="lbl">A NOTE FROM OUR LEAD PASTOR</p>
+          <p className="lbl">A NOTE FROM OUR PASTOR</p>
           <div className="msg-note">
             {message.note.map((para, i) => (
               <p key={i} className={i === 0 ? "bd dropcap" : "bd"}>{para}</p>

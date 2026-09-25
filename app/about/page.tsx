@@ -1,7 +1,9 @@
 import Image from "next/image";
 import { BeliefsWall } from "@/components/BeliefsWall";
+import { Frame } from "@/components/Frame";
 import { mission, vision, values, beliefsIntro } from "@/data/commitment";
 import { metaFor } from "@/data/meta";
+import { team } from "@/data/team";
 
 export const metadata = metaFor("about");
 
@@ -77,8 +79,8 @@ export default function About() {
             />
           </div>
           <div className="col" style={{ gap: 18 }}>
-            <span className="lbl">MEET OUR PASTOR</span>
-            <h2 className="h2" style={{ fontSize: "clamp(32px,4vw,44px)" }}>John Lee</h2>
+            <span className="lbl">MEET OUR TEAM</span>
+            <h2 className="h2" style={{ fontSize: "clamp(32px,4vw,44px)" }}>Pastor</h2>
             <hr className="rule" style={{ width: 180 }} />
             <p className="bd">
               John Lee&rsquo;s life has been shaped by a singular vision: to behold the beauty of God
@@ -103,9 +105,32 @@ export default function About() {
             <p className="bd">
               He lives in Austin with his wife, Tori, and their two dogs, Avery and Gracie.
             </p>
-            <p className="bd" style={{ fontWeight: 700 }}>John Lee<br />Lead pastor</p>
+            <p className="bd" style={{ fontWeight: 700 }}>John Lee<br />Pastor</p>
           </div>
         </div>
+
+        {/* Team bios alternate sides on desktop; the DOM keeps the picture first
+            so phones always read picture, then story. */}
+        {team.map((m) => (
+          <div key={m.name} style={{ display: "contents" }}>
+            <hr className="rule" />
+            <div className={`split s-bio${m.photoSide === "right" ? " s-bio-flip" : ""}`}>
+              <Frame
+                ratio="3 / 4"
+                waitingFor={`PHOTO: ${m.name.toUpperCase()}`}
+                note="Portrait, 3:4, supplied by the church."
+              />
+              <div className="col" style={{ gap: 18 }}>
+                <h2 className="h2" style={{ fontSize: "clamp(32px,4vw,44px)" }}>{m.role}</h2>
+                <hr className="rule" style={{ width: 180 }} />
+                {m.bio.map((para) => (
+                  <p key={para.slice(0, 24)} className="bd">{para}</p>
+                ))}
+                <p className="bd" style={{ fontWeight: 700 }}>{m.name}<br />{m.role}</p>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );

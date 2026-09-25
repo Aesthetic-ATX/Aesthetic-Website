@@ -1,6 +1,6 @@
 /**
  * Mission, vision, values and core beliefs from "Commitment to Community",
- * drafted by Lead Pastor John Lee (Commitment to Community.pdf, page 1).
+ * drafted by Pastor John Lee (Commitment to Community.pdf, page 1).
  *
  * Wording is John's. The only edits, approved 2026-09-16 because the brief bans
  * em dashes in site copy:

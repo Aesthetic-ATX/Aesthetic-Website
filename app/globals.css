@@ -165,6 +165,8 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .split>*,.grid2>*,.col>*{min-width:0;}
 .s-even{grid-template-columns:1fr 1fr;}
 .s-bio{grid-template-columns:5fr 7fr;}   /* one portrait beside the story */
+.s-bio-flip{grid-template-columns:7fr 5fr;}
+.s-bio-flip>:first-child{order:2;}  /* picture right on desktop only */
 .bio-photo{border:var(--key);line-height:0;}
 .bio-photo img{width:100%;height:auto;}
 .col{display:flex;flex-direction:column;gap:22px;}
@@ -456,6 +458,7 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
   .about-grid{row-gap:24px;}
   .about-copy{margin-top:16px;}
   .s-even,.s-bio{grid-template-columns:1fr;}
+  .s-bio-flip>:first-child{order:0;}
 }
 @media (max-width:560px){
   .ticket{grid-template-columns:1fr !important;}

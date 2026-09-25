@@ -1,7 +1,7 @@
 /**
  * "This week's message": the homepage card, set with the same bulletin
  * masthead as the Weekly (layout from Screenshot #1, chosen 2026-09-17).
- * Poster left, the lead pastor's note and the series contents right
+ * Poster left, the pastor's note and the series contents right
  * (prototypes/message.html, option C, chosen 2026-09-23).
  *
  * Hand updated each week: move `current` down one, and fill in the next
@@ -31,7 +31,7 @@ export const message = {
     "Every song has a beat. The beat keeps a song moving and tells it where to go. Our lives work the same way. There are rhythms and practices that shape us. They help us slow down, stay close to God, and become more like Jesus on ordinary days.",
     "Following Jesus means living with Him every day of the week. Over the next five weeks, we'll look at five simple practices that can form a healthy spiritual rhythm. Each one helps us hear from Jesus and make room for Him in a busy week.",
   ],
-  byline: "JOHN LEE · LEAD PASTOR",
+  byline: "JOHN LEE · PASTOR",
   /** 1-based index into `weeks` of the Sunday this card is about. */
   current: 2,
   weeks: [

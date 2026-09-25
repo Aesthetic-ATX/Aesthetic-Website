@@ -116,7 +116,7 @@ export const visit = {
       ],
     },
   ] as Chapter[],
-  quote: { text: "You don’t have to clean yourself up first.", by: "JOHN LEE, LEAD PASTOR" },
+  quote: { text: "You don’t have to clean yourself up first.", by: "JOHN LEE, PASTOR" },
   parking: {
     /* Source: Aesthetic Website Images/Parking Instructions Picture.PNG (1229x1280), 2026-09-23.
        Shown uncropped: the street names and parking labels are printed on it. */
