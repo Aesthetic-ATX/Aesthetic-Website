@@ -56,7 +56,7 @@ export const visit = {
       heading: "Come early, or don't",
       body: [
         "Doors open at 10:30, half an hour before the service, on purpose. Grab a coffee, sit down, meet someone, or take a breath before anything starts. Most Sundays people are still talking when the music begins. There is no pressure to be on. Standing quietly with a coffee counts as settling in.",
-        "Whether you have been in church your whole life, you are coming back after a long time away, or you have never worked out what you believe, you are welcome here.",
+        "You might have grown up in church, or be coming back after years away, or still be working out what you believe. You are welcome here either way.",
       ],
       media: [
         /* Source: Aesthetic Website Images/Come Early or Don't Picture.jpg (2048x1365), 2026-09-23. */

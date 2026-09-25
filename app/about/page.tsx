@@ -83,24 +83,22 @@ export default function About() {
             <h2 className="h2" style={{ fontSize: "clamp(32px,4vw,44px)" }}>Pastor</h2>
             <hr className="rule" style={{ width: 180 }} />
             <p className="bd">
-              John Lee&rsquo;s life has been shaped by a singular vision: to behold the beauty of God
-              and help others do the same. It is rooted in Psalm 27:4, &ldquo;to gaze upon the beauty
-              of the Lord.&rdquo;
+              John Lee&rsquo;s aim is simple: to see the beauty of God and help other people see it
+              too. It comes from Psalm 27:4, &ldquo;to gaze upon the beauty of the Lord.&rdquo;
             </p>
             <p className="bd">
-              Originally from Baton Rouge, Louisiana, his faith began with a defining moment in his
-              freshman dorm room at LSU, where he first surrendered his life to Jesus. That set him on
-              a path from his hometown to studying Economics at NYU&rsquo;s Stern School of Business,
-              to working in New York, back home to Louisiana, and eventually to Los Angeles, where he
-              earned his Master of Divinity from Fuller Theological Seminary.
+              John grew up in Baton Rouge, Louisiana, and surrendered his life to Jesus in his
+              freshman dorm room at LSU. From there he studied economics at NYU&rsquo;s Stern School
+              of Business, worked in New York, moved back home to Louisiana, and later went to Los
+              Angeles, where he earned a Master of Divinity from Fuller Theological Seminary.
             </p>
             <p className="bd">
               Ordained in 2019, John has served in a range of ministry roles, including Guest Services
               and as a Grow Pastor leading Groups ministry at Gateway Church South Austin.
             </p>
             <p className="bd">
-              With a deep love for art and culture, he believes the Church should be a place where
-              people can come as they are and experience a God who is near and beautiful.
+              He loves art and culture, and he believes the Church should be a place where people
+              can come as they are and experience a God who is near and beautiful.
             </p>
             <p className="bd">
               He lives in Austin with his wife, Tori, and their two dogs, Avery and Gracie.
