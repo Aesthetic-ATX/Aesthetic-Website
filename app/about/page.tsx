@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { BeliefsWall } from "@/components/BeliefsWall";
-import { Frame } from "@/components/Frame";
 import { mission, vision, values, beliefsIntro } from "@/data/commitment";
 import { metaFor } from "@/data/meta";
 import { team } from "@/data/team";
@@ -67,14 +66,14 @@ export default function About() {
 
         {/* Bio: one portrait, then the story. */}
         <div className="split s-bio">
-          {/* Source: ~/Desktop/John's Bio Picture.png (1086x1448, already 3:4), supplied 2026-09-23.
+          {/* Source: ~/Desktop/John's Bio Picture.jpeg (1169x1841), trimmed to 3:4, supplied 2026-09-25.
               Filename is versioned on every swap: a reused name leaves browsers on the cached copy. */}
           <div className="bio-photo">
             <Image
-              src="/images/john-lee-v1.jpg"
-              alt="John Lee speaking into a microphone on stage, smiling, in front of orange and blue projections"
-              width={1086}
-              height={1448}
+              src="/images/john-lee-v2.jpg"
+              alt="Pastor John Lee in a white T-shirt, seated and smiling, looking off to one side"
+              width={1169}
+              height={1559}
               sizes="(max-width: 900px) 100vw, 42vw"
             />
           </div>
@@ -115,11 +114,15 @@ export default function About() {
           <div key={m.name} style={{ display: "contents" }}>
             <hr className="rule" />
             <div className={`split s-bio${m.photoSide === "right" ? " s-bio-flip" : ""}`}>
-              <Frame
-                ratio="3 / 4"
-                waitingFor={`PHOTO: ${m.name.toUpperCase()}`}
-                note="Portrait, 3:4, supplied by the church."
-              />
+              <div className="bio-photo">
+                <Image
+                  src={m.photo.src}
+                  alt={m.photo.alt}
+                  width={m.photo.width}
+                  height={m.photo.height}
+                  sizes="(max-width: 900px) 100vw, 42vw"
+                />
+              </div>
               <div className="col" style={{ gap: 18 }}>
                 <h2 className="h2" style={{ fontSize: "clamp(32px,4vw,44px)" }}>{m.role}</h2>
                 <hr className="rule" style={{ width: 180 }} />
