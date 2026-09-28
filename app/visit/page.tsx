@@ -126,7 +126,7 @@ export default function Visit() {
                     <dd className={"owed" in r && r.owed ? "need" : undefined}>
                       {"href" in r && r.href ? (
                         <a href={site.mapsUrl} className="dept-link">
-                          {r.value} <span aria-hidden>&rarr;</span>
+                          {r.value}
                         </a>
                       ) : (
                         r.value
