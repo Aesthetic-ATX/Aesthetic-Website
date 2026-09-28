@@ -64,12 +64,11 @@ export function Footer() {
 
           <div className="foot-col">
             <h2 className="lbl foot-lbl">CONTACT</h2>
-            {/* Email and phone are left out until the church supplies real ones. */}
+            {/* Email supplied 2026-09-28. The address was dropped here: the map card's
+                Directions link below already covers it. */}
             <ul className="foot-list">
               <li>
-                <a href={site.mapsUrl} target="_blank" rel="noreferrer" className="foot-link">
-                  {site.venue}, {address}
-                </a>
+                <a href={`mailto:${site.email}`} className="foot-link">{site.email}</a>
               </li>
             </ul>
           </div>

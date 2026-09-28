@@ -19,6 +19,8 @@ export const site = {
   /** The Sapien Center place pin, supplied 2026-09-23 (Google's search tracking parameters removed).
    *  Every Directions link reads this; the footer's embedded map still searches by address. */
   mapsUrl: "https://www.google.com/maps/place/2316+Morelos+St,+Austin,+TX+78702/data=!4m2!3m1!1s0x8644b5c9463fabc9:0x719188c4eae9d70d",
+  /** Supplied by the church 2026-09-28. */
+  email: "aesthetic.austin.tx@gmail.com",
   instagram: { handle: "@aesthetic_atx", url: "https://www.instagram.com/aesthetic_atx/" },
   /** Venue, YouTube and parent org: from Aesthetic_ATX.md in the earlier project. */
   venue: "Sapien Center",

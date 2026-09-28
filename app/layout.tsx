@@ -15,6 +15,7 @@ const schema = {
   "@type": "Church",
   name: site.name,
   url: site.origin,
+  email: site.email,
   address: {
     "@type": "PostalAddress",
     streetAddress: site.address.street,
