@@ -24,15 +24,15 @@
   --ink:#000000;
   --sheet:#FEFCF9;
   --white:#FFFFFF;
-  --neutral:#E8E4DC;      /* sheet stock darkened, pending approval */
+  --neutral:#E8E4DC;      /* sheet stock darkened, approved 2026-09-28 */
   --violet:#3E08E0;       /* the only colour that means clickable */
   --sky:#66CCFF;          /* field only */
   --green:#97F900;        /* field only */
   --citron:#E2FE0C;       /* field only, tagline block */
-  --about-exp:#F8FFEF;    /* EXPERIMENT 2026-09-16, not in the brand guidelines */
-  --about-page-exp:#EDEBF3; /* EXPERIMENT 2026-09-16, not in the guidelines: violet's hue (255deg) lightened */
-  --bible-page-exp:#E8F2F7; /* EXPERIMENT 2026-09-16, not in the guidelines: sky's hue (200deg) lightened */
-  --give-page-exp:#FCFDF2;  /* EXPERIMENT 2026-09-16, not in the guidelines: citron's hue (~66deg) lightened */
+  --about-exp:#F8FFEF;    /* approved 2026-09-28, an addition to the 2025 guidelines */
+  --about-page-exp:#EDEBF3; /* approved 2026-09-28, an addition to the guidelines: violet's hue (255deg) lightened */
+  --bible-page-exp:#E8F2F7; /* approved 2026-09-28, an addition to the guidelines: sky's hue (200deg) lightened */
+  --give-page-exp:#FCFDF2;  /* approved 2026-09-28, an addition to the guidelines: citron's hue (~66deg) lightened */
 
   --key:3px solid var(--ink);
   --hair:1px solid var(--ink);   /* nav rule, nav capsule, About edge */
