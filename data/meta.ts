@@ -43,12 +43,17 @@ const copy: Record<Route, { title: string; description: string; path: string }> 
   },
 };
 
+/** app/opengraph-image.png: the wordmark on sheet (user's call 2026-09-28, the logo over the hero).
+ *  Named on every page because a page's own openGraph object replaces the root file's image. */
+const shareImage = { url: "/opengraph-image.png", width: 1200, height: 630, alt: "The Aesthetic wordmark in sky blue on warm white." };
+
 export function metaFor(route: Route): Metadata {
   const { title, description, path } = copy[route];
   return {
     title,
     description,
     alternates: { canonical: path },
-    openGraph: { title, description, url: `${site.origin}${path}`, type: "website" },
+    openGraph: { title, description, url: `${site.origin}${path}`, type: "website", siteName: site.name, images: [shareImage] },
+    twitter: { card: "summary_large_image", images: [shareImage] },
   };
 }
