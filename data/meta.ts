@@ -4,9 +4,13 @@ import { site } from "./site";
 /** Titles and descriptions come from the approved SEO keyword map. Do not rewrite. */
 type Route = "home" | "about" | "bibleStudy" | "give" | "visit";
 
-const copy: Record<Route, { title: string; description: string; path: string }> = {
+/** `shareTitle` overrides the title only in link previews (iMessage, Instagram, Facebook);
+ *  search results and the browser tab keep the SEO map's `title`. */
+const copy: Record<Route, { title: string; shareTitle?: string; description: string; path: string }> = {
   home: {
     title: "Aesthetic Church Austin | A Modern Austin Church",
+    /** User's wording, 2026-09-28. */
+    shareTitle: "Aesthetic ATX | Come as you are",
     description:
       "At Aesthetic, our mission is helping people see the beauty of God. A non-denominational, spirit-filled church in East Austin. Sundays at 11am, 2316 Morelos St.",
     path: "/",
@@ -48,12 +52,12 @@ const copy: Record<Route, { title: string; description: string; path: string }> 
 const shareImage = { url: "/opengraph-image.png", width: 1200, height: 630, alt: "The Aesthetic wordmark in sky blue on warm white." };
 
 export function metaFor(route: Route): Metadata {
-  const { title, description, path } = copy[route];
+  const { title, shareTitle = title, description, path } = copy[route];
   return {
     title,
     description,
     alternates: { canonical: path },
-    openGraph: { title, description, url: `${site.origin}${path}`, type: "website", siteName: site.name, images: [shareImage] },
-    twitter: { card: "summary_large_image", images: [shareImage] },
+    openGraph: { title: shareTitle, description, url: `${site.origin}${path}`, type: "website", siteName: site.name, images: [shareImage] },
+    twitter: { card: "summary_large_image", title: shareTitle, images: [shareImage] },
   };
 }
