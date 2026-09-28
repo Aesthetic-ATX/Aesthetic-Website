@@ -54,8 +54,8 @@ export default function Home() {
       </section>
 
       {/* About preview. Text only: label left, two-line heading right, paragraph
-          under the label, then a centred closing statement. Background #F8FFEF is
-          an experiment, not a brand colour (2026-09-16). */}
+          under the label, then a centred closing statement. Background #F8FFEF was
+          added to the palette (tried 2026-09-16, approved 2026-09-28). */}
       <section className="about f-about" aria-labelledby="about-title">
         <div className="wrap">
           <div className="about-grid">
