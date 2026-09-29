@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { site } from "@/data/site";
 
 const destination = `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`;
-const appleMapsUrl = `https://maps.apple.com/?daddr=${encodeURIComponent(destination)}&q=${encodeURIComponent(site.venue)}`;
 
 /**
  * The footer map, printed rather than embedded (prototypes/footer-2.html, chosen
@@ -12,17 +11,15 @@ const appleMapsUrl = `https://maps.apple.com/?daddr=${encodeURIComponent(destina
  * streets draw in, the Northwest Ave parking lights up citron, the pin drops on Sapien
  * Center, then a dotted route walks from the parking to the building. Not to scale.
  *
- * Nothing loads from Google, so no third-party cookies and no layout shift. The map
- * opens the visitor's own maps app (Apple Maps on iPhone, iPad and Mac with touch,
- * Google Maps everywhere else), and both are offered by name underneath.
+ * Nothing loads from Google until it is pressed, so no third-party cookies and no layout
+ * shift. Pressing it opens Google Maps directions from the visitor's own location, with
+ * distance and travel time (the user's reference, 2026-09-28).
  */
 export function RisoMap() {
   const box = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
-  const [apple, setApple] = useState(false);
 
   useEffect(() => {
-    setApple(/iPhone|iPad|Macintosh/.test(navigator.userAgent) && "ontouchend" in document);
     const el = box.current;
     if (!el) return;
     const io = new IntersectionObserver(
@@ -41,10 +38,9 @@ export function RisoMap() {
       <div className="riso-frame">
       <a
         className="riso-map"
-        href={apple ? appleMapsUrl : site.mapsUrl}
+        href={site.directionsUrl}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label={`Directions to ${site.venue}, ${destination}, in ${apple ? "Apple Maps" : "Google Maps"}`}
       >
         <svg viewBox="0 0 600 420" aria-hidden="true">
           <path className="road case draw d1" pathLength={1} d="M-20 362 L620 316" />
@@ -78,21 +74,14 @@ export function RisoMap() {
             <circle cx="300" cy="164" r="6" fill="var(--sheet)" />
           </g>
         </svg>
+        {/* The link's name starts with what it says on screen (WCAG 2.5.3). */}
+        <span className="riso-go">Open in Google Maps</span>
+        <span className="sr-only"> for directions to {site.venue}, {destination}</span>
       </a>
       {/* Outside the link, so the link's name is only where it goes (WCAG 2.5.3) */}
       <span className="riso-note" aria-hidden="true">NOT TO SCALE</span>
       </div>
-      <div className="riso-bar">
-        <span className="sm">{destination}</span>
-        <span className="riso-apps">
-          <a href={appleMapsUrl} target="_blank" rel="noopener noreferrer" className="sm riso-dir">
-            Apple Maps <span aria-hidden>&#8599;</span>
-          </a>
-          <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer" className="sm riso-dir">
-            Google Maps <span aria-hidden>&#8599;</span>
-          </a>
-        </span>
-      </div>
+      <p className="sm riso-bar">{site.venue}, {destination}</p>
     </div>
   );
 }

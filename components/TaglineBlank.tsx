@@ -57,11 +57,9 @@ export function TaglineBlank() {
 
   return (
     <section ref={block} className="blank" aria-labelledby="tagline-title">
-      {/* The section's heading, written from the homepage keywords in the SEO map:
-          church in austin, non denominational church austin, spirit filled churches. */}
-      <h2 className="lbl" id="tagline-title">
-        A spirit-filled, <span className="nobr">non-denominational</span> church in Austin
-      </h2>
+      {/* The original label, restored by the user 2026-09-28. The SEO map's homepage keywords
+          still sit in the hero label, the meta description and the footer. */}
+      <h2 className="lbl" id="tagline-title">The only thing we ask</h2>
       <p className="sr-only">Come as you are.</p>
       <p className="blank-line sp" aria-hidden="true">
         <span className="blank-box"><span>come as</span></span>

@@ -174,8 +174,13 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .bio-photo img{width:100%;height:auto;}
 .col{display:flex;flex-direction:column;gap:22px;}
 /* about: mission seal left, vision as a proof correction right (components/MissionVision.tsx) */
-.mv{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,5vw,72px);align-items:start;}   /* top, so a reflowing text column never moves the seal */
-.seal{position:relative;width:100%;max-width:440px;aspect-ratio:1;justify-self:center;
+/* The seal has a set size, so the vision can start at the seal's centre line: "OUR VISION" sits
+   level with "OUR MISSION AT" (user's call, 2026-09-28). The centre block is a 16px label, a 6px
+   gap and a wordmark a tenth of the seal wide, so its label starts (22px + seal/10) / 2 above
+   centre: seal x .45 - 11px from the top. */
+.mv{--seal:clamp(300px,34vw,440px);display:grid;grid-template-columns:var(--seal) minmax(0,1fr);
+  gap:clamp(32px,5vw,72px);align-items:start;}   /* top, so a reflowing text column never moves the seal */
+.seal{position:relative;width:var(--seal);aspect-ratio:1;
   transform:scale(1.12) rotate(-8deg);opacity:0;transition:transform .5s var(--press),opacity .15s linear;}
 .seal.in{transform:none;opacity:1;}
 .seal-svg{width:100%;height:100%;display:block;overflow:visible;}
@@ -184,11 +189,12 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .seal-ring text{font:700 20px 'Jost',sans-serif;letter-spacing:.14em;fill:var(--ink);}
 @keyframes seal-turn{to{transform:rotate(360deg);}}
 .seal-mid{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;pointer-events:none;}
-.seal-wm{font-size:clamp(30px,3.6vw,44px);line-height:1;}
+.seal-wm{font-size:calc(var(--seal) / 10);line-height:1;}
 .seal-toggle{position:absolute;right:2%;bottom:2%;width:44px;height:44px;border-radius:9999px;padding:0;cursor:pointer;
   border:2px solid var(--violet);background:var(--page,var(--sheet));color:var(--violet);display:grid;place-items:center;}
 .seal-toggle:hover{background:var(--violet);color:var(--white);}
-.mv-vision{display:flex;flex-direction:column;gap:14px;}
+.mv-vision h2{margin:0;}   /* no browser margin: the label must start exactly on the seal's centre line */
+.mv-vision{display:flex;flex-direction:column;gap:14px;padding-top:calc(var(--seal) * .45 - 11px);}
 .proof{font-size:clamp(32px,4.6vw,64px);font-weight:700;line-height:1.05;letter-spacing:-.02em;margin-top:6px;}
 .proof-lead{display:block;margin-bottom:.25em;}
 .edit{display:flex;align-items:baseline;flex-wrap:wrap;gap:0 .35em;padding:.12em 0;border-top:var(--hair);}
@@ -201,7 +207,7 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
   opacity:var(--n,0);transform:translateX(calc((1 - var(--n,0)) * -16px));}
 .proof.done .edit{--s:1;--n:1;}
 .mv-words{max-width:40ch;margin-top:10px;}
-@media (max-width:820px){ .mv{grid-template-columns:1fr;} .seal{max-width:320px;} }
+@media (max-width:820px){ .mv{--seal:min(320px,calc(100vw - 40px));grid-template-columns:1fr;} .seal{justify-self:center;} .mv-vision{padding-top:0;} }
 @media (prefers-reduced-motion:reduce){ .seal{transition:none;transform:none;opacity:1;} .seal-ring{animation:none;} }
 
 /* about preview: text only ------------------------------------------ */
@@ -378,15 +384,16 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .weekly-jump a{font-weight:700;}
 
 /* the tagline as a blank to fill in (components/TaglineBlank.tsx, chosen 2026-09-28) ------ */
-.blank{background:var(--citron);border:var(--key);text-align:center;
-  padding:clamp(40px,6vw,80px) 24px clamp(48px,7vw,92px);margin:0 0 clamp(44px,6vw,68px);}
+/* No field and no frame: violet type straight on the sheet (user's call, 2026-09-28). This is the
+   one place violet is not a link, stated in DESIGN.md; nothing here can be pressed. */
+.blank{color:var(--violet);text-align:center;padding:clamp(24px,4vw,48px) 0 clamp(40px,6vw,72px);margin:0 0 clamp(20px,3vw,36px);}
 .blank h2{text-transform:uppercase;margin:0 0 clamp(18px,2.4vw,30px);}
 .blank-line{margin:0;font-size:clamp(40px,7.4vw,104px);line-height:1.2;
   display:inline-flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:0 .28em;}
 /* both halves are the same kind of box, so "come as" and the blank share one baseline */
 .blank-box{display:inline-grid;height:1.2em;overflow:hidden;}
 .blank-box>span{line-height:1.2;}
-.slot{border-bottom:4px solid var(--ink);transition:width .45s var(--feed),border-color .4s .3s;}
+.slot{border-bottom:4px solid var(--violet);transition:width .45s var(--feed),border-color .4s .3s;}
 .slot>span{grid-area:1/1;justify-self:start;width:max-content;padding-right:.12em;   /* italic overhang */
   transform:translateY(110%);transition:transform .45s var(--feed);}
 .slot>span.now{transform:none;}
@@ -441,7 +448,7 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 /* the printed map (components/RisoMap.tsx): flat inks, no Google embed ------ */
 .riso{min-width:0;}
 .riso-frame{position:relative;}
-.riso-map{display:block;background:var(--sky);border:3px solid var(--sheet);}
+.riso-map{display:block;position:relative;background:var(--sky);border:3px solid var(--sheet);}
 .riso-map svg{display:block;width:100%;height:auto;}
 .riso-note{position:absolute;left:15px;bottom:13px;pointer-events:none;font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--ink);}
 .riso .road{fill:none;stroke-linecap:round;}
@@ -463,11 +470,11 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .riso .walk-lbl{opacity:0;transition:opacity .3s linear 2s;}
 .riso.in .walk-lbl{opacity:1;}
 @keyframes riso-march{to{stroke-dashoffset:-56;}}
-.riso-bar{display:flex;align-items:center;justify-content:space-between;gap:8px 20px;flex-wrap:wrap;padding-top:14px;}
-.riso-apps{display:flex;gap:20px;flex-wrap:wrap;}
-.riso-dir{font-weight:700;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px;white-space:nowrap;
-  display:inline-block;padding:2px 0;}   /* 24px tap target (WCAG 2.5.8) */
-.riso-dir:hover{text-decoration-thickness:3px;}
+/* the map's own label for where it goes, inside the map (the prototype the user chose) */
+.riso-go{position:absolute;right:12px;bottom:10px;font-size:14px;font-weight:700;line-height:1;color:var(--violet);
+  background:var(--sheet);border:2px solid var(--ink);border-radius:9999px;padding:8px 14px;}
+.f-ink .riso-map:hover .riso-go{background:var(--violet);color:var(--white);border-color:var(--violet);}
+.riso-bar{margin:14px 0 0;}
 @media (prefers-reduced-motion:reduce){
   .riso .draw,.riso .venue,.riso .streets,.riso .pin,.riso .walk,.riso .walk-lbl{transition:none;animation:none;}
   .riso .draw{stroke-dashoffset:0;}
@@ -608,6 +615,12 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
    like arrow links and the footer, thickening to 3px on hover from the base
    rule. No new weight is introduced. */
 .band a{text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px;}
+/* the Sunday line that closes /visit: no box, violet label, the address is the link */
+.sunday{margin:clamp(32px,4vw,48px) 0 0;}
+.sunday p{margin:0;}
+.sunday .sunday-k{color:var(--violet);margin-bottom:10px;}
+.sunday a{text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px;}
+.sunday a:hover{text-decoration-thickness:3px;}
 
 /* the parking picture and the practical panel, side by side */
 .foot-pair{display:grid;grid-template-columns:1.6fr 1fr;gap:clamp(22px,3vw,40px);

@@ -141,12 +141,13 @@ export default function Visit() {
             </aside>
           </div>
 
-          {/* The page's one citron field. */}
-          <div className="band citron">
-            <p className="band-k">THIS SUNDAY</p>
+          {/* The Sunday line, no box (user's call, 2026-09-28): the label in violet, and the
+              address itself is the link, opening directions from wherever the reader is. */}
+          <div className="sunday">
+            <p className="lbl sunday-k">THIS SUNDAY, COME JOIN US AT</p>
             <p className="band-big">
-              {site.address.street}, doors open at half past ten.{" "}
-              <a href={site.mapsUrl}>Get directions <span aria-hidden>&rarr;</span></a>
+              <a href={site.directionsUrl} target="_blank" rel="noopener noreferrer">{site.address.street}</a>,
+              doors open at half past ten.
             </p>
           </div>
         </article>
