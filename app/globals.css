@@ -553,6 +553,10 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
   .s-bio-flip>:first-child{order:0;}
 }
 @media (max-width:560px){
+  /* phones: the big headings wrap to two or three lines, so they get more air (user's call, 2026-09-29) */
+  .msg-name{line-height:1.02;}
+  .msg-sub{margin-top:.45em;line-height:1.15;}
+  .band-big{line-height:1.3;}
   .ticket{grid-template-columns:1fr !important;}
   .ticket .stub{grid-column:auto !important;}
   .frame.ticket-photo{border-left:0 !important;border-top:var(--key) !important;}

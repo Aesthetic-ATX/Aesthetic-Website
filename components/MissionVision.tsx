@@ -3,9 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { mission, vision, visionEdit } from "@/data/commitment";
 
-/* The ring's circumference is 2 * pi * 163 = 1024; the text is stretched to just under it
-   so the bullet closes the circle with a small gap. */
-const RING_LENGTH = 1016;
+/* The ring's circumference is 2 * pi * 163 = 1024. The text runs the whole way round and
+   ends in a no-break space, so the bullet sits midway between GOD and WE: the same space
+   on both sides of it (user's call, 2026-09-29). Plain spaces at the ends would be dropped. */
+const RING_LENGTH = 1024;
 
 /**
  * Mission and vision on /about (chosen 2026-09-28): the mission set round a green seal
@@ -79,7 +80,7 @@ export function MissionVision() {
           <g className="seal-ring" style={{ animationPlayState: turning ? "running" : "paused" }}>
             <text>
               <textPath href="#seal-ring" textLength={RING_LENGTH} lengthAdjust="spacing">
-                {mission.replace(/\.$/, "").toUpperCase()} &#8226;
+                {mission.replace(/\.$/, "").toUpperCase()}&#160;&#8226;&#160;
               </textPath>
             </text>
           </g>
