@@ -34,7 +34,7 @@ export const message = {
   ],
   byline: "JOHN LEE · PASTOR",
   /** 1-based index into `weeks` of the Sunday this card is about. */
-  current: 2,
+  current: 3,
   weeks: [
     { date: "2026-09-20", title: "Beginning with prayer" },
     { date: "2026-09-27", title: "Practice of reading Scripture" },
