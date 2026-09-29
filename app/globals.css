@@ -556,7 +556,6 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
   /* phones: the big headings wrap to two or three lines, so they get more air (user's call, 2026-09-29) */
   .msg-name{line-height:1.02;}
   .msg-sub{margin-top:.45em;line-height:1.15;}
-  .band-big{line-height:1.3;}
   .ticket{grid-template-columns:1fr !important;}
   .ticket .stub{grid-column:auto !important;}
   .frame.ticket-photo{border-left:0 !important;border-top:var(--key) !important;}
@@ -643,6 +642,9 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .band p{margin:0;}
 .band-k{font-size:11px;font-weight:700;letter-spacing:.14em;margin:0 0 8px;}
 .band-big{font-size:clamp(21px,2.5vw,32px);font-weight:700;line-height:1.12;letter-spacing:-.02em;text-wrap:balance;}
+/* phones: more air when the line wraps (user's call, 2026-09-29). It sits here, after the base
+   rule, because a same-specificity rule earlier in the file loses to it. */
+@media (max-width:560px){ .band-big{line-height:1.38;} }
 /* A violet link inside a run of black text is only 2.31:1 against it, so
    colour alone cannot carry it. It gets the system's persistent underline, 1px
    like arrow links and the footer, thickening to 3px on hover from the base
