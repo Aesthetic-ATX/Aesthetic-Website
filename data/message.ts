@@ -38,7 +38,7 @@ export const message = {
   weeks: [
     { date: "2026-09-20", title: "Beginning with prayer" },
     { date: "2026-09-27", title: "Practice of reading Scripture" },
-    { date: "2026-10-04", title: null },
+    { date: "2026-10-04", title: "Community | Better together" },
     { date: "2026-10-11", title: null },
   ] satisfies Week[],   // four Sundays, not five: John shortened the series (2026-09-29)
 } as const;
