@@ -38,8 +38,11 @@ export function Footer() {
         <div className="foot-top">
           <div className="foot-col">
             <span className="sp foot-wm">{site.shortName}</span>
-            <p className="bd foot-about">
-              A non-denominational, spirit-filled church in East Austin. Heaven meets culture.
+            {/* Set like the section labels ("THE ONLY THING WE ASK"), user's call 2026-09-28. Written in
+                sentence case and capitalised by CSS, so screen readers read words, not letters. */}
+            <p className="lbl foot-about">
+              A non-denominational, spirit-filled church in <span className="nobr">East Austin</span> <span aria-hidden="true">|</span>{" "}
+              <span className="nobr">Heaven meets culture.</span>
             </p>
             <div className="foot-social">
               <a href={site.instagram.url} target="_blank" rel="noreferrer" className="social" aria-label={`${site.instagram.handle} on Instagram`}>

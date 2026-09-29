@@ -414,7 +414,7 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .foot-top{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(40px,5vw,72px);align-items:start;margin-bottom:clamp(56px,6vw,80px);}
 .foot-col{display:flex;flex-direction:column;align-items:flex-start;gap:16px;min-width:0;}
 .foot-wm{font-size:34px;line-height:1;color:var(--sky);}
-.foot-about{max-width:34ch;}
+.foot-about{max-width:38ch;margin:0;text-transform:uppercase;line-height:1.7;}
 .foot-social{display:flex;gap:12px;margin-top:4px;}
 /* sky, like every other link on black: one colour means clickable on each ground */
 .social{width:44px;height:44px;border-radius:9999px;border:var(--hair);border-color:var(--sky);
