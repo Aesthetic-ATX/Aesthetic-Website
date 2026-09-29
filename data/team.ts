@@ -17,7 +17,7 @@ export type Member = {
 export const team: Member[] = [
   {
     name: "Khary Alexander",
-    role: "Creative experience lead",
+    role: "Creative Experience Lead",
     photoSide: "right",
     photo: {
       src: "/images/khary-alexander-v1.jpg",
@@ -32,7 +32,7 @@ export const team: Member[] = [
   },
   {
     name: "Tori Lee",
-    role: "Volunteer coordinator",
+    role: "Volunteer Coordinator",
     photoSide: "left",
     photo: {
       src: "/images/tori-lee-v1.jpg",
