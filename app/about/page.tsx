@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { BeliefsWall } from "@/components/BeliefsWall";
-import { mission, vision, values, beliefsIntro } from "@/data/commitment";
+import { MissionVision } from "@/components/MissionVision";
+import { values, beliefsIntro } from "@/data/commitment";
 import { metaFor } from "@/data/meta";
 import { team } from "@/data/team";
 
@@ -31,16 +32,8 @@ export default function About() {
           </div>
         </div>
 
-        <div className="grid2">
-          <div className="card-green">
-            <span className="lbl">OUR MISSION</span><hr className="rule" style={{ width: 44 }} />
-            <p className="h3" style={{ fontSize: "clamp(22px,2.4vw,28px)" }}>{mission}</p>
-          </div>
-          <div className="card-green">
-            <span className="lbl">OUR VISION</span><hr className="rule" style={{ width: 44 }} />
-            <p className="h3" style={{ fontSize: "clamp(22px,2.4vw,28px)" }}>{vision}</p>
-          </div>
-        </div>
+        {/* The mission as a turning seal, the vision as a proofreader's correction. */}
+        <MissionVision />
 
         {/* Values read like an order of service: one row each, name left, line right. */}
         <section className="values" aria-labelledby="values-title">

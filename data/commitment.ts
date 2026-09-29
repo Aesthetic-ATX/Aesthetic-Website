@@ -42,3 +42,19 @@ export const beliefs = [
   { name: "The Church", text: "All who trust in Jesus, expressed in local communities devoted to worship, Scripture, community, and mission." },
   { name: "Spiritual Growth", text: "A lifelong, Spirit-led transformation as we walk with God and are formed into the image of Christ." },
 ] as const;
+
+/**
+ * The vision set as a printer's correction on /about (prototypes/mission-vision-2.html,
+ * option B, combined with the mission seal, chosen 2026-09-28). Each old word is struck
+ * and the vision's own word is inserted beside it. The struck words come from the
+ * homepage About copy ("God is not distant, boring, or disconnected"); the user
+ * confirmed the church approved them on 2026-09-28.
+ */
+export const visionEdit = {
+  lead: "Society sees God as",
+  edits: [
+    { from: "distant", to: "beautiful" },
+    { from: "boring", to: "dynamic" },
+    { from: "disconnected", to: "present" },
+  ],
+} as const;

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Fragment } from "react";
 import { site } from "@/data/site";
 import { Message } from "@/components/Message";
+import { TaglineBlank } from "@/components/TaglineBlank";
 import { VisitTeaser } from "@/components/VisitTeaser";
 
 /** DUMMY COPY, drawn from the existing About text until the church writes the final line.
@@ -107,10 +108,7 @@ export default function Home() {
           and this card is what hands off to it. */}
       <section className="sec">
         <div className="wrap">
-          <div className="tagline-block">
-            <span className="lbl">THE ONLY THING WE ASK</span>
-            <p className="sp quote">{site.tagline}</p>
-          </div>
+          <TaglineBlank />
 
           <VisitTeaser />
         </div>

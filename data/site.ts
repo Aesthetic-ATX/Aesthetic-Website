@@ -5,6 +5,10 @@ export const site = {
   name: "Aesthetic Church",
   shortName: "Aesthetic",
   tagline: "come as you are",
+  /** The homepage fill-in-the-blank: who walks in, then the tagline. Chosen by the user 2026-09-28
+   *  (Set 1, with "a creative" cut and "a neighbor" replaced by "a friend"). The last entry must
+   *  complete the tagline. Five words land in about 3.4s, under the 5s that would need a pause. */
+  taglineWords: ["a first-timer", "a skeptic", "a plus-one", "a friend", "you are"],
   /** From John Lee's "Commitment to Community"; the full set lives in data/commitment.ts. */
   mission: mission,
   vision: vision,

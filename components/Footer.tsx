@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { site } from "@/data/site";
 import DecodeHeadline from "@/components/DecodeHeadline";
-import { SignUp } from "@/components/SignUp";
-import { MapCard } from "@/components/MapCard";
+import { RisoMap } from "@/components/RisoMap";
 
 const explore = [
   { href: "/visit", label: "Plan your visit" },
@@ -31,12 +30,11 @@ function YouTubeIcon() {
 }
 
 export function Footer() {
-  const address = `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`;
-
   return (
     <footer className="foot f-ink">
       <div className="wrap">
-        {/* Reference information first: brand, pages, where to find us. */}
+        {/* Left: who we are, then the pages and the inbox. Right: the printed map.
+            Laid out by the user, 2026-09-28. */}
         <div className="foot-top">
           <div className="foot-col">
             <span className="sp foot-wm">{site.shortName}</span>
@@ -51,49 +49,36 @@ export function Footer() {
                 <YouTubeIcon />
               </a>
             </div>
+
+            <div className="foot-refs">
+              <nav className="foot-ref" aria-labelledby="foot-explore">
+                <h2 className="lbl foot-lbl" id="foot-explore">EXPLORE</h2>
+                <ul className="foot-list">
+                  {explore.map((l) => (
+                    <li key={l.href}><Link href={l.href} className="foot-link">{l.label}</Link></li>
+                  ))}
+                </ul>
+              </nav>
+              <div className="foot-ref">
+                <h2 className="lbl foot-lbl">CONTACT</h2>
+                <ul className="foot-list">
+                  <li>
+                    <a href={`mailto:${site.email}`} className="foot-link">{site.email}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
 
-          <nav className="foot-col" aria-labelledby="foot-explore">
-            <h2 className="lbl foot-lbl" id="foot-explore">EXPLORE</h2>
-            <ul className="foot-list">
-              {explore.map((l) => (
-                <li key={l.href}><Link href={l.href} className="foot-link">{l.label}</Link></li>
-              ))}
-            </ul>
-          </nav>
-
-          <div className="foot-col">
-            <h2 className="lbl foot-lbl">CONTACT</h2>
-            {/* Email supplied 2026-09-28. The address was dropped here: the map card's
-                Directions link below already covers it. */}
-            <ul className="foot-list">
-              <li>
-                <a href={`mailto:${site.email}`} className="foot-link">{site.email}</a>
-              </li>
-            </ul>
-          </div>
+          <RisoMap />
         </div>
 
-        {/* The ask: the tagline block beside sign-up and the map. */}
-        <div className="foot-mid">
-          <div className="foot-tag">
-            <span className="sr-only">Come as you are</span>
-            <DecodeHeadline className="foot-decode" />
-            <span className="inset" aria-hidden />
-          </div>
-
-          <div className="foot-ask">
-            <div className="foot-news">
-              {/* DUMMY COPY: carried over from the earlier build, not from the church. The
-                  monthly cadence is unconfirmed; do not launch with it until they agree. */}
-              <h2 className="foot-h">Stay in the room</h2>
-              <p className="bd">
-                One email a month: what&rsquo;s coming up on Sundays and through the week, and where to find us.
-              </p>
-              <SignUp />
-            </div>
-            <MapCard query={`${site.venue}, ${address}`} label={address} directionsUrl={site.mapsUrl} />
-          </div>
+        {/* The moving headline, centred at the foot of the page: brand sky straight on
+            the ink, no frame (2026-09-28). The sign-up it used to sit beside returns in
+            Phase 2, once there is somewhere to send email. */}
+        <div className="foot-tag">
+          <span className="sr-only">Come as you are</span>
+          <DecodeHeadline className="foot-decode" color="var(--sky)" />
         </div>
 
         <div className="foot-base">
