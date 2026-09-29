@@ -492,11 +492,14 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .riso .walk-lbl{opacity:0;transition:opacity .3s linear 2s;}
 .riso.in .walk-lbl{opacity:1;}
 @keyframes riso-march{to{stroke-dashoffset:-56;}}
-/* the directions link, under the address and outside the map (user's call, 2026-09-29) */
-.f-ink a.riso-go,.riso-go{display:inline-block;margin-top:14px;font-size:14px;font-weight:700;line-height:1;color:var(--violet);
-  background:var(--sheet);border:2px solid var(--ink);border-radius:9999px;padding:10px 16px;}
+/* the directions link, under the address and outside the map (user's call, 2026-09-29). Square-cut
+   like every .btn; the keyline is sheet, since an ink one would vanish on the black footer. */
+.f-ink a.riso-go,.riso-go{display:inline-flex;align-items:center;min-height:48px;margin-top:16px;padding:12px 22px;
+  font-size:13px;font-weight:700;letter-spacing:.1em;line-height:1.2;color:var(--violet);
+  background:var(--sheet);border:3px solid var(--sheet);border-radius:0;transition:background-color .15s ease,color .15s ease;}
 /* pointing at the map lights the link too, since the map goes to the same place */
-.f-ink a.riso-go:hover,.f-ink .riso:has(.riso-map:hover) .riso-go{background:var(--violet);color:var(--white);border-color:var(--violet);text-decoration:none;}
+.f-ink a.riso-go:hover,.f-ink .riso:has(.riso-map:hover) .riso-go{background:var(--violet);color:var(--white);text-decoration:none;}
+@media (prefers-reduced-motion:reduce){.riso-go{transition:none;}}
 .riso-bar{margin:14px 0 0;display:flex;justify-content:space-between;gap:6px 20px;flex-wrap:wrap;}
 .riso-credit{font-size:12px;opacity:.75;}
 @media (prefers-reduced-motion:reduce){

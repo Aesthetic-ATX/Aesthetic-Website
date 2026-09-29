@@ -83,10 +83,11 @@ export function RisoMap() {
             <path d={`M16 404 H${16 + FT_100} M16 398 V410 M${16 + FT_100} 398 V410`} />
             <text className="map-lbl" x="16" y="391">100 FT</text>
           </g>
-          {/* 60% of its first size (user's call, 2026-09-29), the tip on the building's middle */}
+          {/* 60% of its first size, sitting in the middle of the citron building: the pin's box is
+              centred on the footprint's centroid, 284.5 214.4 (user's call, 2026-09-29) */}
           <g className="pin">
-            <path d="M286 210 L278.8 195.6 A10.2 10.2 0 1 1 293.2 195.6 Z" fill="var(--violet)" />
-            <circle cx="286" cy="188.4" r="3.6" fill="var(--sheet)" />
+            <path d="M284.5 230.4 L277.3 216 A10.2 10.2 0 1 1 291.7 216 Z" fill="var(--violet)" />
+            <circle cx="284.5" cy="208.8" r="3.6" fill="var(--sheet)" />
           </g>
         </svg>
       </a>
