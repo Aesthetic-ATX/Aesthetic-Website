@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Fragment } from "react";
 import { site } from "@/data/site";
 import { Message } from "@/components/Message";
+import { TaglineBlank } from "@/components/TaglineBlank";
 import { VisitTeaser } from "@/components/VisitTeaser";
 
 /** DUMMY COPY, drawn from the existing About text until the church writes the final line.
@@ -105,12 +106,10 @@ export default function Home() {
       {/* The tagline, then the invitation to visit. The Aesthetic Weekly was
           removed from the homepage on 2026-09-17: its story became /visit,
           and this card is what hands off to it. */}
-      <section className="sec">
+      {/* No top padding: the message section above already ends with a full section gap. */}
+      <section className="sec sec-flush-top">
         <div className="wrap">
-          <div className="tagline-block">
-            <span className="lbl">THE ONLY THING WE ASK</span>
-            <p className="sp quote">{site.tagline}</p>
-          </div>
+          <TaglineBlank />
 
           <VisitTeaser />
         </div>
