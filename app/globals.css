@@ -101,9 +101,9 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .skip{position:absolute;left:-9999px;background:var(--sheet);color:var(--ink);padding:14px 20px;border:var(--key);z-index:99;}
 .skip:focus{left:8px;top:8px;}
 
-/* buttons: 0px is paper, 9999px is die-cut ------------------ */
+/* buttons: soft-cornered, 10px on a 52px button (user reference, 2026-09-28) */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  border-radius:9999px;padding:15px 28px;min-height:52px;border:3px solid transparent;
+  border-radius:10px;padding:15px 28px;min-height:52px;border:3px solid transparent;
   font-size:13px;font-weight:700;letter-spacing:.1em;cursor:pointer;text-align:center;}
 .btn,.btn:hover{text-decoration:none;}
 .btn-v{background:var(--violet);color:var(--white);border-color:var(--violet);}
@@ -549,7 +549,7 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
   .statement-dot{display:none;}
   .highlight-row{flex-direction:column;}
   .btn{width:100%;}
-  .hero-actions .btn{width:auto;}   /* full width read as a pop-up bar here */
+  .hero-actions .btn,.about-copy .btn,.teaser-body .btn{width:auto;}   /* full width read as a pop-up bar */
   .foot-top{grid-template-columns:1fr;gap:36px;}
   .foot-refs{grid-template-columns:1fr;}
   /* phones: the pause button moves under the headline instead of over it */
