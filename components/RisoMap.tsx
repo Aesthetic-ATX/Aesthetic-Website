@@ -2,14 +2,24 @@
 
 import { useEffect, useRef, useState } from "react";
 import { site } from "@/data/site";
+import { risoMap } from "@/data/riso-map";
+
+/* Primary roads (East 7th's two carriageways) are drawn wide enough to read as one street. */
+const ROADS: [string, string][] = [
+  ...risoMap.residential.map((d) => ["res", d] as [string, string]),
+  ...risoMap.tertiary.map((d) => ["ter", d] as [string, string]),
+  ...risoMap.primary.map((d) => ["pri", d] as [string, string]),
+];
+const FT_100 = Math.round((100 * 0.3048) / risoMap.metresPerUnit);
 
 const destination = `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`;
 
 /**
  * The footer map, printed rather than embedded (prototypes/footer-2.html, chosen
- * 2026-09-28). A flat drawing of the block from the church's own parking image: the
- * streets draw in, the Northwest Ave parking lights up citron, the pin drops on Sapien
- * Center, then a dotted route walks from the parking to the building. Not to scale.
+ * 2026-09-28). The streets, rail and building outline are real OpenStreetMap geometry
+ * drawn to scale (0.40 m a unit, with a 100 ft bar): they draw in, the parking on both
+ * kerbs of Northwestern Avenue lights up citron, the pin drops on Sapien Center, then a
+ * dotted route walks from the parking to the building.
  *
  * Nothing loads from Google until it is pressed, so no third-party cookies and no layout
  * shift. Pressing it opens Google Maps directions from the visitor's own location, with
@@ -43,45 +53,46 @@ export function RisoMap() {
         rel="noopener noreferrer"
       >
         <svg viewBox="0 0 600 420" aria-hidden="true">
-          <path className="road case draw d1" pathLength={1} d="M-20 362 L620 316" />
-          <path className="road fill draw d1" pathLength={1} d="M-20 362 L620 316" />
-          <path className="road case draw d2" pathLength={1} d="M-20 300 C110 298 190 322 252 344" />
-          <path className="road fill draw d2" pathLength={1} d="M-20 300 C110 298 190 322 252 344" />
-          <path className="road case draw d3" pathLength={1} d="M455 330 L522 -20" />
-          <path className="road fill draw d3" pathLength={1} d="M455 330 L522 -20" />
-          <path className="road case draw d4" pathLength={1} d="M-20 118 C160 96 340 92 496 118" />
-          <path className="road fill draw d4" pathLength={1} d="M-20 118 C160 96 340 92 496 118" />
-          <path className="park draw d5" pathLength={1} d="M438 314 L474 126" />
-          <path className="park draw d5" pathLength={1} d="M472 318 L508 128" />
-          <path className="walk" d="M440 236 C410 238 390 240 364 240" />
-          <text className="walk-lbl" x="378" y="222">WALK</text>
+          {/* Streets from OpenStreetMap, projected to scale (data/riso-map.ts). The rail line is
+              in the data but left off: it crossed the street labels and helps no one find the door. */}
+          {ROADS.map(([kind, d], i) => <path key={`c${i}`} className={`road case ${kind} draw`} pathLength={1} d={d} />)}
+          {ROADS.map(([kind, d], i) => <path key={`f${i}`} className={`road fill ${kind} draw`} pathLength={1} d={d} />)}
+          {risoMap.parking.map((d, i) => <path key={`p${i}`} className="park draw d5" pathLength={1} d={d} />)}
+          <path className="walk" d="M364 227 C348 224 332 222 316 219" />
+          <text className="walk-lbl" x="326" y="211">WALK</text>
           <g className="venue">
-            <rect x="238" y="206" width="124" height="64" transform="rotate(-6 300 238)" fill="var(--citron)" stroke="var(--ink)" strokeWidth="3" />
-            <text className="map-lbl venue-lbl" textAnchor="middle" transform="rotate(-6 300 238)">
-              <tspan x="300" y="234">SAPIEN</tspan>
-              <tspan x="300" dy="1.15em">CENTER</tspan>
+            <path d={risoMap.building} fill="var(--citron)" stroke="var(--ink)" strokeWidth="3" strokeLinejoin="round" />
+            <text className="map-lbl" textAnchor="end">
+              <tspan x="250" y="200">SAPIEN</tspan>
+              <tspan x="250" dy="1.2em">CENTER</tspan>
             </text>
           </g>
           <g className="streets">
-            <text className="map-lbl" x="300" y="386" transform="rotate(-4 300 386)">E 7TH ST</text>
-            <text className="map-lbl" x="18" y="284">MORELOS ST</text>
-            <text className="map-lbl" x="150" y="88" transform="rotate(-3 150 88)">CORONADO ST</text>
-            <text className="map-lbl" x="0" y="0" transform="translate(544 250) rotate(-79)">NORTHWEST AVE</text>
-            <text className="map-lbl" x="0" y="0" transform="translate(425 196) rotate(-79)">PARKING</text>
+            <text className="map-lbl" x="0" y="0" transform="translate(34 330) rotate(10.5)">E 7TH ST</text>
+            <text className="map-lbl" x="0" y="0" transform="translate(28 140) rotate(24)">MORELOS ST</text>
+            <text className="map-lbl" x="0" y="0" transform="translate(413 250) rotate(-43.5)">NORTHWESTERN AVE</text>
+            <text className="map-lbl lbl-minor" x="0" y="0" transform="translate(372 38) rotate(32)">CORONADO ST</text>
+            <text className="map-lbl" x="0" y="0" transform="translate(412 160) rotate(-43.5)">PARKING</text>
+          </g>
+          {/* A true scale bar: 100 ft is 30.5 m, at 0.40 m a unit */}
+          <g className="scale">
+            <path d={`M16 404 H${16 + FT_100} M16 398 V410 M${16 + FT_100} 398 V410`} />
+            <text className="map-lbl" x="16" y="391">100 FT</text>
           </g>
           <g className="pin">
-            <path d="M300 200 L288 176 A17 17 0 1 1 312 176 Z" fill="var(--violet)" />
-            <circle cx="300" cy="164" r="6" fill="var(--sheet)" />
+            <path d="M286 204 L274 180 A17 17 0 1 1 298 180 Z" fill="var(--violet)" />
+            <circle cx="286" cy="168" r="6" fill="var(--sheet)" />
           </g>
         </svg>
         {/* The link's name starts with what it says on screen (WCAG 2.5.3). */}
         <span className="riso-go">Open in Google Maps</span>
         <span className="sr-only"> for directions to {site.venue}, {destination}</span>
       </a>
-      {/* Outside the link, so the link's name is only where it goes (WCAG 2.5.3) */}
-      <span className="riso-note" aria-hidden="true">NOT TO SCALE</span>
       </div>
-      <p className="sm riso-bar">{site.venue}, {destination}</p>
+      <p className="sm riso-bar">
+        {site.venue}, {destination}
+        <span className="riso-credit">Map data &copy; OpenStreetMap contributors</span>
+      </p>
     </div>
   );
 }

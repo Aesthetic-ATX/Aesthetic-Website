@@ -124,7 +124,7 @@ export const visit = {
       src: "/images/visit-parking-v1.jpg",
       width: 1229,
       height: 1280,
-      alt: "Aerial map. Aesthetic's green building is on Morelos Street, just off East 7th Street. Parking is marked along both sides of Northwest Avenue, which runs north from East 7th Street to Coronado Street.",
+      alt: "Aerial map. Aesthetic's green building is on Morelos Street, just off East 7th Street. Parking is marked along both sides of Northwestern Avenue (labelled Northwest Ave in the image), which runs north from East 7th Street to Coronado Street.",
     },
     caption: { kicker: "PARKING INSTRUCTIONS.", text: "Where to leave the car, and how to get to the entrance of Sapien Center." },
   },
@@ -136,8 +136,9 @@ export const visit = {
       { term: "WHEN", value: "Sundays at 11am, doors open at 10:30" },
       /* Links to the Sapien Center pin in Google Maps, styled like "Get directions" (2026-09-23). */
       { term: "WHERE", value: "2316 Morelos St, Austin, TX 78702", href: "place" },
-      /* Read off the church's parking map (2026-09-23): parking is marked on both sides of Northwest Ave. */
-      { term: "PARKING", value: "Street parking on both sides of Northwest Ave" },
+      /* Read off the church's parking map (2026-09-23). The map labels it "Northwest Ave"; the street's
+         real name is Northwestern Avenue (OpenStreetMap, checked 2026-09-28), matching the footer map. */
+      { term: "PARKING", value: "Street parking on both sides of Northwestern Ave" },
       /* Second line sets in Spectral italic: it is the church's tagline (user's wording, 2026-09-23). */
       { term: "WHAT PEOPLE WEAR", value: "You do not need to dress a certain way.", tagline: "Just come as you are." },
     ],

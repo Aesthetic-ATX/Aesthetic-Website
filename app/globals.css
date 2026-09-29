@@ -451,17 +451,22 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .riso-frame{position:relative;}
 .riso-map{display:block;position:relative;background:var(--sky);border:3px solid var(--sheet);}
 .riso-map svg{display:block;width:100%;height:auto;}
-.riso-note{position:absolute;left:15px;bottom:13px;pointer-events:none;font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--ink);}
 .riso .road{fill:none;stroke-linecap:round;}
-.riso .road.case{stroke:var(--ink);stroke-width:24;}
-.riso .road.fill{stroke:var(--sheet);stroke-width:17;}
+.riso .road{stroke-linejoin:round;}
+.riso .road.case{stroke:var(--ink);}
+.riso .road.fill{stroke:var(--sheet);}
+/* widths by street type; East 7th's two one-way carriageways overlap into one wide street */
+.riso .road.res.case{stroke-width:22;} .riso .road.res.fill{stroke-width:16;}
+.riso .road.ter.case{stroke-width:24;} .riso .road.ter.fill{stroke-width:18;}
+.riso .road.pri.case{stroke-width:36;} .riso .road.pri.fill{stroke-width:30;}
+.riso .scale path{fill:none;stroke:var(--ink);stroke-width:3;}
 .riso .park{fill:none;stroke:var(--citron);stroke-width:7;stroke-linecap:round;}
 .riso .map-lbl,.riso .walk-lbl{font:700 12px 'Jost',sans-serif;letter-spacing:.12em;fill:var(--ink);}
 .riso .draw{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.1s var(--feed);}
 .riso.in .draw{stroke-dashoffset:0;}
-.riso.in .d2{transition-delay:.15s;} .riso.in .d3{transition-delay:.3s;} .riso.in .d4{transition-delay:.45s;} .riso.in .d5{transition-delay:.9s;}
-.riso .venue,.riso .streets{opacity:0;transition:opacity .4s linear 1.1s;}
-.riso.in .venue,.riso.in .streets{opacity:1;}
+.riso.in .ter{transition-delay:.15s;} .riso.in .res{transition-delay:.3s;} .riso.in .d5{transition-delay:.9s;}   /* main road first, then the side streets, then parking */
+.riso .venue,.riso .streets,.riso .scale{opacity:0;transition:opacity .4s linear 1.1s;}
+.riso.in .venue,.riso.in .streets,.riso.in .scale{opacity:1;}
 .riso .pin{transform:translateY(-60px);opacity:0;transition:transform .5s var(--press) 1.35s,opacity .1s linear 1.35s;}
 .riso.in .pin{transform:none;opacity:1;}
 .riso-map:hover .pin{transform:translateY(-6px);transition-delay:0s;}
@@ -475,11 +480,12 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .riso-go{position:absolute;right:12px;bottom:10px;font-size:14px;font-weight:700;line-height:1;color:var(--violet);
   background:var(--sheet);border:2px solid var(--ink);border-radius:9999px;padding:8px 14px;}
 .f-ink .riso-map:hover .riso-go{background:var(--violet);color:var(--white);border-color:var(--violet);}
-.riso-bar{margin:14px 0 0;}
+.riso-bar{margin:14px 0 0;display:flex;justify-content:space-between;gap:6px 20px;flex-wrap:wrap;}
+.riso-credit{font-size:12px;opacity:.75;}
 @media (prefers-reduced-motion:reduce){
-  .riso .draw,.riso .venue,.riso .streets,.riso .pin,.riso .walk,.riso .walk-lbl{transition:none;animation:none;}
+  .riso .draw,.riso .venue,.riso .streets,.riso .scale,.riso .pin,.riso .walk,.riso .walk-lbl{transition:none;animation:none;}
   .riso .draw{stroke-dashoffset:0;}
-  .riso .venue,.riso .streets,.riso .pin,.riso .walk,.riso .walk-lbl{opacity:1;transform:none;}
+  .riso .venue,.riso .streets,.riso .scale,.riso .pin,.riso .walk,.riso .walk-lbl{opacity:1;transform:none;}
 }
 
 .foot-base{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
@@ -547,7 +553,8 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
   .foot-tag{flex-direction:column;align-items:center;gap:16px;}
   .decode-toggle{position:static;}
   /* the map's labels are drawn at desktop size; at phone width they'd be ~7px */
-  .riso .map-lbl,.riso .walk-lbl{font-size:19px;letter-spacing:.06em;}
+  .riso .map-lbl,.riso .walk-lbl{font-size:18px;letter-spacing:.06em;}
+  .riso .lbl-minor,.riso .walk-lbl{display:none;}   /* at phone size these two would collide; the route still shows */
   .foot-base{flex-direction:column;align-items:flex-start;}
 }
 
