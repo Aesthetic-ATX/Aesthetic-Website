@@ -8,6 +8,7 @@ function short(iso: string) {
     .toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" })
     .toUpperCase();
 }
+const COUNT = ["ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE", "TEN"];
 function long(iso: string) {
   return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", { month: "long", day: "numeric", timeZone: "UTC" });
 }
@@ -16,7 +17,7 @@ function long(iso: string) {
  * This week's message, under the bulletin masthead from Screenshot #1:
  * kicker, two-line title, then the three-slot dateline. Below it, a magazine
  * contents page: the series poster on the left, the pastor's note and
- * the five Sundays on the right, this week marked in green.
+ * the series' Sundays on the right, this week marked in green.
  */
 export function Message() {
   const first = message.weeks[0].date;
@@ -81,7 +82,7 @@ export function Message() {
           </ol>
           <div className="byline">
             <span>{message.byline}</span>
-            <span>FIVE SUNDAYS FROM {long(first).toUpperCase()}</span>
+            <span>{COUNT[message.weeks.length - 1]} SUNDAYS FROM {long(first).toUpperCase()}</span>
           </div>
         </div>
       </div>

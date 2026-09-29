@@ -26,10 +26,11 @@ export const message = {
     alt: "Series poster: Move to the rhythm, simple practices for a life with God, starts Sunday, September 20th. An open Bible, a journal and headphones on a sunlit desk.",
   },
   /** John's series summary, edited 2026-09-23. The spoken welcome and the
-   *  series title were cut: the masthead and the poster already carry it. */
+   *  series title were cut: the masthead and the poster already carry it.
+   *  Five weeks became four on 2026-09-29, John's call. */
   note: [
     "Every song has a beat. The beat keeps a song moving and tells it where to go. Our lives work the same way. There are rhythms and practices that shape us. They help us slow down, stay close to God, and become more like Jesus on ordinary days.",
-    "Following Jesus means living with Him every day of the week. Over the next five weeks, we'll look at five simple practices that can form a healthy spiritual rhythm. Each one helps us hear from Jesus and make room for Him in a busy week.",
+    "Following Jesus means living with Him every day of the week. Over the next four weeks, we'll look at four simple practices that can form a healthy spiritual rhythm. Each one helps us hear from Jesus and make room for Him in a busy week.",
   ],
   byline: "JOHN LEE · PASTOR",
   /** 1-based index into `weeks` of the Sunday this card is about. */
@@ -39,6 +40,5 @@ export const message = {
     { date: "2026-09-27", title: "Practice of reading Scripture" },
     { date: "2026-10-04", title: null },
     { date: "2026-10-11", title: null },
-    { date: "2026-10-18", title: null },
-  ] satisfies Week[],
+  ] satisfies Week[],   // four Sundays, not five: John shortened the series (2026-09-29)
 } as const;
