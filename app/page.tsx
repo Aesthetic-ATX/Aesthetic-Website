@@ -39,16 +39,16 @@ export default function Home() {
               <span className="lbl">NON-DENOMINATIONAL &middot; EAST AUSTIN</span>
               <h1 className="h1">{site.service.day}<br />at {site.service.time}</h1>
             </div>
+            {/* The address is the directions link, as on /visit. The one button goes to
+                /visit: a full-width violet Directions pill read as a paywall pop-up on
+                phones (team feedback, 2026-09-28). */}
             <p className="hero-where">
-              {site.address.street}, {site.address.city} {site.address.region} {site.address.postalCode}
+              <a href={site.directionsUrl} target="_blank" rel="noopener noreferrer">
+                {site.address.street}, {site.address.city} {site.address.region} {site.address.postalCode}
+              </a>
             </p>
-            {/* This button opens Google Maps, so it is labelled for where it goes.
-                "Plan your visit" belongs to the nav and footer links to /visit. */}
             <div className="hero-actions">
-              <a href={site.mapsUrl} className="btn btn-v">Directions</a>
-              <Link href="/visit" className="arrow-link">
-                What to expect <span aria-hidden>&rarr;</span>
-              </Link>
+              <Link href="/visit" className="btn btn-v">Plan your visit</Link>
             </div>
           </div>
         </div>
