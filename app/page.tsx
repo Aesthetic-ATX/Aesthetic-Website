@@ -21,10 +21,11 @@ export default function Home() {
           in the caption. */}
       <section className="hero" id="visit">
         <div className="hero-plate">
-          {/* Source: ~/Desktop/Image Option #1.png (1672x941), supplied 2026-09-23. Uppercase lettering.
+          {/* Source: ~/Desktop/Aesthetic (09:29) Hero Image.png (1672x941), supplied 2026-09-29: the
+              wordmark now reads "Aesthetic", capitalised at Pastor John's request.
               Filename is versioned on every swap: a reused name leaves browsers on the cached copy. */}
           <Image
-            src="/images/hero-full-v3.jpg"
+            src="/images/hero-full-v4.jpg"
             alt="A musician plays bass on stage at a table of pedals, in front of green and yellow chevron projections, beside the words come as you are"
             fill
             sizes="100vw"
