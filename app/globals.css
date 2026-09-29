@@ -85,6 +85,7 @@ body{
 /* structure ------------------------------------------------- */
 .wrap{width:100%;max-width:var(--wrap);margin:0 auto;}
 .sec{padding:clamp(48px,6vw,76px) var(--pad);}
+.sec-flush-top{padding-top:0;}
 .f-sky{background:var(--sky);}
 .f-green{background:var(--green);}
 .f-ink{background:var(--ink);color:var(--sheet);}
@@ -386,8 +387,8 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 /* the tagline as a blank to fill in (components/TaglineBlank.tsx, chosen 2026-09-28) ------ */
 /* No field and no frame: violet type straight on the sheet (user's call, 2026-09-28). This is the
    one place violet is not a link, stated in DESIGN.md; nothing here can be pressed. */
-.blank{color:var(--violet);text-align:center;padding:clamp(24px,4vw,48px) 0 clamp(40px,6vw,72px);margin:0 0 clamp(20px,3vw,36px);}
-.blank h2{text-transform:uppercase;margin:0 0 clamp(18px,2.4vw,30px);}
+.blank{color:var(--violet);text-align:center;padding:0 0 clamp(40px,6vw,72px);margin:0 0 clamp(20px,3vw,36px);}
+.blank h2{color:var(--ink);text-transform:uppercase;margin:0 0 clamp(18px,2.4vw,30px);}
 .blank-line{margin:0;font-size:clamp(40px,7.4vw,104px);line-height:1.2;
   display:inline-flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:0 .28em;}
 /* both halves are the same kind of box, so "come as" and the blank share one baseline */
@@ -618,7 +619,7 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 /* the Sunday line that closes /visit: no box, violet label, the address is the link */
 .sunday{margin:clamp(32px,4vw,48px) 0 0;}
 .sunday p{margin:0;}
-.sunday .sunday-k{color:var(--violet);margin-bottom:10px;}
+.sunday .sunday-k{margin-bottom:10px;}
 .sunday a{text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px;}
 .sunday a:hover{text-decoration-thickness:3px;}
 

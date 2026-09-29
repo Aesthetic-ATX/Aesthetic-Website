@@ -106,7 +106,8 @@ export default function Home() {
       {/* The tagline, then the invitation to visit. The Aesthetic Weekly was
           removed from the homepage on 2026-09-17: its story became /visit,
           and this card is what hands off to it. */}
-      <section className="sec">
+      {/* No top padding: the message section above already ends with a full section gap. */}
+      <section className="sec sec-flush-top">
         <div className="wrap">
           <TaglineBlank />
 
