@@ -46,11 +46,15 @@ export function RisoMap() {
   return (
     <div ref={box} className={`riso${inView ? " in" : ""}`}>
       <div className="riso-frame">
+      {/* The whole map still opens directions for a mouse or a thumb, but it is out of the tab
+          order and hidden from screen readers: the named link under the address is the one to use. */}
       <a
         className="riso-map"
         href={site.directionsUrl}
         target="_blank"
         rel="noopener noreferrer"
+        tabIndex={-1}
+        aria-hidden="true"
       >
         <svg viewBox="0 0 600 420" aria-hidden="true">
           {/* Streets from OpenStreetMap, projected to scale (data/riso-map.ts). The rail line is
@@ -79,20 +83,24 @@ export function RisoMap() {
             <path d={`M16 404 H${16 + FT_100} M16 398 V410 M${16 + FT_100} 398 V410`} />
             <text className="map-lbl" x="16" y="391">100 FT</text>
           </g>
+          {/* 60% of its first size (user's call, 2026-09-29), the tip on the building's middle */}
           <g className="pin">
-            <path d="M286 204 L274 180 A17 17 0 1 1 298 180 Z" fill="var(--violet)" />
-            <circle cx="286" cy="168" r="6" fill="var(--sheet)" />
+            <path d="M286 210 L278.8 195.6 A10.2 10.2 0 1 1 293.2 195.6 Z" fill="var(--violet)" />
+            <circle cx="286" cy="188.4" r="3.6" fill="var(--sheet)" />
           </g>
         </svg>
-        {/* The link's name starts with what it says on screen (WCAG 2.5.3). */}
-        <span className="riso-go">Open in Google Maps</span>
-        <span className="sr-only"> for directions to {site.venue}, {destination}</span>
       </a>
       </div>
       <p className="sm riso-bar">
         {site.venue}, {destination}
         <span className="riso-credit">Map data &copy; OpenStreetMap contributors</span>
       </p>
+      {/* Under the address, outside the map (user's call, 2026-09-29). The link's name starts
+          with what it says on screen (WCAG 2.5.3). */}
+      <a className="riso-go" href={site.directionsUrl} target="_blank" rel="noopener noreferrer">
+        Open in Google Maps
+        <span className="sr-only"> for directions to {site.venue}, {destination}</span>
+      </a>
     </div>
   );
 }
