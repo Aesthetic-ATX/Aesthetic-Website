@@ -55,7 +55,7 @@ export function VisitTeaser() {
             stand up as a guest. Expect original art by people in our community, contemporary worship,
             and a Bible-based message from Pastor John.
           </p>
-          <Link href="/visit" className="btn btn-v">Join us this Sunday</Link>
+          <Link href="/visit" className="btn btn-o">Join us this Sunday</Link>
         </div>
       </div>
       <div className="plates">

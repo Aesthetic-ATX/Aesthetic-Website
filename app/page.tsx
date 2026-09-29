@@ -73,7 +73,7 @@ export default function Home() {
                 We believe God is not distant, boring, or disconnected from everyday life. He is
                 creative, present, and actively involved in people&rsquo;s stories.
               </p>
-              <Link href="/about" className="btn btn-v">Meet the church</Link>
+              <Link href="/about" className="btn btn-o">Meet the church</Link>
             </div>
           </div>
 

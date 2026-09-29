@@ -101,15 +101,20 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .skip{position:absolute;left:-9999px;background:var(--sheet);color:var(--ink);padding:14px 20px;border:var(--key);z-index:99;}
 .skip:focus{left:8px;top:8px;}
 
-/* buttons: soft-cornered, 10px on a 52px button (user reference, 2026-09-28) */
+/* buttons: square-cut card stock with the same 3px ink keyline as the ticket and
+   photo frames (anti-slop pass, 2026-09-29). A 10px violet button is the stock
+   Tailwind/shadcn default; the keyline ties buttons to this bulletin instead.
+   Solid violet is the primary action; the outline is for secondary actions. */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  border-radius:10px;padding:15px 28px;min-height:52px;border:3px solid transparent;
-  font-size:13px;font-weight:700;letter-spacing:.1em;cursor:pointer;text-align:center;}
+  border-radius:0;padding:15px 28px;min-height:52px;border:var(--key);
+  font-size:13px;font-weight:700;letter-spacing:.1em;cursor:pointer;text-align:center;
+  transition:background-color .15s ease,color .15s ease;}
 .btn,.btn:hover{text-decoration:none;}
-.btn-v{background:var(--violet);color:var(--white);border-color:var(--violet);}
-.btn-v:hover{background:var(--ink);border-color:var(--ink);color:var(--white);}
-.btn-o{background:transparent;color:var(--ink);border-color:var(--ink);}
-.btn-o:hover{background:var(--ink);color:var(--sheet);}
+.btn-v{background:var(--violet);color:var(--white);}
+.btn-v:hover{background:var(--ink);color:var(--white);}
+.btn-o{background:transparent;color:var(--violet);}
+.btn-o:hover{background:var(--violet);color:var(--white);}
+@media (prefers-reduced-motion:reduce){.btn{transition:none;}}
 
 /* nav: logotype, a keylined capsule of page links, then the one CTA ---- */
 .nav{position:sticky;top:0;z-index:50;background:var(--sheet);border-bottom:var(--hair);}
