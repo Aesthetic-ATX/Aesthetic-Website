@@ -3,11 +3,11 @@ import { Frame } from "@/components/Frame";
 import { groups } from "@/data/groups";
 import { metaFor } from "@/data/meta";
 
-export const metadata = metaFor("bibleStudy");
+export const metadata = metaFor("groups");
 
-export default function BibleStudy() {
+export default function Groups() {
   return (
-    <section className="sec page-bible">
+    <section className="sec page-groups">
       <div className="wrap" style={{ display: "flex", flexDirection: "column", gap: "clamp(32px,4vw,44px)" }}>
         <div className="col" style={{ gap: 18 }}>
           <span className="lbl">GROUPS</span>
@@ -15,14 +15,14 @@ export default function BibleStudy() {
             Honest questions, in a room with other people.
           </h1>
           <p className="bl" style={{ maxWidth: "62ch" }}>
-            Three groups meet through the week. One reads the Bible over coffee, one walks a
-            different trail every Sunday, and one meets Saturday mornings. You do not need to have
+            Three groups meet through the week. One reads through Luke on Wednesday evenings, one
+            walks a different trail every Sunday, and one meets over coffee on Saturday mornings. You do not need to have
             read anything, know anyone, or have an answer ready. Turning up is the whole requirement.
           </p>
         </div>
 
-        {/* Each group is a printed ticket: ink stub, tear line, details, photo.
-            Chosen 2026-09-16 from prototypes/groups.html, option B. */}
+        {/* Each group is a printed ticket: ink stub, tear line, details, the group's poster.
+            Chosen 2026-09-16 from prototypes/groups.html, option B; posters 2026-09-30. */}
         <div className="tickets">
           {[...groups].sort((a, b) => a.weekday - b.weekday).map((g) => (
             <article key={g.name} className="ticket" aria-label={`${g.name}, ${g.when}`}>
@@ -33,6 +33,7 @@ export default function BibleStudy() {
               <div className="ticket-main">
                 <h2 className="ticket-name">{g.name}</h2>
                 <p className="ticket-where">{g.where.map((w, k) => <span key={k}>{w}<br /></span>)}</p>
+                {g.note ? <p className="sm ticket-note">{g.note}</p> : null}
                 <p className="sm">
                   Interested?<br />
                   Contact {g.contact.name} at{" "}
@@ -48,12 +49,13 @@ export default function BibleStudy() {
               </div>
               {g.photo.src ? (
                 <div className="ticket-img">
+                  {/* The poster carries its own lettering, so it keeps its 2:3 shape and is never cropped */}
                   <Image
                     src={g.photo.src}
                     alt={g.photo.alt}
-                    fill
-                    sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 380px"
-                    style={{ objectPosition: g.photo.position }}
+                    width={1320}
+                    height={1983}
+                    sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 340px"
                   />
                 </div>
               ) : (

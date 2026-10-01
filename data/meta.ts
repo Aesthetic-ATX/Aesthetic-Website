@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { site } from "./site";
 
 /** Titles and descriptions come from the approved SEO keyword map. Do not rewrite. */
-type Route = "home" | "about" | "bibleStudy" | "give" | "visit";
+type Route = "home" | "about" | "groups" | "give" | "visit";
 
 /** `shareTitle` overrides the title only in link previews (iMessage, Instagram, Facebook);
  *  search results and the browser tab keep the SEO map's `title`. */
@@ -21,11 +21,12 @@ const copy: Record<Route, { title: string; shareTitle?: string; description: str
       "Learn about Aesthetic Church Austin, a modern, spirit-filled church helping people experience God in a real, creative, and meaningful way.",
     path: "/about",
   },
-  bibleStudy: {
+  /* The page is called Groups (2026-09-30); the title keeps the SEO map's search term. */
+  groups: {
     title: "Bible Study Groups Austin | Aesthetic Church Austin",
     description:
       "Looking for bible study groups in Austin? Three Aesthetic groups meet through the week for honest conversation, over coffee, on the trail, and on Saturday mornings.",
-    path: "/bible-study",
+    path: "/groups",
   },
   /**
    * NOT FROM THE SEO MAP. The map defines no Plan your visit page, so this

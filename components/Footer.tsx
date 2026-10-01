@@ -6,7 +6,7 @@ import { RisoMap } from "@/components/RisoMap";
 const explore = [
   { href: "/visit", label: "Plan your visit" },
   { href: "/about", label: "About" },
-  { href: "/bible-study", label: "Bible study" },
+  { href: "/groups", label: "Groups" },
   { href: "/give", label: "Give" },
 ];
 

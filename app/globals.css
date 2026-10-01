@@ -239,7 +239,7 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 /* about page: values as an order of service, beliefs as a wall ---------- */
 /* page grounds: --page also colours anything cut out of the page, like ticket notches */
 .page-about{--page:var(--about-page-exp);background:var(--page);}
-.page-bible{--page:var(--bible-page-exp);background:var(--page);}
+.page-groups{--page:var(--bible-page-exp);background:var(--page);}
 .page-give{--page:var(--give-page-exp);background:var(--page);}
 .values{display:flex;flex-direction:column;gap:20px;}
 .values-lbl{margin:0;}
@@ -283,10 +283,10 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
   background:var(--white);color:var(--ink);display:grid;place-items:center;cursor:pointer;padding:0;}
 .found-toggle:hover{background:var(--ink);color:var(--white);}
 
-/* bible study: each group is a printed ticket ------------------------- */
+/* groups: each group is a printed ticket ------------------------- */
 .tickets{display:flex;flex-direction:column;gap:clamp(28px,3.5vw,40px);}
-/* taller tickets with a wider photo column, ready for the real group photos (2026-09-16) */
-.ticket{display:grid;grid-template-columns:200px minmax(0,1fr) clamp(260px,34%,380px);min-height:clamp(300px,30vw,360px);width:100%;max-width:min(1000px,90%);border:var(--key);background:var(--white);}
+/* the third column holds the group poster at its own 2:3, so the ticket is as tall as the poster (2026-09-30) */
+.ticket{display:grid;grid-template-columns:200px minmax(0,1fr) clamp(280px,36%,340px);min-height:clamp(300px,30vw,360px);width:100%;max-width:min(1000px,90%);border:var(--key);background:var(--white);}
 .ticket:nth-child(2){margin-left:auto;}   /* the middle ticket steps right */
 .stub{position:relative;padding:24px 22px;display:flex;flex-direction:column;justify-content:space-between;gap:18px;border-right:3px dashed var(--ink);}
 .stub-green{background:var(--green);} .stub-citron{background:var(--citron);} .stub-sky{background:var(--sky);}
@@ -301,9 +301,10 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .ticket-where{margin:0;font-size:18px;line-height:1.4;}
 .ticket-tel{font-weight:700;}
 .ticket-dir{margin:auto 0 0;padding-top:6px;}   /* sits at the foot of the ticket, where the fine print was */
+.ticket-note{margin:0;}
 .frame.ticket-photo{border:0;border-left:var(--key);min-height:100%;}
-.ticket-img{position:relative;border-left:var(--key);min-height:100%;overflow:hidden;background:var(--neutral);}
-.ticket-img img{object-fit:cover;}
+.ticket-img{border-left:var(--key);background:var(--neutral);}
+.ticket-img img{display:block;width:100%;height:auto;}
 
 /* bulletin furniture, shared by the message card and the Weekly --------- */
 .sheet{background:var(--white);border:var(--key);padding:clamp(18px,3vw,36px);}
@@ -541,7 +542,6 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
   .stub::before{top:auto;bottom:-17px;left:-17px;right:auto;clip-path:inset(0 0 0 50%);}
   .stub::after{bottom:-17px;right:-17px;clip-path:inset(0 50% 0 0);}
   .frame.ticket-photo{border-left:var(--key);border-top:0;aspect-ratio:4/3;min-height:100%;}
-  .ticket-img{aspect-ratio:4/3;}
   .found{grid-template-columns:1fr;}
   .course:nth-child(even){padding:0 4%;}
   .value-row{grid-template-columns:1fr;}
@@ -559,7 +559,7 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
   .ticket{grid-template-columns:1fr !important;}
   .ticket .stub{grid-column:auto !important;}
   .frame.ticket-photo{border-left:0 !important;border-top:var(--key) !important;}
-  .ticket-img{border-left:0;border-top:var(--key);min-height:0;}
+  .ticket-img{border-left:0;border-top:var(--key);}
   .weekly-cols{grid-template-columns:1fr;}
   .weekly-cols>*{border-left:0;padding:16px 0 0 !important;border-top:var(--hair);margin-top:16px;}
   .weekly-cols>*:first-child{border-top:0;border-bottom:0;margin:0;padding-top:0 !important;}

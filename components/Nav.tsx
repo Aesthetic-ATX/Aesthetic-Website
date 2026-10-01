@@ -8,7 +8,7 @@ import { site } from "@/data/site";
 const links = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
-  { href: "/bible-study", label: "Bible study" },
+  { href: "/groups", label: "Groups" },
   { href: "/give", label: "Give" },
 ];
 

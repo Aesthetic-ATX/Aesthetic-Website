@@ -6,16 +6,21 @@ import type { NextConfig } from "next";
  */
 const wixRedirects = [
   { source: "/learn-more", destination: "/about" },
-  { source: "/groups", destination: "/bible-study" },
   { source: "/general-9", destination: "/visit" }, // "Weekend Service"
   { source: "/events", destination: "/visit" },
   { source: "/event-details/:slug", destination: "/visit" },
   { source: "/what-s-coming-up", destination: "/" },
 ];
 
+/* This site's own moved pages. /bible-study was live 2026-09-28 to 09-30 before the page
+   was renamed Groups; /groups is the old Wix address too, so it now lands directly. */
+const moved = [
+  { source: "/bible-study", destination: "/groups" },
+];
+
 const nextConfig: NextConfig = {
   redirects() {
-    return wixRedirects.map((r) => ({ ...r, permanent: true }));
+    return [...wixRedirects, ...moved].map((r) => ({ ...r, permanent: true }));
   },
 };
 
