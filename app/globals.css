@@ -33,6 +33,13 @@
   --about-page-exp:#EDEBF3; /* approved 2026-09-28, an addition to the guidelines: violet's hue (255deg) lightened */
   --bible-page-exp:#E8F2F7; /* approved 2026-09-28, an addition to the guidelines: sky's hue (200deg) lightened */
   --give-page-exp:#FCFDF2;  /* approved 2026-09-28, an addition to the guidelines: citron's hue (~66deg) lightened */
+  /* PENDING APPROVAL (2026-10-01), additions for the Groups week strip: a group day that has
+     already happened this week prints at 30% of its ink on white, and empty days use a grey
+     that holds 7:1 on white. Shown in the approved prototype E; not yet in the guidelines. */
+  --green-past-exp:#E0FDB3;
+  --citron-past-exp:#F6FFB6;
+  --sky-past-exp:#D1F0FF;
+  --muted-exp:#595959;
 
   --key:3px solid var(--ink);
   --hair:1px solid var(--ink);   /* nav rule, nav capsule, About edge */
@@ -283,28 +290,107 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
   background:var(--white);color:var(--ink);display:grid;place-items:center;cursor:pointer;padding:0;}
 .found-toggle:hover{background:var(--ink);color:var(--white);}
 
-/* groups: each group is a printed ticket ------------------------- */
-.tickets{display:flex;flex-direction:column;gap:clamp(28px,3.5vw,40px);}
-/* the third column holds the group poster at its own 2:3, so the ticket is as tall as the poster (2026-09-30) */
-.ticket{display:grid;grid-template-columns:200px minmax(0,1fr) clamp(280px,36%,340px);min-height:clamp(300px,30vw,360px);width:100%;max-width:min(1000px,90%);border:var(--key);background:var(--white);}
-.ticket:nth-child(2){margin-left:auto;}   /* the middle ticket steps right */
-.stub{position:relative;padding:24px 22px;display:flex;flex-direction:column;justify-content:space-between;gap:18px;border-right:3px dashed var(--ink);}
-.stub-green{background:var(--green);} .stub-citron{background:var(--citron);} .stub-sky{background:var(--sky);}
-/* half-circle notches where the ticket tears, cut in the page colour */
-.stub::before,.stub::after{content:"";position:absolute;right:-17px;width:30px;height:30px;border-radius:50%;background:var(--page,var(--sheet));border:var(--key);}
-.stub::before{top:-17px;clip-path:inset(50% 0 0 0);}
-.stub::after{bottom:-17px;clip-path:inset(0 0 50% 0);}
-.stub-day{margin:0;font-size:clamp(46px,4.6vw,64px);font-weight:700;line-height:.85;letter-spacing:-.03em;}
-.stub-time{margin:0;font-size:24px;font-weight:700;line-height:1;}
-.ticket-main{padding:clamp(24px,2.6vw,34px) clamp(22px,2.6vw,32px);display:flex;flex-direction:column;gap:12px;}
-.ticket-name{margin:0;font-size:clamp(24px,2.4vw,32px);font-weight:700;line-height:1.1;letter-spacing:-.01em;}
-.ticket-where{margin:0;font-size:18px;line-height:1.4;}
-.ticket-tel{font-weight:700;}
-.ticket-dir{margin:auto 0 0;padding-top:6px;}   /* sits at the foot of the ticket, where the fine print was */
-.ticket-note{margin:0;}
-.frame.ticket-photo{border:0;border-left:var(--key);min-height:100%;}
-.ticket-img{border-left:var(--key);background:var(--neutral);}
-.ticket-img img{display:block;width:100%;height:auto;}
+/* groups: the week strip over the flyer wall (prototypes/groups-2, option E, 2026-10-01) ------ */
+.gw-lbl{margin:0 0 12px;}
+.gw-span{font-weight:500;}
+.gw-rig{position:relative;scroll-margin-top:16px;}
+/* the selected day's line: one 3px ink rule, drawn like a pen stroke when it moves */
+.gw-wire{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;}
+.gw-wire path{fill:none;stroke:var(--ink);stroke-width:3;stroke-linejoin:miter;stroke-linecap:square;}
+.gw-wire.draw path{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:gw-wire .8s var(--feed) .1s forwards;}
+@keyframes gw-wire{to{stroke-dashoffset:0;}}
+/* the strip: group days get twice the room of empty ones (columns are set inline from the data) */
+.gw-week{display:grid;border:var(--key);background:var(--white);margin-bottom:clamp(56px,7vw,88px);}
+.gw-day{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:18px;min-width:0;min-height:150px;padding:14px 14px 16px;border-left:var(--hair);color:var(--ink);}
+.gw-day:first-child{border-left:0;}
+.gw-d{font-size:13px;font-weight:700;letter-spacing:.1em;}
+.gw-date{font-size:13px;font-variant-numeric:tabular-nums;}
+.gw-off .gw-d,.gw-off .gw-date{color:var(--muted-exp);}
+.gw-tag{font-size:11px;font-weight:700;letter-spacing:.1em;line-height:1.2;}
+.gw-today .gw-tag{color:var(--violet);}
+a.gw-day{background:var(--c);}
+a.gw-day:hover{text-decoration:none;}
+a.gw-day:hover .gw-nm{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;}
+a.gw-day[aria-current]{box-shadow:inset 0 -10px 0 var(--ink);} /* an inset ink bar, not a shadow: no offset, no blur */
+a.gw-day.gw-past{background:var(--c-past);}
+.gw-t{font-size:clamp(26px,2.8vw,40px);font-weight:700;line-height:.9;letter-spacing:-.03em;}
+.gw-t small{font-size:.62em;letter-spacing:0;}
+.gw-nm{font-size:14px;font-weight:700;line-height:1.2;}
+.gw-stamp{position:absolute;right:10px;top:10px;font-size:10px;font-weight:700;letter-spacing:.1em;line-height:1.5;border:2px solid var(--ink);padding:2px 6px;background:var(--white);transform:rotate(4deg);animation:gw-stamp .45s var(--press) .2s both;}
+@keyframes gw-stamp{from{transform:rotate(4deg) scale(1.4);}to{transform:rotate(4deg) scale(1);}}
+.gw-short,.gw-wk-s{display:none;}
+
+/* the flyer wall: three posters taped up at slight angles, each over a block of its own ink */
+/* the tilted flyers and their ink blocks lean a few px past the gutter on phones; clip them, not the page */
+.page-groups{overflow-x:clip;}
+.gw-board{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,4vw,56px);align-items:start;padding-top:18px;}
+.flyer{--tilt:0deg;--drop:0px;transform:translateY(var(--drop));scroll-margin-top:16px;}
+.flyer:nth-child(1){--tilt:-2deg;}
+.flyer:nth-child(2){--tilt:1.6deg;--drop:44px;}
+.flyer:nth-child(3){--tilt:-1deg;--drop:14px;}
+.flyer-paper{position:relative;transform:rotate(var(--tilt));transform-origin:50% 0;animation:gw-pin .7s var(--press) both;animation-delay:calc(var(--i) * 110ms);}
+@keyframes gw-pin{from{transform:rotate(0deg) translateY(-10px);}to{transform:rotate(var(--tilt));}}
+.flyer.lit .flyer-paper{animation:gw-repin .9s var(--press);}
+@keyframes gw-repin{0%{transform:rotate(var(--tilt));}35%{transform:rotate(0deg) translateY(-8px);}100%{transform:rotate(var(--tilt));}}
+/* the ink block is a second flat field printed 9px out of register, not a shadow */
+.flyer-ink{position:absolute;inset:0;transform:translate(9px,9px);background:var(--c);}
+.flyer-sheet{position:relative;background:var(--white);border:var(--key);}
+.flyer-sheet img{display:block;width:100%;height:auto;}
+/* citron tape, solid ink with torn ends cut by the outline */
+.tape{position:absolute;top:-16px;left:50%;z-index:2;width:112px;height:32px;margin-left:-56px;background:var(--citron);
+  transform:rotate(calc(var(--tilt) * -2.2));
+  clip-path:polygon(0 0,100% 0,96% 25%,100% 50%,96% 75%,100% 100%,0 100%,4% 75%,0 50%,4% 25%);}
+/* the slip: where it meets and who to call, side by side on the sheet */
+.slip{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);border-top:var(--key);}
+.slip>div{display:flex;flex-direction:column;gap:6px;padding:14px 16px 16px;min-width:0;}
+.slip>div+div{border-left:var(--hair);}
+.slip .lbl{font-size:11px;margin:0;}
+.slip p{margin:0;font-size:14px;line-height:1.4;}
+.slip-v{font-weight:700;}
+.slip-st{display:block;margin-top:8px;}   /* venue, a clear gap, then the street (user's call, 2026-10-01) */
+.slip-map{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;}  /* the venue opens the map */
+.slip-map:hover{text-decoration-thickness:3px;}
+.slip .tel{margin-top:auto;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;}
+
+/* phones: a slim copy of the strip's group days, pinned under the nav once the strip has gone */
+.gw-mini{display:none;position:fixed;left:0;right:0;top:var(--nav-h);z-index:40;background:var(--sheet);border-bottom:var(--key);padding:8px var(--pad);
+  transform:translateY(-110%);visibility:hidden;transition:transform .3s var(--feed),visibility 0s .3s;}
+.gw-mini.on{transform:none;visibility:visible;transition:transform .3s var(--feed);}
+.gw-mini-in{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));max-width:440px;margin:0 auto;border:var(--key);}
+.gw-mini a{display:flex;justify-content:center;align-items:baseline;gap:6px;padding:9px 4px 11px;background:var(--c);color:var(--ink);font-size:13px;font-weight:700;letter-spacing:.06em;border-left:var(--hair);white-space:nowrap;}
+.gw-mini a:first-child{border-left:0;}
+.gw-mini a:hover{text-decoration:none;}
+.gw-mini a.gw-past{background:var(--c-past);}
+.gw-mini a[aria-current]{box-shadow:inset 0 -6px 0 var(--ink);}
+.gw-mini a span{font-weight:500;letter-spacing:0;}
+
+@media (max-width:900px){
+  .gw-board{grid-template-columns:minmax(0,440px);justify-content:center;gap:64px;}
+  .flyer{--drop:0px !important;scroll-margin-top:80px;}   /* clears the mini strip */
+  .flyer:nth-child(1){--tilt:-1.4deg;} .flyer:nth-child(2){--tilt:1.2deg;} .flyer:nth-child(3){--tilt:-.8deg;}
+  .slip p{font-size:16px;} .slip .tel{font-size:17px;} .slip .lbl{font-size:12px;}
+  .gw-mini{display:block;}
+}
+@media (max-width:760px){
+  .gw-week{margin-bottom:48px;}
+  .gw-day{min-height:112px;padding:10px 6px 12px;gap:8px;}
+  .gw-date{font-size:12px;}
+  .gw-mo,.gw-nm{display:none;}
+  .gw-tag{font-size:9px;letter-spacing:.04em;}
+  .gw-today .gw-tag{visibility:hidden;}
+  .gw-today .gw-d{color:var(--violet);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;}
+  .gw-t{font-size:clamp(16px,4.6vw,22px);}
+  .gw-t small{display:block;font-size:12px;margin-top:2px;}
+  .gw-stamp{position:static;align-self:flex-start;transform:none;animation:none;font-size:8px;padding:1px 3px;letter-spacing:.04em;}
+  .gw-up,.gw-wk{display:none;}
+  .gw-wk-s{display:inline;}
+}
+@media (max-width:420px){.gw-long{display:none;} .gw-short{display:inline;}}
+@media (max-width:380px){.slip>div{padding:12px;}}
+@media (prefers-reduced-motion:reduce){
+  .flyer-paper,.flyer.lit .flyer-paper,.gw-stamp,.gw-wire.draw path{animation:none;stroke-dashoffset:0;}
+  .gw-mini,.gw-mini.on{transition:none;}
+}
 
 /* bulletin furniture, shared by the message card and the Weekly --------- */
 .sheet{background:var(--white);border:var(--key);padding:clamp(18px,3vw,36px);}
@@ -534,14 +620,6 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
   .weekly-cols{grid-template-columns:1fr 1fr;}
   .weekly-cols>*:first-child{grid-column:1/-1;padding:0 0 16px;border-bottom:var(--hair);margin-bottom:16px;}
   .weekly-cols>*:nth-child(2){border-left:0;padding-left:0;}
-  /* tablet: stub across the top, details and photo side by side */
-  .ticket{grid-template-columns:1fr 1fr;max-width:none;min-height:0;}
-  .ticket .stub{grid-column:1/-1;}
-  .ticket:nth-child(2){margin-left:0;}
-  .stub{border-right:0;border-bottom:3px dashed var(--ink);flex-direction:row;align-items:flex-end;}
-  .stub::before{top:auto;bottom:-17px;left:-17px;right:auto;clip-path:inset(0 0 0 50%);}
-  .stub::after{bottom:-17px;right:-17px;clip-path:inset(0 50% 0 0);}
-  .frame.ticket-photo{border-left:var(--key);border-top:0;aspect-ratio:4/3;min-height:100%;}
   .found{grid-template-columns:1fr;}
   .course:nth-child(even){padding:0 4%;}
   .value-row{grid-template-columns:1fr;}
@@ -556,10 +634,6 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
   /* phones: the big headings wrap to two or three lines, so they get more air (user's call, 2026-09-29) */
   .msg-name{line-height:1.02;}
   .msg-sub{margin-top:.45em;line-height:1.15;}
-  .ticket{grid-template-columns:1fr !important;}
-  .ticket .stub{grid-column:auto !important;}
-  .frame.ticket-photo{border-left:0 !important;border-top:var(--key) !important;}
-  .ticket-img{border-left:0;border-top:var(--key);}
   .weekly-cols{grid-template-columns:1fr;}
   .weekly-cols>*{border-left:0;padding:16px 0 0 !important;border-top:var(--hair);margin-top:16px;}
   .weekly-cols>*:first-child{border-top:0;border-bottom:0;margin:0;padding-top:0 !important;}

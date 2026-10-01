@@ -4,7 +4,9 @@
  *
  * Weekly: the Called to Carry poster names that Sunday's trail and date, so it is swapped each
  * week. Save the new one as poster-called-to-carry-vN.jpg (a new name, so browsers drop the
- * cached copy) and update its `src` and `alt` below. The other two posters are evergreen.
+ * cached copy) and update its `src` and `alt` below, AND its `trail` (date, place, map link) so
+ * the slip under the poster says the same thing. Once the trail's date has passed the slip stops
+ * naming it and shows `where` and `note` instead. The other two posters are evergreen.
  */
 export type Group = {
   name: string;
@@ -15,9 +17,13 @@ export type Group = {
   ink: "green" | "citron" | "sky";
   /** 0 = Monday. The page lists groups in week order. */
   weekday: number;
+  /** Shorter name for the week strip, where the full one won't fit. */
+  short?: string;
   where: string[];
   /** A short line under the address, e.g. when the next location is announced. */
   note?: string;
+  /** This week's place, for groups that move. Shown until the end of `date` (Austin time). */
+  trail?: { date: string; venue: string; street: string; map: string };
   /** Google Maps pin for the venue. Omitted when the place changes each week. */
   directions?: string;
   contact: { name: string; phone: string; tel: string };
@@ -45,8 +51,16 @@ export const groups: Group[] = [
     name: "“Called to Carry” Hiking Group",
     when: "Sundays at 2:15pm",
     day: "SUN", time: "2:15pm", ink: "sky", weekday: 6,
+    short: "Called to Carry",
     where: ["A different trail each week", "Around Austin"],
-    note: "Next week's trail is revealed midweek.",
+    note: "Next trail posted midweek",
+    /* From the v1 poster, 2026-09-30. Update with each new poster. */
+    trail: {
+      date: "2026-10-04",
+      venue: "Spyglass Trailhead",
+      street: "1601 Spyglass Dr",
+      map: "https://www.google.com/maps/search/?api=1&query=Spyglass+Trailhead%2C+1601+Spyglass+Dr%2C+Austin%2C+TX+78746",
+    },
     contact: { name: "David Humphrey", phone: "(713) 969-9917", tel: "+17139699917" },
     /* Source: ~/Desktop/called-to-carry-poster.jpg, 2026-09-30. Dated: swap weekly (see top of file). */
     photo: {
