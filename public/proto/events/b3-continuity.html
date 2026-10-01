@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>What's happening B3: After the calendar, joined to it</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&family=Spectral:ital,wght@1,500&display=swap">
+<link rel="stylesheet" href="proto.css">
+<link rel="stylesheet" href="flyers.css">
+<link rel="stylesheet" href="week.css">
+<link rel="stylesheet" href="events.css">
+<link rel="stylesheet" href="setlist.css">
+<style>
+.sec{overflow-x:hidden;overflow-x:clip;}
+.sl-sub+.sl-sub{margin-top:2px;}
+.sl-free{font-weight:700;}
+.nw{white-space:nowrap;}   /* each fact wraps whole, never mid-phrase */
+@media (max-width:600px){.sl-sub .dot{display:none;} .sl-sub .nw{display:block;} .sl-sub .ev-map{display:inline-block;}}
+/* B2: B, written in. The sheet hangs itself up, each row is written and ruled in turn, the highlighter
+   swipes the sign-up line, and the countdown is stamped on last. On the night it follows the clock. */
+
+/* B3: B2 moved below the week, and joined to it. The event gets a day box drawn exactly like the
+   strip's (same size, keyline, type and black "selected" bar), and the same hanging line runs from it
+   to the taped set list: the calendar's own grammar, one more time. Its ink is the approved neutral,
+   because the strip has already spent the page's sky, green and citron. */
+.ev.after{margin:clamp(72px,9vw,112px) 0 0;position:relative;}
+.ev.after .sl-ink{background:var(--neutral);}
+.br-row{display:grid;grid-template-columns:20% minmax(0,1fr);gap:clamp(18px,3vw,36px);align-items:end;margin-bottom:clamp(44px,5vw,64px);}
+.ev-day{border:var(--key);background:var(--neutral);box-shadow:inset 0 -10px 0 var(--ink);min-height:150px;}
+.ev-day .d,.ev-day .date{color:var(--ink);}
+.ev-day .t{display:block;margin-bottom:6px;font-size:clamp(26px,2.8vw,40px);font-weight:700;line-height:.9;letter-spacing:-.03em;}
+.ev-day .t small{font-size:.62em;letter-spacing:0;}
+.ev-day .nm{display:block;font-size:14px;font-weight:700;line-height:1.2;}
+.br-lead{margin:0 0 6px;font-size:clamp(17px,1.4vw,19px);line-height:1.6;max-width:56ch;}
+.br-lead .short{display:none;}
+.br-wire{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;}
+.br-wire path{fill:none;stroke:var(--ink);stroke-width:3;stroke-linejoin:miter;stroke-linecap:square;}
+.br-wire.draw path{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:br-draw .7s var(--feed) forwards;}
+@keyframes br-draw{to{stroke-dashoffset:0;}}
+.ev.after .sl-lead{display:none;}
+.ev.after .sl-stamp{display:none;}   /* the day box carries the countdown now */
+@media (max-width:900px){
+  /* the box is one of the strip's three columns wide, just as it is above */
+  .br-row{grid-template-columns:calc((100% - 0px) / 3) minmax(0,1fr);gap:14px;margin-bottom:56px;}
+  .ev-day{min-height:136px;padding:12px 10px 14px;gap:10px;}
+  .ev-day .t{font-size:clamp(26px,7.4vw,34px);}
+  .ev-day .nm{font-size:13px;}
+  .br-lead{font-size:15px;line-height:1.5;margin-bottom:4px;}
+  .br-lead .long{display:none;} .br-lead .short{display:inline;}
+}
+@media (prefers-reduced-motion:reduce){.br-wire.draw path{animation:none;stroke-dashoffset:0;}}
+</style>
+</head>
+<body>
+<div id="shell"></div>
+<main class="sec"><div class="wrap" id="page"></div></main>
+<div class="foot-stub">FOOTER STAYS AS IT IS</div>
+<script src="shell.js"></script>
+<script src="events.js"></script>
+<script>
+shell("b3-continuity.html");
+const e = EVENT, when = eventWhen();
+document.getElementById("page").innerHTML = head + `<div id="week"></div>` + ev.section(`<div class="br-row">
+  <div class="day ev-day" aria-hidden="true">
+    <span><span class="d">${e.day}</span>${when ? `<br><span class="tag">${when.short}</span>` : ""}</span>
+    <span><span class="t">${e.start.replace(/(am|pm)$/, "<small>$1</small>")}</span><span class="nm">${e.name}</span></span>
+    <span class="date">${eventDate({ month: "short", day: "numeric" }).toUpperCase()}</span>
+  </div>
+  <p class="br-lead"><span class="long">${e.lead}</span><span class="short">Music, poetry and whatever else Austin's artists bring. Free, and all ages are welcome.</span></p>
+</div>
+
+<div class="sl-wrap">
+  <div class="sl slm hlm" id="sl">
+    <div class="sl-paper">
+      <span class="sl-ink" aria-hidden="true"></span>
+      <span class="tape" aria-hidden="true"></span>
+      <div class="sl-sheet">
+        <div class="sl-top">
+          <div><p class="lbl">SET LIST</p><h2 class="sl-h">Open Mic Night</h2>
+            <p class="sl-sub"><span class="nw">${eventDate({ weekday: "long", month: "long", day: "numeric" })}</span><span class="dot"> · </span><span class="nw">${e.start} to ${e.end}</span></p>
+            <p class="sl-sub"><a class="ev-map nw" href="${e.map}" aria-label="${e.street}: open in Google Maps">${e.street}</a><span class="dot"> · </span><b class="sl-free nw">Free admission</b></p></div>
+          ${when ? `<span class="sl-stamp">${when.short}</span>` : ""}
+        </div>
+        ${ev.setlist()}
+        <p class="sl-note">${ev.slNote}</p>
+        <div class="sl-do">${ev.rsvp()}</div>
+        ${ev.ask()}
+      </div>
+    </div>
+    ${ev.flyerToggle()}
+  </div>
+  <div class="ev-desk sl-side">${ev.flyer()}</div>
+</div>`);
+</script>
+<script src="week.js"></script>
+<script>
+document.querySelector("section.ev")?.classList.add("after");
+// Same grammar as the strip: once the set list has hung itself up, a line drops from the event's day
+// box to its tape (down, across, down). Redrawn, without the animation, whenever the width changes.
+const evSec = document.querySelector(".ev.after"), sl = document.getElementById("sl");
+if (evSec) {
+  evSec.insertAdjacentHTML("afterbegin", '<svg class="br-wire" aria-hidden="true"><path/></svg>');
+  const svg = evSec.querySelector(".br-wire"), path = svg.firstChild;
+  const still = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const draw = (animate) => {
+    const R = evSec.getBoundingClientRect(), d = evSec.querySelector(".ev-day").getBoundingClientRect();
+    const t = sl.querySelector(".tape").getBoundingClientRect();
+    const x0 = d.left + d.width / 2 - R.left, y0 = d.bottom - R.top, x1 = t.left + t.width / 2 - R.left, y1 = t.top - R.top + 4;
+    const bus = y0 + (y1 - y0) * .45;
+    path.setAttribute("d", Math.abs(x1 - x0) < 2 ? `M${x0} ${y0}V${y1}` : `M${x0} ${y0}V${bus}H${x1}V${y1}`);
+    path.style.setProperty("--len", Math.ceil(path.getTotalLength()));
+    svg.classList.remove("draw"); void svg.getBoundingClientRect(); if (animate && !still()) svg.classList.add("draw");
+  };
+  let drawn = false;
+  new IntersectionObserver((es, io) => {
+    if (!es.some((x) => x.isIntersecting)) return;
+    io.disconnect(); sl.classList.add("in");
+    setTimeout(() => { draw(true); drawn = true; }, still() ? 0 : 950);   // after the sheet has settled
+  }, { threshold: .25 }).observe(sl);
+  let w = evSec.offsetWidth;
+  new ResizeObserver(() => { if (drawn && evSec.offsetWidth !== w) draw(false); w = evSec.offsetWidth; }).observe(evSec);
+}
+</script>
+</body>
+</html>
