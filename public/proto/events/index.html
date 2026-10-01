@@ -13,7 +13,7 @@
 .list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(18px,2.4vw,28px);}
 .opt{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:start;padding:22px;border:var(--key);background:var(--white);color:var(--ink);font-weight:400;}
 .opt:hover{text-decoration:none;background:var(--sheet);}
-.letter{display:grid;place-items:center;width:64px;height:64px;border:var(--key);background:var(--c);font-size:36px;font-weight:700;line-height:1;}
+.letter{display:grid;place-items:center;width:64px;height:64px;letter-spacing:-.04em;border:var(--key);background:var(--c);font-size:36px;font-weight:700;line-height:1;}
 .opt h2{margin:0 0 6px;font-size:24px;line-height:1.1;font-weight:700;}
 .opt p{margin:0 0 12px;font-size:15px;line-height:1.5;}
 .go{color:var(--violet);font-weight:700;font-size:15px;border-bottom:1px solid var(--violet);padding-bottom:3px;}
@@ -27,29 +27,27 @@
 <div id="shell"></div>
 <main class="sec"><div class="wrap">
   <div class="head">
-    <p class="lbl">WHAT'S HAPPENING · FOUR DIRECTIONS</p>
-    <h1 class="h1">Four ways to show Open Mic Night.</h1>
-    <p class="bl">Each option opens as the full Groups page: the live heading, then What's happening, then the week strip as it is live now. The section hides itself once the event is over.</p>
+    <p class="lbl">WHAT'S HAPPENING · ROUND 2</p>
+    <h1 class="h1">B, in motion, and two new turns on it.</h1>
+    <p class="bl">All three start from the set list you picked. Each opens as the full Groups page: the live heading, then What's happening, then the week strip as it is live now. Motion runs once and stays out of the way; with reduced motion switched on, everything is simply there.</p>
   </div>
   <div class="list">
-    <a class="opt" href="a-marquee.html" style="--c:var(--citron)"><span class="letter">A</span><span>
-      <h2>Marquee</h2>
-      <p>A changeable-letter sign on black, the night spelled out in fluorescent letters that drop into their slots. The details sit underneath.</p>
-      <span class="go">Open A &rarr;</span></span></a>
-    <a class="opt" href="b-setlist.html" style="--c:var(--sky)"><span class="letter">B</span><span>
-      <h2>Set list <span class="rec">MY PICK</span></h2>
-      <p>The night as a performer's running order, taped up like the group flyers. The 6 to 6:15 sign-up window is step one, so nobody misses it.</p>
-      <span class="go">Open B &rarr;</span></span></a>
-    <a class="opt" href="c-mixtape.html" style="--c:var(--green)"><span class="letter">C</span><span>
-      <h2>Mixtape</h2>
-      <p>A cassette J-card: the spine and the flyer as its cover. Open the liner notes for Side A, Side B and the details.</p>
-      <span class="go">Open C &rarr;</span></span></a>
-    <a class="opt" href="d-calendar.html" style="--c:var(--neutral)"><span class="letter">D</span><span>
-      <h2>In the calendar</h2>
-      <p>A countdown bar above the week strip that opens into the details. In the event's own week, its Saturday carries it too.</p>
-      <span class="go">Open D &rarr;</span></span></a>
+    <a class="opt" href="b2-setlist-motion.html" style="--c:var(--sky)"><span class="letter">B2</span><span>
+      <h2>Set list, in motion</h2>
+      <p>B, written in. The sheet hangs itself up, each row is written and ruled in turn, the highlighter swipes the sign-up line, and the countdown is stamped on last. On the night it follows the clock: what's over is struck through, what's on is tagged.</p>
+      <span class="go">Open B2 &rarr;</span></span></a>
+    <a class="opt" href="e-folded.html" style="--c:var(--green)"><span class="letter">E</span><span>
+      <h2>Folded set list <span class="rec">NEW</span></h2>
+      <p>B with C's reveal. The set list is folded in thirds; the top shows the night and the countdown. Tap and the two lower panels unfold from their creases, one after the other.</p>
+      <span class="go">Open E &rarr;</span></span></a>
+    <a class="opt" href="f-flip.html" style="--c:var(--citron)"><span class="letter">F</span><span>
+      <h2>Flyer flip <span class="rec">NEW</span></h2>
+      <p>The neon flyer taped up beside the groups. Turn it over and the set list is printed on the back. It peeks once on first view, so people know it turns.</p>
+      <span class="go">Open F &rarr;</span></span></a>
   </div>
-  <p class="tip">To see the week of the event, add <code>?now=2026-10-06T12:00</code> to the address. To see the section hide after the event, use <code>?now=2026-10-10T21:30</code>.</p>
+  <p class="lbl" style="margin:40px 0 12px">ROUND 1, FOR REFERENCE</p>
+  <p class="bl" style="font-size:15px"><a href="b-setlist.html">B Set list</a> · <a href="a-marquee.html">A Marquee</a> · <a href="c-mixtape.html">C Mixtape</a> · <a href="d-calendar.html">D In the calendar</a></p>
+  <p class="tip">To see the set list on the night (struck-through and on-now rows), add <code>?now=2026-10-10T18:20</code>. To see the week of the event, add <code>?now=2026-10-06T12:00</code> to the address. To see the section hide after the event, use <code>?now=2026-10-10T21:30</code>.</p>
 </div></main>
 <script src="shell.js"></script>
 <script>shell("index.html");</script>

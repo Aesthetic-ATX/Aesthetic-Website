@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>What's happening B2: Set list, in motion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&family=Spectral:ital,wght@1,500&display=swap">
+<link rel="stylesheet" href="proto.css">
+<link rel="stylesheet" href="flyers.css">
+<link rel="stylesheet" href="week.css">
+<link rel="stylesheet" href="events.css">
+<link rel="stylesheet" href="setlist.css">
+<style>
+.sec{overflow-x:hidden;overflow-x:clip;}
+/* B2: B, written in. The sheet hangs itself up, each row is written and ruled in turn, the highlighter
+   swipes the sign-up line, and the countdown is stamped on last. On the night it follows the clock. */
+</style>
+</head>
+<body>
+<div id="shell"></div>
+<main class="sec"><div class="wrap" id="page"></div></main>
+<div class="foot-stub">FOOTER STAYS AS IT IS</div>
+<script src="shell.js"></script>
+<script src="events.js"></script>
+<script>
+shell("b2-setlist-motion.html");
+const e = EVENT, when = eventWhen();
+document.getElementById("page").innerHTML = head + ev.section(`<p class="sl-lead">${e.lead}</p>
+<div class="sl-wrap">
+  <div class="sl slm hlm" id="sl">
+    <div class="sl-paper">
+      <span class="sl-ink" aria-hidden="true"></span>
+      <span class="tape" aria-hidden="true"></span>
+      <div class="sl-sheet">
+        <div class="sl-top">
+          <div><p class="lbl">SET LIST</p><h2 class="sl-h">Open Mic Night</h2>
+            <p class="sl-sub">${eventDate({ weekday: "long", month: "long", day: "numeric" })} · ${e.street}</p></div>
+          ${when ? `<span class="sl-stamp">${when.short}</span>` : ""}
+        </div>
+        ${ev.setlist()}
+        <p class="sl-note">${ev.slNote}</p>
+        <div class="sl-do">${ev.rsvp()}</div>
+        ${ev.ask()}
+      </div>
+    </div>
+    <div class="ev-mob">${ev.facts()}</div>
+    ${ev.flyerToggle()}
+  </div>
+  <div class="ev-desk sl-side">${ev.flyer()}${ev.facts()}</div>
+</div>`) + `<div id="week"></div>`;
+</script>
+<script src="week.js"></script>
+<script>
+ev.watch(document.getElementById("sl"));
+</script>
+</body>
+</html>

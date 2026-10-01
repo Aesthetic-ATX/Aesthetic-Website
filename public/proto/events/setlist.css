@@ -1,0 +1,54 @@
+/* The set list sheet, shared by B2, E and F (from B). */
+.sl-lead{margin:0 0 20px;font-size:clamp(17px,1.4vw,19px);line-height:1.6;max-width:60ch;}
+.sl-wrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:clamp(28px,4vw,56px);align-items:start;}
+.sl{--tilt:-1deg;position:relative;padding-top:16px;}
+.sl-paper{position:relative;transform:rotate(var(--tilt));transform-origin:50% 0;}
+.sl-ink{position:absolute;inset:0;transform:translate(9px,9px);background:var(--sky);}
+.sl-sheet{position:relative;background:var(--white);border:var(--key);padding:clamp(22px,3.4vw,40px) clamp(18px,3vw,36px) clamp(20px,3vw,32px);}
+.sl .tape,.ff .tape{transform:rotate(2deg);background:var(--citron);mix-blend-mode:normal;clip-path:polygon(0 0,100% 0,96% 25%,100% 50%,96% 75%,100% 100%,0 100%,4% 75%,0 50%,4% 25%);}
+.sl .tape::before,.sl .tape::after,.ff .tape::before,.ff .tape::after{display:none;}
+.sl-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
+.sl-h{margin:6px 0 4px;font-size:clamp(34px,5vw,54px);font-weight:700;line-height:.95;letter-spacing:-.03em;}
+.sl-sub{margin:0;font-size:16px;font-weight:500;}
+.sl-stamp{flex:none;border:2px solid var(--ink);padding:3px 8px;font-size:11px;font-weight:700;letter-spacing:.1em;background:var(--white);transform:rotate(4deg);}
+.sl-list{list-style:none;margin:22px 0 0;padding:0;border-top:var(--key);}
+.sl-list li{position:relative;display:grid;grid-template-columns:76px minmax(0,1fr);gap:14px;align-items:baseline;padding:12px 0 13px;}
+/* the rule under each row is its own line, so it can be drawn */
+.sl-list li::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--ink);transform-origin:0 50%;}
+.sl-list li:last-child::after{height:3px;}
+.sl-t{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.01em;}
+.sl-t.w{font-size:11px;letter-spacing:.1em;}
+.sl-what{font-size:17px;line-height:1.4;}
+.sl-what b{font-weight:700;}
+.sl-what small{display:block;font-size:14px;line-height:1.45;margin-top:2px;}
+/* the step people miss, inked like a highlighter: one flat green field, sized to the words line by line */
+.sl-list li.hi .hl{background-image:linear-gradient(var(--green),var(--green));background-repeat:no-repeat;background-size:100% 100%;
+  box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:0 4px;margin-left:-4px;}
+/* on the night: what's over is struck through, what's on is tagged */
+.sl-list li.done .sl-t,.sl-list li.done .sl-what{color:#595959;}
+.sl-list li.done .hl{text-decoration:line-through;text-decoration-thickness:2px;background-image:none;}   /* done: struck, and the highlighter no longer needed */
+.sl-now{display:inline-block;margin-left:10px;padding:1px 6px;background:var(--ink);color:var(--sheet);font-style:normal;font-size:10px;font-weight:700;letter-spacing:.1em;vertical-align:3px;}
+.sl-note{margin:14px 0 0;font-size:13px;line-height:1.5;}
+.sl-do{margin-top:24px;}
+.sl-side .ev-facts{margin-top:18px;}
+@media (max-width:900px){.sl-wrap{grid-template-columns:1fr;} .sl{--tilt:-.6deg;margin-right:10px;}}
+
+/* ---- motion (B2 and up). Only when JS says motion is fine; otherwise everything is simply there ---- */
+.mo .slm .sl-paper{transform:rotate(0deg) translateY(-14px);}
+.mo .slm.in .sl-paper{transform:rotate(var(--tilt));transition:transform .9s var(--press);}
+/* each row is written in: its words wipe on left to right, then its rule is drawn */
+.mo .slm .sl-list li>*{clip-path:inset(0 100% 0 0);}
+.mo .slm .sl-list li::after{transform:scaleX(0);}
+.mo .slm.in .sl-list li>*{clip-path:inset(0 0 0 0);transition:clip-path .55s var(--feed);transition-delay:calc(.35s + var(--n) * 140ms);}
+.mo .slm.in .sl-list li>*+*{transition-delay:calc(.43s + var(--n) * 140ms);}
+.mo .slm.in .sl-list li::after{transform:none;transition:transform .5s var(--feed);transition-delay:calc(.5s + var(--n) * 140ms);}
+/* then the highlighter swipes the sign-up line, once the whole list is down */
+.mo .hlm .sl-list li.hi .hl{background-size:0% 100%;}
+.mo .hlm.in .sl-list li.hi .hl{background-size:100% 100%;transition:background-size .6s var(--feed) var(--hl-delay,1.45s);}
+/* and the countdown is stamped on last */
+.mo .slm .sl-stamp{opacity:0;transform:rotate(4deg) scale(1.6);}
+.mo .slm.in .sl-stamp{opacity:1;transform:rotate(4deg) scale(1);transition:transform .45s var(--press) 1.9s,opacity .01s linear 1.9s;}
+/* on the night, the row that's on now breathes */
+.sl-now{animation:sl-on 1.6s ease-in-out infinite;}
+@keyframes sl-on{50%{transform:scale(.9);}}
+@media (prefers-reduced-motion:reduce){.sl-now{animation:none;}}

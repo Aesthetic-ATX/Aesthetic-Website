@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>What's happening E: Folded set list</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&family=Spectral:ital,wght@1,500&display=swap">
+<link rel="stylesheet" href="proto.css">
+<link rel="stylesheet" href="flyers.css">
+<link rel="stylesheet" href="week.css">
+<link rel="stylesheet" href="events.css">
+<link rel="stylesheet" href="setlist.css">
+<style>
+.sec{overflow-x:hidden;overflow-x:clip;}
+/* E: the set list folded in thirds, like it came out of a back pocket. The top third shows the night
+   and the countdown; tap and the other two panels unfold down from their creases, one after the other. */
+.fs .sl-sheet{padding-bottom:0;}
+.fs-front{padding-bottom:clamp(18px,2.4vw,24px);}
+.fs-btn{margin-top:18px;display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:12px 20px;border:var(--key);background:var(--white);color:var(--violet);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;}
+.fs-btn i{font-style:normal;font-size:20px;line-height:1;transition:transform .35s var(--feed);}
+.fs.open .fs-btn i{transform:rotate(45deg);}
+@media (hover:hover){.fs-btn:hover{background:var(--violet);color:var(--white);}}
+/* the two folded panels: no height until opened; each swings down from the crease above it */
+.fs-fold{display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s var(--feed) .25s;}
+.fs.open .fs-fold{grid-template-rows:1fr;transition-delay:0s;}
+.fs-in{overflow:hidden;perspective:1200px;margin:0 calc(-1 * clamp(18px,3vw,36px));}
+.fs-p{padding:0 clamp(18px,3vw,36px);border-top:1px dashed var(--ink);transform-origin:50% 0;transform:rotateX(-90deg);transition:transform .55s var(--feed);}
+.fs.open .fs-p{transform:none;}
+.fs.open .fs-p2{transition-delay:.1s;}
+.fs.open .fs-p3{transition-delay:.4s;}
+.fs:not(.open) .fs-p3{transition-delay:0s;} .fs:not(.open) .fs-p2{transition-delay:.15s;}
+.fs-p .sl-list{margin-top:0;border-top:0;}
+.fs-p2 .sl-list{margin-top:6px;}
+.fs-p3{padding-bottom:clamp(20px,3vw,32px);}
+.fs-p3 .sl-list li:first-child{padding-top:14px;}
+.fs .hlm{--hl-delay:.75s;}
+.fs-p2 .sl-list li:last-child::after{height:1px;}   /* the list carries on past the crease */
+@media (prefers-reduced-motion:reduce){.fs-fold,.fs-p,.fs-btn i{transition:none !important;}}
+</style>
+</head>
+<body>
+<div id="shell"></div>
+<main class="sec"><div class="wrap" id="page"></div></main>
+<div class="foot-stub">FOOTER STAYS AS IT IS</div>
+<script src="shell.js"></script>
+<script src="events.js"></script>
+<script>
+shell("e-folded.html");
+const e = EVENT, when = eventWhen();
+document.getElementById("page").innerHTML = head + ev.section(`<p class="sl-lead">${e.lead}</p>
+<div class="sl-wrap">
+  <div class="sl fs" id="fs">
+    <div class="sl-paper">
+      <span class="sl-ink" aria-hidden="true"></span>
+      <span class="tape" aria-hidden="true"></span>
+      <div class="sl-sheet">
+        <div class="fs-front">
+          <div class="sl-top">
+            <div><p class="lbl">SET LIST</p><h2 class="sl-h">Open Mic Night</h2>
+              <p class="sl-sub">${eventDate({ weekday: "long", month: "long", day: "numeric" })} · ${e.start} to ${e.end} · Free</p></div>
+            ${when ? `<span class="sl-stamp">${when.short}</span>` : ""}
+          </div>
+          <button class="fs-btn" id="fs-btn" aria-expanded="false" aria-controls="fs-fold"><span>Unfold the set list</span> <i aria-hidden="true">+</i></button>
+        </div>
+        <div class="fs-fold" id="fs-fold"><div class="fs-in hlm" id="fs-in">
+          <div class="fs-p fs-p2">${ev.setlist(e, 0, 3)}</div>
+          <div class="fs-p fs-p3">${ev.setlist(e, 3)}
+            <p class="sl-note">${ev.slNote}</p>
+            <div class="sl-do">${ev.rsvp()}</div>
+            ${ev.ask()}
+          </div>
+        </div></div>
+      </div>
+    </div>
+    <div class="ev-mob">${ev.facts()}</div>
+    ${ev.flyerToggle()}
+  </div>
+  <div class="ev-desk sl-side">${ev.flyer()}${ev.facts()}</div>
+</div>`) + `<div id="week"></div>`;
+</script>
+<script src="week.js"></script>
+<script>
+// unfold / fold the set list; the folded panels are out of the tab order while shut
+const fs = document.getElementById("fs"), fsBtn = document.getElementById("fs-btn"), fsFold = document.getElementById("fs-fold");
+if (fs) {
+  fsFold.inert = true;
+  fsBtn.addEventListener("click", () => {
+    const open = !fs.classList.contains("open");
+    fs.classList.toggle("open", open);
+    fsFold.inert = !open;
+    fsBtn.setAttribute("aria-expanded", String(open));
+    fsBtn.firstElementChild.textContent = open ? "Fold it back up" : "Unfold the set list";
+    if (open) document.getElementById("fs-in").classList.add("in");   // the highlighter swipes once it's open
+  });
+}
+</script>
+</body>
+</html>

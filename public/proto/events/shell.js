@@ -32,9 +32,9 @@ window.INK = { green: "#97F900", citron: "#E2FE0C", sky: "#66CCFF" };
 
 // Prototype bar + the live nav + the live page head, written into #shell.
 window.shell = function (current) {
-  const opts = [["index.html", "All"], ["a-marquee.html", "A Marquee"], ["b-setlist.html", "B Set list"], ["c-mixtape.html", "C Mixtape"], ["d-calendar.html", "D In the calendar"]];
+  const opts = [["index.html", "All"], ["b2-setlist-motion.html", "B2 Set list, in motion"], ["e-folded.html", "E Folded"], ["f-flip.html", "F Flyer flip"], ["b-setlist.html", "B"], ["a-marquee.html", "A"], ["c-mixtape.html", "C"], ["d-calendar.html", "D"]];
   document.getElementById("shell").innerHTML = `
-  <div class="bar"><div class="bar-in"><strong>WHAT'S HAPPENING · ROUND 1</strong>
+  <div class="bar"><div class="bar-in"><strong>WHAT'S HAPPENING · ROUND 2</strong>
     ${opts.map(([h, l]) => `<a href="${h}${location.search}"${h === current ? ' aria-current="page"' : ""}>${l}</a>`).join("")}
   </div></div>
   <header class="nav"><div class="nav-in">
