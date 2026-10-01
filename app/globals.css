@@ -300,7 +300,7 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .gw-wire.draw path{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:gw-wire .8s var(--feed) .1s forwards;}
 @keyframes gw-wire{to{stroke-dashoffset:0;}}
 /* the strip: group days get twice the room of empty ones (columns are set inline from the data) */
-.gw-week{display:grid;border:var(--key);background:var(--white);margin-bottom:clamp(56px,7vw,88px);}
+.gw-week{display:grid;grid-template-columns:var(--cols);border:var(--key);background:var(--white);margin-bottom:clamp(56px,7vw,88px);}
 .gw-day{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:18px;min-width:0;min-height:150px;padding:14px 14px 16px;border-left:var(--hair);color:var(--ink);}
 .gw-day:first-child{border-left:0;}
 .gw-d{font-size:13px;font-weight:700;letter-spacing:.1em;}
@@ -310,15 +310,15 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .gw-today .gw-tag{color:var(--violet);}
 a.gw-day{background:var(--c);}
 a.gw-day:hover{text-decoration:none;}
-a.gw-day:hover .gw-nm{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;}
+@media (hover:hover){a.gw-day:hover .gw-nm{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;}}
 a.gw-day[aria-current]{box-shadow:inset 0 -10px 0 var(--ink);} /* an inset ink bar, not a shadow: no offset, no blur */
 a.gw-day.gw-past{background:var(--c-past);}
-.gw-t{font-size:clamp(26px,2.8vw,40px);font-weight:700;line-height:.9;letter-spacing:-.03em;}
+.gw-t{display:block;margin-bottom:6px;font-size:clamp(26px,2.8vw,40px);font-weight:700;line-height:.9;letter-spacing:-.03em;}
 .gw-t small{font-size:.62em;letter-spacing:0;}
-.gw-nm{font-size:14px;font-weight:700;line-height:1.2;}
+.gw-nm{display:block;font-size:14px;font-weight:700;line-height:1.2;}
 .gw-stamp{position:absolute;right:10px;top:10px;font-size:10px;font-weight:700;letter-spacing:.1em;line-height:1.5;border:2px solid var(--ink);padding:2px 6px;background:var(--white);transform:rotate(4deg);animation:gw-stamp .45s var(--press) .2s both;}
 @keyframes gw-stamp{from{transform:rotate(4deg) scale(1.4);}to{transform:rotate(4deg) scale(1);}}
-.gw-short,.gw-wk-s{display:none;}
+.gw-lbl-up{display:none;}
 
 /* the flyer wall: three posters taped up at slight angles, each over a block of its own ink */
 /* the tilted flyers and their ink blocks lean a few px past the gutter on phones; clip them, not the page */
@@ -352,44 +352,28 @@ a.gw-day.gw-past{background:var(--c-past);}
 .slip-map:hover{text-decoration-thickness:3px;}
 .slip .tel{margin-top:auto;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;}
 
-/* phones: a slim copy of the strip's group days, pinned under the nav once the strip has gone */
-.gw-mini{display:none;position:fixed;left:0;right:0;top:var(--nav-h);z-index:40;background:var(--sheet);border-bottom:var(--key);padding:8px var(--pad);
-  transform:translateY(-110%);visibility:hidden;transition:transform .3s var(--feed),visibility 0s .3s;}
-.gw-mini.on{transform:none;visibility:visible;transition:transform .3s var(--feed);}
-.gw-mini-in{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));max-width:440px;margin:0 auto;border:var(--key);}
-.gw-mini a{display:flex;justify-content:center;align-items:baseline;gap:6px;padding:9px 4px 11px;background:var(--c);color:var(--ink);font-size:13px;font-weight:700;letter-spacing:.06em;border-left:var(--hair);white-space:nowrap;}
-.gw-mini a:first-child{border-left:0;}
-.gw-mini a:hover{text-decoration:none;}
-.gw-mini a.gw-past{background:var(--c-past);}
-.gw-mini a[aria-current]{box-shadow:inset 0 -6px 0 var(--ink);}
-.gw-mini a span{font-weight:500;letter-spacing:0;}
 
 @media (max-width:900px){
   .gw-board{grid-template-columns:minmax(0,440px);justify-content:center;gap:64px;}
-  .flyer{--drop:0px !important;scroll-margin-top:80px;}   /* clears the mini strip */
+  .flyer{--drop:0px !important;}
   .flyer:nth-child(1){--tilt:-1.4deg;} .flyer:nth-child(2){--tilt:1.2deg;} .flyer:nth-child(3){--tilt:-.8deg;}
   .slip p{font-size:16px;} .slip .tel{font-size:17px;} .slip .lbl{font-size:12px;}
-  .gw-mini{display:block;}
+  /* three days, one poster: the selected group's (the user's design, 2026-10-01) */
+  .gw-week{grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:64px;}
+  .gw-off{display:none;}
+  .gw-week a.gw-day:first-of-type{border-left:0;}
+  .gw-board .flyer{display:none;}
+  .gw-board .flyer.on{display:block;}
+  .gw-day{min-height:136px;padding:12px 10px 14px;gap:10px;}
+  .gw-t{font-size:clamp(26px,7.4vw,34px);}
+  .gw-nm{font-size:13px;}
+  .gw-stamp{right:6px;top:8px;font-size:9px;padding:1px 4px;letter-spacing:.06em;}
+  .gw-lbl-wk{display:none;} .gw-lbl-up{display:inline;}
 }
-@media (max-width:760px){
-  .gw-week{margin-bottom:48px;}
-  .gw-day{min-height:112px;padding:10px 6px 12px;gap:8px;}
-  .gw-date{font-size:12px;}
-  .gw-mo,.gw-nm{display:none;}
-  .gw-tag{font-size:9px;letter-spacing:.04em;}
-  .gw-today .gw-tag{visibility:hidden;}
-  .gw-today .gw-d{color:var(--violet);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;}
-  .gw-t{font-size:clamp(16px,4.6vw,22px);}
-  .gw-t small{display:block;font-size:12px;margin-top:2px;}
-  .gw-stamp{position:static;align-self:flex-start;transform:none;animation:none;font-size:8px;padding:1px 3px;letter-spacing:.04em;}
-  .gw-up,.gw-wk{display:none;}
-  .gw-wk-s{display:inline;}
-}
-@media (max-width:420px){.gw-long{display:none;} .gw-short{display:inline;}}
+@media (max-width:400px){.gw-up{display:none;} .gw-tag{font-size:10px;letter-spacing:.06em;}}
 @media (max-width:380px){.slip>div{padding:12px;}}
 @media (prefers-reduced-motion:reduce){
   .flyer-paper,.flyer.lit .flyer-paper,.gw-stamp,.gw-wire.draw path{animation:none;stroke-dashoffset:0;}
-  .gw-mini,.gw-mini.on{transition:none;}
 }
 
 /* bulletin furniture, shared by the message card and the Weekly --------- */

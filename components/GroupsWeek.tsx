@@ -6,8 +6,9 @@ import { groups, type Group } from "@/data/groups";
 
 /* The week strip and the flyer wall (prototypes/groups-2, option E, chosen 2026-10-01).
    The strip is this week, Monday to Sunday, in Austin time. Selecting a group day gives it a black
-   bar and a line that runs down to that group's flyer. On phones the flyers stack, so the line
-   stays a short stem, the page jumps to the flyer, and a slim copy of the strip pins under the nav.
+   bar and a line that runs down to that group's flyer. A group stays up next for all of its day.
+   Phones and small tablets (most visitors, per Vercel Analytics) get the user's design of 2026-10-01:
+   the strip keeps only Wed, Sat and Sun, and only the selected group's poster shows.
 
    Everything that depends on today's date waits for the browser: the server can't know it, and
    the page is built once. Until then the strip shows days and times with no dates or marks. */
@@ -41,13 +42,8 @@ function austinNow(): Now {
   return { today, iso: today.toISOString().slice(0, 10), wd: (today.getUTCDay() + 6) % 7, min };
 }
 
-/** Minutes after midnight for "6:30pm" or "10am". */
-function startMin(t: string) {
-  const [, h, mi = "0", ap] = t.match(/(\d+)(?::(\d+))?(am|pm)/)!;
-  return ((+h % 12) + (ap === "pm" ? 12 : 0)) * 60 + +mi;
-}
-/** A group has happened this week once its start time has gone by. */
-const isPast = (g: Group, now: Now) => g.weekday < now.wd || (g.weekday === now.wd && now.min >= startMin(g.time));
+/** A group stays current all of its day, then rolls to next week (user's rule, 2026-10-01). */
+const isPast = (g: Group, now: Now) => g.weekday < now.wd;
 const dayOf = (now: Now, wd: number) => { const d = new Date(now.today); d.setUTCDate(d.getUTCDate() - now.wd + wd); return d; };
 const fmt = (d: Date, o: Intl.DateTimeFormatOptions) => d.toLocaleDateString("en-US", { timeZone: "UTC", ...o });
 
@@ -63,16 +59,13 @@ function whereFor(g: Group, now: Now | null) {
 
 const inkVar = (g: Group) => ({ "--c": `var(--${g.ink})`, "--c-past": `var(--${g.ink}-past-exp)` }) as React.CSSProperties;
 const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
-const stacked = () => matchMedia("(max-width:900px)").matches;
+const solo = () => matchMedia("(max-width:900px)").matches;   // one poster at a time
 
 export function GroupsWeek() {
   const [now, setNow] = useState<Now | null>(null);
   const [sel, setSel] = useState<Group | null>(null);
-  const [miniOn, setMiniOn] = useState(false);
-  const [here, setHere] = useState(sorted[0].day);
   const rig = useRef<HTMLDivElement>(null);
   const week = useRef<HTMLElement>(null);
-  const board = useRef<HTMLDivElement>(null);
   const wire = useRef<SVGPathElement>(null);
   const drawn = useRef(false);
 
@@ -84,8 +77,9 @@ export function GroupsWeek() {
     setSel(sorted.find((g) => !isPast(g, n)) ?? sorted[0]);
   }, []);
 
-  /* The line: from the bottom of the selected day down to its flyer's tape. On the 3-across board
-     it drops, runs across at a height shared by every flyer, then drops onto the tape. */
+  /* The line: from the bottom of the selected day down to its flyer's tape. It drops, runs across at a
+     height shared by every flyer on show, then drops onto the tape. It aims at the flyer's top centre,
+     which the tilt pivots on, so a flyer mid-animation doesn't throw it off. */
   const draw = useCallback((animate: boolean) => {
     const r = rig.current, w = week.current, p = wire.current;
     if (!r || !w || !p || !sel) return;
@@ -93,13 +87,12 @@ export function GroupsWeek() {
     const y0 = w.getBoundingClientRect().bottom - R.top;
     const d = w.querySelector(`[data-k="${key(sel)}"]`)!.getBoundingClientRect();
     const x0 = d.left + d.width / 2 - R.left;
-    let path = `M${x0} ${y0}V${y0 + 34}`;
-    if (!stacked()) {
-      const tapes = [...r.querySelectorAll(".tape")].map((t) => t.getBoundingClientRect());
-      const t = r.querySelector(`#f-${key(sel)} .tape`)!.getBoundingClientRect();
-      const bus = y0 + (Math.min(...tapes.map((x) => x.top - R.top)) - y0) * 0.45;
-      path = `M${x0} ${y0}V${bus}H${t.left + t.width / 2 - R.left}V${t.top - R.top + 4}`;
-    }
+    const shown = [...r.querySelectorAll<HTMLElement>(".flyer")].filter((f) => f.offsetParent).map((f) => f.getBoundingClientRect());
+    const f = r.querySelector(`#f-${key(sel)}`)!.getBoundingClientRect();
+    const tapeTop = (x: DOMRect) => x.top - R.top - 16;   // the tape sits 16px above the flyer
+    const bus = y0 + (Math.min(...shown.map(tapeTop)) - y0) * 0.45;
+    const x1 = f.left + f.width / 2 - R.left;
+    const path = Math.abs(x1 - x0) < 2 ? `M${x0} ${y0}V${tapeTop(f) + 4}` : `M${x0} ${y0}V${bus}H${x1}V${tapeTop(f) + 4}`;
     p.setAttribute("d", path);
     p.style.setProperty("--len", String(Math.ceil(p.getTotalLength())));
     const svg = p.ownerSVGElement!;
@@ -118,54 +111,32 @@ export function GroupsWeek() {
   useEffect(() => {
     const r = rig.current;
     if (!r) return;
-    let first = true; // the observer fires once on attach; skip it so the draw-in can finish
-    const ro = new ResizeObserver(() => { if (!first && drawn.current) draw(false); first = false; });
+    // redraw when the width changes; a poster swap changes only the height, and must not cut the draw-in short
+    let width = r.offsetWidth;
+    const ro = new ResizeObserver(() => { if (r.offsetWidth !== width && drawn.current) draw(false); width = r.offsetWidth; });
     ro.observe(r);
     return () => ro.disconnect();
   }, [draw]);
-
-  /* Phones: the mini strip shows once the week strip has gone under the nav and the flyers are still
-     on screen, and marks whichever flyer is in view. */
-  useEffect(() => {
-    const track = () => {
-      const w = week.current, b = board.current;
-      if (!w || !b) return;
-      const navBottom = document.querySelector(".nav")?.getBoundingClientRect().bottom ?? 0;
-      setMiniOn(stacked() && w.getBoundingClientRect().bottom < navBottom && b.getBoundingClientRect().bottom > navBottom + 120);
-      const line = innerHeight * 0.4;
-      let best = sorted[0], dist = Infinity;
-      for (const g of sorted) {
-        const f = document.getElementById(`f-${key(g)}`);
-        const dd = f ? Math.abs(f.getBoundingClientRect().top - line) : Infinity;
-        if (dd < dist) { dist = dd; best = g; }
-      }
-      setHere(best.day);
-    };
-    track();
-    addEventListener("scroll", track, { passive: true });
-    addEventListener("resize", track);
-    return () => { removeEventListener("scroll", track); removeEventListener("resize", track); };
-  }, []);
 
   const repin = (f: HTMLElement, ms: number) => {
     f.classList.remove("lit");
     void f.offsetWidth;
     setTimeout(() => f.classList.add("lit"), reduced() ? 0 : ms);
   };
-  const goTo = (f: HTMLElement) => {
-    f.scrollIntoView({ behavior: reduced() ? "auto" : "smooth", block: "start" });
-    repin(f, 450);
-    f.querySelector<HTMLElement>(".tel")?.focus({ preventScroll: true });
-  };
-
   const pick = (e: React.MouseEvent<HTMLAnchorElement>, g: Group) => {
     e.preventDefault();
+    if (g === sel && solo()) return;
     const f = document.getElementById(`f-${key(g)}`)!;
     drawn.current = true;
     setSel(g);
     history.replaceState(null, "", `#f-${key(g)}`);
-    if (stacked()) {
-      setTimeout(() => goTo(f), reduced() ? 0 : 350); // let the stem drop, then go to the flyer
+    if (solo()) {
+      // the new poster pins up in place of the old one; the line redraws to it (no jump, no focus move)
+      const paper = f.querySelector<HTMLElement>(".flyer-paper")!;
+      paper.style.animation = "none";
+      void paper.offsetWidth;
+      paper.style.animation = "";
+      paper.style.animationDelay = "0s";
     } else {
       // stay put so the line can be seen landing; scroll only if the strip or the tape is off screen
       const w = week.current!.getBoundingClientRect(), t = f.querySelector(".tape")!.getBoundingClientRect();
@@ -181,7 +152,9 @@ export function GroupsWeek() {
   return (
     <>
       <p className="lbl gw-lbl">
-        THIS WEEK{span ? <span className="gw-span"> · {span}</span> : null}
+        <span className="gw-lbl-wk">THIS WEEK{span ? <span className="gw-span"> · {span}</span> : null}</span>
+        {/* phones: past days show next week's date, so no fixed range */}
+        <span className="gw-lbl-up">COMING UP</span>
       </p>
       <div className="gw-rig" ref={rig}>
         <svg className="gw-wire" aria-hidden><path ref={wire} /></svg>
@@ -189,7 +162,7 @@ export function GroupsWeek() {
           className="gw-week"
           ref={week}
           aria-label="Groups this week"
-          style={{ gridTemplateColumns: DAYS.map((_, wd) => (byDay.has(wd) ? "minmax(0,1.5fr)" : "minmax(0,.75fr)")).join(" ") }}
+          style={{ "--cols": DAYS.map((_, wd) => (byDay.has(wd) ? "minmax(0,1.5fr)" : "minmax(0,.75fr)")).join(" ") } as React.CSSProperties}
         >
           {DAYS.map((n, wd) => {
             const g = byDay.get(wd);
@@ -198,15 +171,15 @@ export function GroupsWeek() {
             const d = now ? dayOf(now, past ? wd + 7 : wd) : null;
             const date = (
               <span className="gw-date">
-                {d ? <><span className="gw-mo">{fmt(d, { month: "short" }).toUpperCase()} </span>{d.getUTCDate()}</> : " "}
+                {d ? fmt(d, { month: "short", day: "numeric" }).toUpperCase() : " "}
               </span>
             );
             const head = (
               <span>
-                <span className="gw-d"><span className="gw-long">{n}</span><span className="gw-short">{n[0]}</span></span>
+                <span className="gw-d">{n}</span>
                 <br />
                 <span className="gw-tag">
-                  {past ? <><span className="gw-wk">NEXT WEEK</span><span className="gw-wk-s">NEXT WK</span></> : today ? "TODAY" : " "}
+                  {past ? "NEXT WEEK" : today ? "TODAY" : " "}
                 </span>
               </span>
             );
@@ -226,7 +199,6 @@ export function GroupsWeek() {
                 {g === next ? <span className="gw-stamp">NEXT<span className="gw-up"> UP</span></span> : null}
                 <span>
                   <span className="gw-t">{g.time.replace(/(am|pm)$/, "")}<small>{g.time.match(/(am|pm)$/)?.[1]}</small></span>
-                  <br />
                   <span className="gw-nm">{g.short ?? g.name}</span>
                 </span>
                 {date}
@@ -236,11 +208,11 @@ export function GroupsWeek() {
         </nav>
 
         {/* Each poster taped to the board, with one slip under it: where it meets, who to call */}
-        <div className="gw-board" ref={board}>
+        <div className="gw-board">
           {sorted.map((g, i) => {
             const w = whereFor(g, now);
             return (
-              <article key={g.name} id={`f-${key(g)}`} className="flyer" style={{ ...inkVar(g), "--i": i } as React.CSSProperties} aria-label={`${g.name}, ${g.when}`}>
+              <article key={g.name} id={`f-${key(g)}`} className={`flyer${sel === g ? " on" : ""}`} style={{ ...inkVar(g), "--i": i } as React.CSSProperties} aria-label={`${g.name}, ${g.when}`}>
                 <div className="flyer-paper">
                   <span className="flyer-ink" aria-hidden />
                   <span className="tape" aria-hidden />
@@ -280,22 +252,6 @@ export function GroupsWeek() {
         </div>
       </div>
 
-      <nav className={`gw-mini${miniOn ? " on" : ""}`} aria-label="Jump to a group" inert={!miniOn}>
-        <div className="gw-mini-in">
-          {sorted.map((g) => (
-            <a
-              key={g.day}
-              href={`#f-${key(g)}`}
-              className={now && isPast(g, now) ? "gw-past" : undefined}
-              style={inkVar(g)}
-              aria-current={here === g.day ? "true" : undefined}
-              onClick={(e) => { e.preventDefault(); history.replaceState(null, "", `#f-${key(g)}`); goTo(document.getElementById(`f-${key(g)}`)!); }}
-            >
-              {g.day} <span>{g.time}</span>
-            </a>
-          ))}
-        </div>
-      </nav>
     </>
   );
 }
