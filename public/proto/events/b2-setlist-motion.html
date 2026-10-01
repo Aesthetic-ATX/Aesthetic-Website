@@ -36,7 +36,7 @@ document.getElementById("page").innerHTML = head + ev.section(`<p class="sl-lead
       <div class="sl-sheet">
         <div class="sl-top">
           <div><p class="lbl">SET LIST</p><h2 class="sl-h">Open Mic Night</h2>
-            <p class="sl-sub">${eventDate({ weekday: "long", month: "long", day: "numeric" })} · ${e.street}</p></div>
+            <p class="sl-sub">${eventDate({ weekday: "long", month: "long", day: "numeric" })} · <a class="ev-map" href="${e.map}" aria-label="${e.street}: open in Google Maps">${e.street}</a></p></div>
           ${when ? `<span class="sl-stamp">${when.short}</span>` : ""}
         </div>
         ${ev.setlist()}
@@ -45,10 +45,9 @@ document.getElementById("page").innerHTML = head + ev.section(`<p class="sl-lead
         ${ev.ask()}
       </div>
     </div>
-    <div class="ev-mob">${ev.facts()}</div>
     ${ev.flyerToggle()}
   </div>
-  <div class="ev-desk sl-side">${ev.flyer()}${ev.facts()}</div>
+  <div class="ev-desk sl-side">${ev.flyer()}</div>
 </div>`) + `<div id="week"></div>`;
 </script>
 <script src="week.js"></script>
