@@ -14,6 +14,10 @@
 <link rel="stylesheet" href="setlist.css">
 <style>
 .sec{overflow-x:hidden;overflow-x:clip;}
+.sl-sub+.sl-sub{margin-top:2px;}
+.sl-free{font-weight:700;}
+.nw{white-space:nowrap;}   /* each fact wraps whole, never mid-phrase */
+@media (max-width:600px){.sl-sub .dot{display:none;} .sl-sub .nw{display:block;} .sl-sub .ev-map{display:inline-block;}}
 /* B2: B, written in. The sheet hangs itself up, each row is written and ruled in turn, the highlighter
    swipes the sign-up line, and the countdown is stamped on last. On the night it follows the clock. */
 </style>
@@ -36,7 +40,8 @@ document.getElementById("page").innerHTML = head + ev.section(`<p class="sl-lead
       <div class="sl-sheet">
         <div class="sl-top">
           <div><p class="lbl">SET LIST</p><h2 class="sl-h">Open Mic Night</h2>
-            <p class="sl-sub">${eventDate({ weekday: "long", month: "long", day: "numeric" })} · <a class="ev-map" href="${e.map}" aria-label="${e.street}: open in Google Maps">${e.street}</a></p></div>
+            <p class="sl-sub"><span class="nw">${eventDate({ weekday: "long", month: "long", day: "numeric" })}</span><span class="dot"> · </span><span class="nw">${e.start} to ${e.end}</span></p>
+            <p class="sl-sub"><a class="ev-map nw" href="${e.map}" aria-label="${e.street}: open in Google Maps">${e.street}</a><span class="dot"> · </span><b class="sl-free nw">Free admission</b></p></div>
           ${when ? `<span class="sl-stamp">${when.short}</span>` : ""}
         </div>
         ${ev.setlist()}
