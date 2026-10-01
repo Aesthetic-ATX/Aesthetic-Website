@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>What's happening A: Marquee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&family=Spectral:ital,wght@1,500&display=swap">
+<link rel="stylesheet" href="proto.css">
+<link rel="stylesheet" href="flyers.css">
+<link rel="stylesheet" href="week.css">
+<link rel="stylesheet" href="events.css">
+<style>
+.sec{overflow-x:hidden;overflow-x:clip;}
+/* A: a changeable-letter sign on the ink, the night in fluorescent letters. Details sit under it. */
+.mq-wrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:clamp(24px,4vw,48px);align-items:start;}
+.mq{background:var(--ink);border:var(--key);outline:8px solid var(--sheet);outline-offset:-11px;padding:clamp(22px,4vw,40px) clamp(14px,3vw,32px);text-align:center;position:relative;}
+.mq-row{display:flex;justify-content:center;flex-wrap:nowrap;gap:.08em;margin:0;overflow:hidden;padding:.06em 0;font-size:clamp(24px,8.6vw,52px);font-weight:700;line-height:1;letter-spacing:0;}
+.mq-row+.mq-row{margin-top:.22em;}
+/* every letter is its own plastic tile, the same width, like a real letterboard */
+.mq-row span{display:inline-block;width:.74em;text-align:center;color:var(--c,var(--sheet));transform:translateY(-120%);}
+.mq-row span.sp{width:.36em;}
+.mq.on .mq-row span{transform:none;transition:transform .5s var(--press);transition-delay:calc(var(--n) * 28ms);}
+.mq-count{position:absolute;right:14px;top:-14px;background:var(--citron);border:var(--key);padding:3px 10px;font-size:12px;font-weight:700;letter-spacing:.1em;transform:rotate(3deg);}
+.mq-lead{margin:22px 0 18px;font-size:clamp(17px,1.4vw,19px);line-height:1.6;max-width:60ch;}
+.mq-do{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;margin-top:20px;}
+.mq-signup{margin:16px 0 0;font-size:14px;line-height:1.5;}
+@media (max-width:900px){.mq-wrap{grid-template-columns:1fr;}}
+@media (prefers-reduced-motion:reduce){.mq-row span{transform:none;}}
+</style>
+</head>
+<body>
+<div id="shell"></div>
+<main class="sec"><div class="wrap" id="page"></div></main>
+<div class="foot-stub">FOOTER STAYS AS IT IS</div>
+<script src="shell.js"></script>
+<script src="events.js"></script>
+<script>
+shell("a-marquee.html");
+const e = EVENT, when = eventWhen();
+document.getElementById("page").innerHTML = head + ev.section(`<div class="mq-wrap">
+  <div>
+    <div class="mq" id="mq" role="img" aria-label="Open Mic Night, Saturday October 10, 6 to 9pm, free">
+      ${when ? `<span class="mq-count">${when.short}</span>` : ""}
+      ${[["OPEN MIC", "var(--sheet)"], ["NIGHT", "var(--green)"], ["SAT OCT 10", "var(--citron)"], ["6 TO 9PM", "var(--sky)"], ["FREE", "var(--sheet)"]]
+        .map(([t, c], r) => `<p class="mq-row" style="--c:${c}" aria-hidden="true">${[...t].map((ch, i) => `<span class="${ch === " " ? "sp" : ""}" style="--n:${r * 6 + i}">${ch === " " ? "&nbsp;" : ch}</span>`).join("")}</p>`).join("")}
+    </div>
+    <p class="mq-lead">${e.lead}</p>
+    ${ev.facts()}
+    <p class="mq-signup">${e.signup}</p>
+    <div class="mq-do">${ev.rsvp()}</div>
+    ${ev.ask()}
+    ${ev.flyerToggle()}
+  </div>
+  <div class="ev-desk">${ev.flyer()}</div>
+</div>`) + `<div id="week"></div>`;
+</script>
+<script src="week.js"></script>
+<script>
+// the letters drop into their slots the first time the sign comes into view
+const mq = document.getElementById("mq");
+if (mq) new IntersectionObserver((es, io) => { if (es.some((x) => x.isIntersecting)) { mq.classList.add("on"); io.disconnect(); } }, { threshold: .35 }).observe(mq);
+</script>
+</body>
+</html>

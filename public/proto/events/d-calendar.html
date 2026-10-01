@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>What's happening D: In the calendar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&family=Spectral:ital,wght@1,500&display=swap">
+<link rel="stylesheet" href="proto.css">
+<link rel="stylesheet" href="flyers.css">
+<link rel="stylesheet" href="week.css">
+<link rel="stylesheet" href="events.css">
+<style>
+.sec{overflow-x:hidden;overflow-x:clip;}
+/* D: the event lives with the calendar. A countdown bar above the week strip opens into the details;
+   in the event's own week, its day in the strip carries it too. */
+.ev{margin-bottom:28px;}
+.cd{border:var(--key);background:var(--white);}
+.cd-bar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:0;width:100%;padding:0;border:0;background:none;text-align:left;cursor:pointer;color:var(--ink);font:inherit;}
+.cd-n{display:flex;flex-direction:column;justify-content:center;align-items:center;min-width:92px;align-self:stretch;padding:10px 12px;background:var(--citron);border-right:var(--key);}
+.cd-n b{font-size:34px;line-height:.9;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums;}
+.cd-n small{font-size:10px;font-weight:700;letter-spacing:.1em;margin-top:4px;}
+.cd-what{padding:12px 16px;min-width:0;}
+.cd-what strong{display:block;font-size:clamp(19px,2.2vw,24px);line-height:1.1;letter-spacing:-.01em;}
+.cd-what span{display:block;font-size:14px;margin-top:3px;}
+.cd-go{padding:0 18px;font-size:13px;font-weight:700;letter-spacing:.1em;color:var(--violet);white-space:nowrap;}
+.cd-go i{display:inline-block;font-style:normal;font-size:22px;line-height:1;vertical-align:-2px;transition:transform .3s var(--feed);}
+.cd[open-state="true"] .cd-go i{transform:rotate(45deg);}   /* + turns to a close mark */
+@media (hover:hover){.cd-bar:hover .cd-go{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;}}
+/* the details unroll under the bar */
+.cd-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--feed);}
+.cd[open-state="true"] .cd-body{grid-template-rows:1fr;}
+.cd-in{overflow:hidden;}
+.cd-grid{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:24px;padding:18px 16px 20px;border-top:var(--key);}
+.cd-grid p.lead{margin:0 0 16px;font-size:16px;line-height:1.55;}
+.cd-grid .sm{margin-top:12px;}
+.cd-do{margin-top:18px;}
+/* in the event's week: a second line in its day, starred */
+.day .evn{display:block;margin-top:8px;padding:3px 6px;background:var(--ink);color:var(--sheet);font-size:11px;font-weight:700;letter-spacing:.06em;line-height:1.3;}
+@media (max-width:900px){
+  .cd-grid{grid-template-columns:1fr;}
+  .cd-go{padding:0 12px;}
+  .cd-go .w{display:none;}
+}
+@media (prefers-reduced-motion:reduce){.cd-body,.cd-go i{transition:none;}}
+</style>
+</head>
+<body>
+<div id="shell"></div>
+<main class="sec"><div class="wrap" id="page"></div></main>
+<div class="foot-stub">FOOTER STAYS AS IT IS</div>
+<script src="shell.js"></script>
+<script src="events.js"></script>
+<script>
+shell("d-calendar.html");
+const e = EVENT, when = eventWhen();
+document.getElementById("page").innerHTML = head + ev.section(`<div class="cd" id="cd" open-state="false">
+  <button class="cd-bar" id="cd-bar" aria-expanded="false" aria-controls="cd-body">
+    <span class="cd-n">${!when ? "" : when.n > 1 ? `<b>${when.n}</b><small>DAYS TO GO</small>` : `<b style="font-size:22px">${when.short}</b>`}</span>
+    <span class="cd-what"><strong>Open Mic Night</strong><span>${eventDate()} · ${e.start} to ${e.end} · Free</span></span>
+    <span class="cd-go"><span class="w">DETAILS </span><i aria-hidden="true">+</i></span>
+  </button>
+  <div class="cd-body" id="cd-body"><div class="cd-in">
+    <div class="cd-grid">
+      <div>
+        <p class="lead">${e.lead}</p>
+        ${ev.facts()}
+        <p class="sm">${e.signup}</p>
+        <div class="cd-do">${ev.rsvp()}</div>
+        ${ev.ask()}
+        ${ev.flyerToggle()}
+      </div>
+      <div class="ev-desk">${ev.flyer()}</div>
+    </div>
+  </div></div>
+</div>`) + `<div id="week"></div>`;
+</script>
+<script src="week.js"></script>
+<script>
+// the bar opens and closes the details
+const cd = document.getElementById("cd"), bar = document.getElementById("cd-bar"), bodyEl = document.getElementById("cd-body");
+const setOpen = (o) => { cd.setAttribute("open-state", String(o)); bar.setAttribute("aria-expanded", String(o)); bodyEl.inert = !o; };
+if (cd) { setOpen(false); bar.addEventListener("click", () => setOpen(cd.getAttribute("open-state") !== "true")); }
+
+// In the event's week its day carries it too (preview with ?now=2026-10-06T12:00)
+const monday = new Date(AUSTIN.today); monday.setUTCDate(monday.getUTCDate() - AUSTIN.wd);
+const inWeek = (Date.parse(EVENT.date) - monday.getTime()) / 864e5;
+if (eventWhen() && inWeek >= 0 && inWeek < 7) {
+  const day = [...document.querySelectorAll(".week .day")][inWeek];
+  const note = `<span class="evn">&#9733; ${EVENT.start} OPEN MIC</span>`;
+  // inside the day's middle block, under the group's name
+  const mid = day.querySelector(".nm")?.parentElement || day.firstElementChild;
+  mid.insertAdjacentHTML("beforeend", note);
+  day.setAttribute("aria-label", day.getAttribute("aria-label") + `. Also ${EVENT.name}, ${EVENT.start} to ${EVENT.end}`);
+}
+</script>
+</body>
+</html>

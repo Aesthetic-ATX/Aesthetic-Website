@@ -1,0 +1,30 @@
+/* What's happening: shared pieces. Flat ink and keylines only, like the rest of the site. */
+.ev{margin-bottom:clamp(56px,7vw,88px);}
+.ev-lbl{margin-bottom:14px;}
+.ev-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;margin:0;border-top:var(--hair);}
+.ev-facts>div{padding:10px 12px 12px 0;border-bottom:var(--hair);min-width:0;}
+.ev-facts>div:nth-child(even){padding-left:12px;border-left:var(--hair);}
+.ev-facts dt{font-size:11px;font-weight:700;letter-spacing:.1em;margin-bottom:2px;}
+.ev-facts dd{margin:0;font-size:16px;font-weight:500;line-height:1.35;}
+.ev-map{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;}
+/* the RSVP: square-cut card stock in violet, the site's primary button */
+.ev-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:14px 24px;border:var(--key);background:var(--violet);color:var(--white);font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;}
+.ev-btn:hover{text-decoration:none;background:var(--ink);}
+.ev-ask{margin-top:12px;}
+.ev-ask .tel{font-weight:700;}
+.ev-fold{display:none;margin-top:16px;border:var(--key);background:var(--white);}
+.ev-fold summary{cursor:pointer;list-style:none;padding:12px 16px;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--violet);display:flex;justify-content:space-between;}
+.ev-fold summary::-webkit-details-marker{display:none;}
+.ev-fold summary::after{content:"+";font-size:20px;line-height:1;}
+.ev-fold[open] summary::after{content:"\2212";}
+.ev-fold[open] summary{border-bottom:var(--key);}
+.ev-fold img{width:100%;height:auto;}
+.ev-poster{width:100%;height:auto;border:var(--key);}
+.ev-mob{display:none;}
+@media (max-width:900px){
+  .ev-fold{display:block;}
+  .ev-desk{display:none;}
+  .ev-mob{display:block;margin-top:28px;}
+  .ev-btn{width:100%;}
+}
+@media (max-width:380px){.ev-facts{grid-template-columns:1fr;} .ev-facts>div:nth-child(even){padding-left:0;border-left:0;}}

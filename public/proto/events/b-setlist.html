@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>What's happening B: Set list</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&family=Spectral:ital,wght@1,500&display=swap">
+<link rel="stylesheet" href="proto.css">
+<link rel="stylesheet" href="flyers.css">
+<link rel="stylesheet" href="week.css">
+<link rel="stylesheet" href="events.css">
+<style>
+.sec{overflow-x:hidden;overflow-x:clip;}
+/* B: the night as a performer's set list, taped up like the group flyers */
+.sl-wrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:clamp(28px,4vw,56px);align-items:start;}
+.sl{--tilt:-1deg;position:relative;padding-top:16px;}
+.sl-paper{position:relative;transform:rotate(var(--tilt));transform-origin:50% 0;}
+.sl-ink{position:absolute;inset:0;transform:translate(9px,9px);background:var(--sky);}
+.sl-sheet{position:relative;background:var(--white);border:var(--key);padding:clamp(22px,3.4vw,40px) clamp(18px,3vw,36px) clamp(20px,3vw,32px);}
+.sl .tape{transform:rotate(2deg);background:var(--citron);mix-blend-mode:normal;clip-path:polygon(0 0,100% 0,96% 25%,100% 50%,96% 75%,100% 100%,0 100%,4% 75%,0 50%,4% 25%);}
+.sl .tape::before,.sl .tape::after{display:none;}
+.sl-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
+.sl-h{margin:6px 0 4px;font-size:clamp(34px,5vw,54px);font-weight:700;line-height:.95;letter-spacing:-.03em;}
+.sl-sub{margin:0;font-size:16px;font-weight:500;}
+.sl-stamp{flex:none;border:2px solid var(--ink);padding:3px 8px;font-size:11px;font-weight:700;letter-spacing:.1em;background:var(--white);transform:rotate(4deg);}
+.sl-list{list-style:none;margin:22px 0 0;padding:0;border-top:var(--key);}
+.sl-list li{display:grid;grid-template-columns:76px minmax(0,1fr);gap:14px;align-items:baseline;padding:12px 0;border-bottom:var(--hair);}
+.sl-list li:last-child{border-bottom:var(--key);}
+.sl-t{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.01em;}
+.sl-t.w{font-size:11px;letter-spacing:.1em;}
+.sl-what{font-size:17px;line-height:1.4;}
+.sl-what b{font-weight:700;}
+.sl-what small{display:block;font-size:14px;line-height:1.45;margin-top:2px;}
+/* the step people miss: inked like a highlighter */
+.sl-list li.hi .sl-what b{background:var(--green);box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:0 4px;margin-left:-4px;}
+.sl-note{margin:14px 0 0;font-size:13px;line-height:1.5;}
+.sl-do{margin-top:24px;}
+.sl-lead{margin:0 0 20px;font-size:clamp(17px,1.4vw,19px);line-height:1.6;max-width:60ch;}
+.sl-side .ev-facts{margin-top:18px;}
+@media (max-width:900px){.sl-wrap{grid-template-columns:1fr;} .sl{--tilt:-.6deg;margin-right:10px;}}
+</style>
+</head>
+<body>
+<div id="shell"></div>
+<main class="sec"><div class="wrap" id="page"></div></main>
+<div class="foot-stub">FOOTER STAYS AS IT IS</div>
+<script src="shell.js"></script>
+<script src="events.js"></script>
+<script>
+shell("b-setlist.html");
+const e = EVENT, when = eventWhen();
+document.getElementById("page").innerHTML = head + ev.section(`<p class="sl-lead">${e.lead}</p>
+<div class="sl-wrap">
+  <div class="sl">
+    <div class="sl-paper">
+      <span class="sl-ink" aria-hidden="true"></span>
+      <span class="tape" aria-hidden="true"></span>
+      <div class="sl-sheet">
+        <div class="sl-top">
+          <div><p class="lbl">SET LIST</p><h2 class="sl-h">Open Mic Night</h2>
+            <p class="sl-sub">${eventDate({ weekday: "long", month: "long", day: "numeric" })} · ${e.street}</p></div>
+          ${when ? `<span class="sl-stamp">${when.short}</span>` : ""}
+        </div>
+        <ol class="sl-list">
+          <li class="hi"><span class="sl-t">6:00</span><span class="sl-what"><b>Doors open, sign-up table opens</b><small>Want a turn at the mic? Put your name down here.</small></span></li>
+          <li><span class="sl-t">6:15</span><span class="sl-what"><b>Sign-ups close</b></span></li>
+          <li><span class="sl-t w">THEN</span><span class="sl-what"><b>Feature sets</b><small>An eclectic mix of Austin artists and creatives.</small></span></li>
+          <li><span class="sl-t w">MIXED IN</span><span class="sl-what"><b>Show up &amp; go up</b><small>Open-mic slots: one song or 3 to 4 minutes each.</small></span></li>
+          <li><span class="sl-t w">ALL NIGHT</span><span class="sl-what"><b>Snacks, drinks, new friends</b></span></li>
+          <li><span class="sl-t">9:00</span><span class="sl-what"><b>Last song</b></span></li>
+        </ol>
+        <p class="sl-note">Sign-ups are first come, first served. Time is short, so we can't promise everyone a turn. Free, and the whole family is welcome.</p>
+        <div class="sl-do">${ev.rsvp()}</div>
+        ${ev.ask()}
+      </div>
+    </div>
+    <div class="ev-mob">${ev.facts()}</div>
+    ${ev.flyerToggle()}
+  </div>
+  <div class="ev-desk sl-side">${ev.flyer()}${ev.facts()}</div>
+</div>`) + `<div id="week"></div>`;
+</script>
+<script src="week.js"></script>
+<script>
+
+</script>
+</body>
+</html>

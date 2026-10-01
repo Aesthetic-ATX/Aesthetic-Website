@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>What's happening, round 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&family=Spectral:ital,wght@1,500&display=swap">
+<link rel="stylesheet" href="proto.css">
+<style>
+/* index: the four options as bulletin entries, each opening the full Groups page */
+.list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(18px,2.4vw,28px);}
+.opt{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:start;padding:22px;border:var(--key);background:var(--white);color:var(--ink);font-weight:400;}
+.opt:hover{text-decoration:none;background:var(--sheet);}
+.letter{display:grid;place-items:center;width:64px;height:64px;border:var(--key);background:var(--c);font-size:36px;font-weight:700;line-height:1;}
+.opt h2{margin:0 0 6px;font-size:24px;line-height:1.1;font-weight:700;}
+.opt p{margin:0 0 12px;font-size:15px;line-height:1.5;}
+.go{color:var(--violet);font-weight:700;font-size:15px;border-bottom:1px solid var(--violet);padding-bottom:3px;}
+.rec{display:inline-block;margin-left:8px;font-size:11px;font-weight:700;letter-spacing:.1em;vertical-align:3px;border:2px solid var(--ink);padding:1px 6px;}
+.tip{margin-top:28px;padding:16px 18px;border:var(--hair);background:var(--white);font-size:15px;line-height:1.55;max-width:70ch;}
+.tip code{font-size:14px;background:var(--page);padding:1px 5px;}
+@media (max-width:760px){.list{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div id="shell"></div>
+<main class="sec"><div class="wrap">
+  <div class="head">
+    <p class="lbl">WHAT'S HAPPENING · FOUR DIRECTIONS</p>
+    <h1 class="h1">Four ways to show Open Mic Night.</h1>
+    <p class="bl">Each option opens as the full Groups page: the live heading, then What's happening, then the week strip as it is live now. The section hides itself once the event is over.</p>
+  </div>
+  <div class="list">
+    <a class="opt" href="a-marquee.html" style="--c:var(--citron)"><span class="letter">A</span><span>
+      <h2>Marquee</h2>
+      <p>A changeable-letter sign on black, the night spelled out in fluorescent letters that drop into their slots. The details sit underneath.</p>
+      <span class="go">Open A &rarr;</span></span></a>
+    <a class="opt" href="b-setlist.html" style="--c:var(--sky)"><span class="letter">B</span><span>
+      <h2>Set list <span class="rec">MY PICK</span></h2>
+      <p>The night as a performer's running order, taped up like the group flyers. The 6 to 6:15 sign-up window is step one, so nobody misses it.</p>
+      <span class="go">Open B &rarr;</span></span></a>
+    <a class="opt" href="c-mixtape.html" style="--c:var(--green)"><span class="letter">C</span><span>
+      <h2>Mixtape</h2>
+      <p>A cassette J-card: the spine and the flyer as its cover. Open the liner notes for Side A, Side B and the details.</p>
+      <span class="go">Open C &rarr;</span></span></a>
+    <a class="opt" href="d-calendar.html" style="--c:var(--neutral)"><span class="letter">D</span><span>
+      <h2>In the calendar</h2>
+      <p>A countdown bar above the week strip that opens into the details. In the event's own week, its Saturday carries it too.</p>
+      <span class="go">Open D &rarr;</span></span></a>
+  </div>
+  <p class="tip">To see the week of the event, add <code>?now=2026-10-06T12:00</code> to the address. To see the section hide after the event, use <code>?now=2026-10-10T21:30</code>.</p>
+</div></main>
+<script src="shell.js"></script>
+<script>shell("index.html");</script>
+</body>
+</html>

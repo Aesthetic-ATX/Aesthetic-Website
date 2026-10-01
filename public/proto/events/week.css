@@ -1,0 +1,56 @@
+/* The Groups week strip and flyers, as live on /groups (from groups-2/e-week-flyers.html). */
+/* E: B's week strip as the index, A's flyer wall as the content. The selected day gets B's bar and a
+   line that runs to its flyer. A group stays "up" all of its day, then rolls to next week.
+   Phones and tablets (flyers would stack): the strip keeps only Wed, Sat, Sun and one poster shows,
+   the selected one (user's design, 2026-10-01). */
+.rig{position:relative;scroll-margin-top:72px;}
+.wires{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;}
+.wires path{fill:none;stroke:var(--ink);stroke-width:3;stroke-linejoin:miter;stroke-linecap:square;}
+.wires.draw path{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:wire .8s var(--feed) forwards;animation-delay:.1s;}
+@keyframes wire{to{stroke-dashoffset:0;}}
+.board{position:relative;}
+.up-lbl{display:none;}
+a.day .t{display:block;margin-bottom:6px;}
+/* group days get twice the room of empty ones; --cols is set from the data in the script */
+.week{display:grid;grid-template-columns:var(--cols);border:var(--key);background:var(--white);margin-bottom:clamp(56px,7vw,88px);}
+.day{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:18px;min-height:150px;padding:14px 14px 16px;border-left:var(--hair);color:var(--ink);font-weight:400;min-width:0;}
+.day:first-child{border-left:0;}
+.day .d{font-size:13px;font-weight:700;letter-spacing:.1em;}
+.day .date{font-size:13px;font-variant-numeric:tabular-nums;}
+/* empty days step back in grey; #595959 holds 7:1 on white */
+.day.off .d,.day.off .date{color:#595959;}
+.day .tag{font-size:11px;font-weight:700;letter-spacing:.1em;line-height:1.2;}
+.day.today .tag{color:var(--violet);}
+a.day{background:var(--c);}
+a.day[aria-current]{box-shadow:inset 0 -10px 0 var(--ink);}
+a.day:hover{text-decoration:none;}
+@media (hover:hover){a.day:hover .nm{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;}}
+a.day .t{font-size:clamp(26px,2.8vw,40px);font-weight:700;line-height:.9;letter-spacing:-.03em;}
+a.day .t small{font-size:.62em;letter-spacing:0;}
+a.day .nm{display:block;font-size:14px;font-weight:700;line-height:1.2;}
+/* its day is over: the ink thins out, and the date is next week's */
+a.day.past{background:color-mix(in srgb,var(--c) 30%,var(--white));}
+.stamp{position:absolute;right:10px;top:10px;font-size:10px;font-weight:700;letter-spacing:.1em;border:2px solid var(--ink);padding:2px 6px;background:var(--white);transform:rotate(4deg);animation:stamp .45s var(--press) .2s both;}
+@keyframes stamp{from{transform:rotate(4deg) scale(1.4);}to{transform:rotate(4deg) scale(1);}}
+/* the flyer you jumped to gets re-pinned: it straightens, then settles back */
+.flyer.lit .paper{animation:repin .9s var(--press);}
+@keyframes repin{0%{transform:rotate(var(--tilt));}35%{transform:rotate(0deg) translateY(-8px);}100%{transform:rotate(var(--tilt));}}
+
+@media (max-width:900px){
+  /* three days, one poster */
+  .week{grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:64px;}
+  .day.off{display:none;}
+  .wk-lbl{display:none;} .up-lbl{display:inline;}   /* past days show next week's date, so no fixed range */
+  .week a.day:first-of-type{border-left:0;}
+  .board .flyer{display:none;}
+  .board .flyer.on{display:flex;}
+  .day{min-height:136px;padding:12px 10px 14px;gap:10px;}
+  a.day .t{font-size:clamp(26px,7.4vw,34px);}
+  a.day .nm{font-size:13px;}
+  .stamp{right:6px;top:8px;font-size:9px;padding:1px 4px;letter-spacing:.06em;}
+}
+@media (max-width:400px){
+  .stamp .up{display:none;}
+  .day .tag{font-size:10px;letter-spacing:.06em;}
+}
+@media (prefers-reduced-motion:reduce){.stamp,.flyer.lit .paper,.wires.draw path{animation:none;stroke-dashoffset:0;}}

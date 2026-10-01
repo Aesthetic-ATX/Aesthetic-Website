@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>What's happening C: Mixtape</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&family=Spectral:ital,wght@1,500&display=swap">
+<link rel="stylesheet" href="proto.css">
+<link rel="stylesheet" href="flyers.css">
+<link rel="stylesheet" href="week.css">
+<link rel="stylesheet" href="events.css">
+<style>
+.sec{overflow-x:hidden;overflow-x:clip;}
+/* C: the night as a cassette J-card. Spine and cover show first; the liner notes swing open. */
+.mx-lead{margin:0 0 22px;font-size:clamp(17px,1.4vw,19px);line-height:1.6;max-width:60ch;}
+.mx{display:grid;grid-template-columns:64px minmax(0,340px) minmax(0,1fr);align-items:stretch;perspective:1600px;max-width:1000px;}
+/* spine: ink, the title running up it like a tape on a shelf */
+.mx-spine{background:var(--ink);color:var(--sheet);border:var(--key);display:flex;align-items:center;justify-content:center;}
+.mx-spine p{margin:0;writing-mode:vertical-rl;transform:rotate(180deg);font-size:15px;font-weight:700;letter-spacing:.16em;white-space:nowrap;}
+.mx-spine b{color:var(--green);}
+/* the whole flyer, never cropped; if the notes run taller, the cover's ink fills round it like a case */
+.mx-cover{border:var(--key);border-left:0;background:var(--ink);display:flex;align-items:center;}
+.mx-cover img{display:block;width:100%;height:auto;border:0;}
+/* liner notes: hinged on the cover's edge, folded flat until opened */
+.mx-notes{background:var(--white);border:var(--key);border-left:var(--hair);transform-origin:0 50%;transform:rotateY(-92deg);visibility:hidden;
+  transition:transform .8s var(--feed),visibility 0s .8s;padding:clamp(18px,2.6vw,28px);display:flex;flex-direction:column;gap:16px;}
+.mx.open .mx-notes{transform:none;visibility:visible;transition:transform .8s var(--feed);}
+.mx-head{display:flex;justify-content:space-between;gap:12px;align-items:baseline;border-bottom:var(--key);padding-bottom:10px;}
+.mx-head h2{margin:0;font-size:clamp(24px,2.6vw,32px);font-weight:700;letter-spacing:-.02em;line-height:1;}
+.mx-head span{font-size:12px;font-weight:700;letter-spacing:.1em;white-space:nowrap;}
+.mx-sides{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.mx-side h3{margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:.12em;display:flex;gap:8px;align-items:center;}
+.mx-side h3 i{width:12px;height:12px;border:var(--hair);background:var(--c);}
+.mx-side ol{margin:0;padding:0;list-style:none;counter-reset:t;}
+.mx-side li{counter-increment:t;display:grid;grid-template-columns:28px 1fr;font-size:15px;line-height:1.35;padding:5px 0;border-bottom:var(--hair);}
+.mx-side li::before{content:var(--s) counter(t);font-size:12px;font-weight:700;padding-top:2px;}
+.mx-small{margin:0;font-size:13px;line-height:1.5;}
+.mx-open{margin-top:16px;display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:12px 20px;border:var(--key);background:var(--white);color:var(--violet);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;}
+.mx-open:hover{background:var(--violet);color:var(--white);}
+@media (max-width:900px){
+  /* phones: the J-card stands up. Spine across the top, cover, then the notes fold down from the cover */
+  .mx{grid-template-columns:1fr;max-width:440px;margin:0 auto;}
+  .mx-spine{padding:10px 12px;}
+  .mx-spine p{writing-mode:horizontal-tb;transform:none;font-size:13px;letter-spacing:.12em;white-space:normal;text-align:center;}
+  .mx-cover{border-left:var(--key);border-top:0;}
+  .mx-notes{border-left:var(--key);border-top:var(--hair);transform-origin:50% 0;transform:rotateX(-92deg);display:none;}
+  .mx.open .mx-notes{display:flex;}
+  .mx-open{width:100%;justify-content:center;}
+  .mx-wrap{max-width:440px;margin:0 auto;}
+}
+@media (max-width:380px){.mx-sides{grid-template-columns:1fr;}}
+@media (prefers-reduced-motion:reduce){.mx-notes,.mx.open .mx-notes{transition:none;}}
+</style>
+</head>
+<body>
+<div id="shell"></div>
+<main class="sec"><div class="wrap" id="page"></div></main>
+<div class="foot-stub">FOOTER STAYS AS IT IS</div>
+<script src="shell.js"></script>
+<script src="events.js"></script>
+<script>
+shell("c-mixtape.html");
+const e = EVENT, when = eventWhen();
+document.getElementById("page").innerHTML = head + ev.section(`<p class="mx-lead">${e.lead}</p>
+<div class="mx-wrap">
+<div class="mx" id="mx">
+  <div class="mx-spine" aria-hidden="true"><p>AESTHETIC <b>·</b> OPEN MIC NIGHT <b>·</b> 10.10.26</p></div>
+  <div class="mx-cover">${ev.flyer()}</div>
+  <div class="mx-notes" id="mx-notes" aria-hidden="true">
+    <div class="mx-head"><h2>Open Mic Night</h2><span>${when ? when.short + " · " : ""}FREE</span></div>
+    <div class="mx-sides">
+      <div class="mx-side" style="--c:var(--green)"><h3><i></i>SIDE A</h3>
+        <ol style="--s:'A'"><li>Doors and sign-ups, 6pm</li><li>Feature sets from Austin artists and creatives</li></ol></div>
+      <div class="mx-side" style="--c:var(--sky)"><h3><i></i>SIDE B</h3>
+        <ol style="--s:'B'"><li>Show up &amp; go up: open-mic slots</li><li>Snacks, drinks, new friends</li><li>Last song, 9pm</li></ol></div>
+    </div>
+    ${ev.facts()}
+    <p class="mx-small">${e.signup}</p>
+    <div>${ev.rsvp()}</div>
+    ${ev.ask()}
+  </div>
+</div>
+<button class="mx-open" id="mx-btn" aria-expanded="false" aria-controls="mx-notes">Open the liner notes <span aria-hidden="true">+</span></button>
+</div>`) + `<div id="week"></div>`;
+</script>
+<script src="week.js"></script>
+<script>
+// the liner notes swing open from the cover's edge (down from it on phones)
+const mx = document.getElementById("mx"), btn = document.getElementById("mx-btn");
+if (mx) btn.addEventListener("click", () => {
+  const open = !mx.classList.contains("open");
+  const notes = document.getElementById("mx-notes");
+  if (open && matchMedia("(max-width:900px)").matches) {
+    // display:none until opened on phones, so draw it folded first, then let it swing
+    notes.style.transition = "none"; mx.classList.add("open"); notes.style.transform = "rotateX(-92deg)";
+    void notes.offsetWidth; notes.style.transition = ""; notes.style.transform = "";
+  } else mx.classList.toggle("open", open);
+  notes.setAttribute("aria-hidden", String(!open));
+  btn.setAttribute("aria-expanded", String(open));
+  btn.firstChild.textContent = open ? "Close the liner notes " : "Open the liner notes ";
+  btn.lastElementChild.textContent = open ? "−" : "+";
+});
+</script>
+</body>
+</html>

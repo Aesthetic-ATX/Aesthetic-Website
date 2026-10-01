@@ -1,0 +1,36 @@
+/* Shared by A and E: the posters taped to a noticeboard. Under each poster, one horizontal slip
+   with where it meets and who to call, replacing the five repeated tear-off tabs (2026-10-01 feedback). */
+.sec{overflow-x:clip;}
+.board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,4vw,56px);align-items:start;padding-top:18px;}
+.flyer{--tilt:0deg;--drop:0px;display:flex;flex-direction:column;gap:16px;transform:translateY(var(--drop));scroll-margin-top:96px;}
+.flyer:nth-child(1){--tilt:-2deg;}
+.flyer:nth-child(2){--tilt:1.6deg;--drop:44px;}
+.flyer:nth-child(3){--tilt:-1deg;--drop:14px;}
+.paper{position:relative;background:var(--white);border:var(--key);box-shadow:9px 9px 0 var(--c);transform:rotate(var(--tilt));transform-origin:50% 0;animation:pin .7s var(--press) both;animation-delay:calc(var(--i) * 110ms);}
+@keyframes pin{from{transform:rotate(0deg) translateY(-10px);}to{transform:rotate(var(--tilt));}}
+/* citron tape: see-through, so the poster shows under it */
+.tape{position:absolute;top:-16px;left:50%;width:112px;height:32px;margin-left:-56px;background:var(--tape);transform:rotate(calc(var(--tilt) * -2.2));mix-blend-mode:multiply;z-index:2;}
+.tape::before,.tape::after{content:"";position:absolute;top:0;bottom:0;width:6px;background:repeating-linear-gradient(180deg,var(--page) 0 4px,transparent 4px 8px);}
+.tape::before{left:-3px;} .tape::after{right:-3px;}
+.paper img{width:100%;height:auto;}
+/* the slip: where and who, both printed on the sheet so the slip reads apart from the poster above */
+.slip{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);border-top:var(--key);}
+.slip>div{display:flex;flex-direction:column;gap:6px;padding:14px 16px 16px;min-width:0;}
+.slip>div+div{border-left:var(--hair);}
+.slip .lbl{font-size:11px;}
+.slip p{margin:0;font-size:14px;line-height:1.4;}
+.slip .v{font-weight:700;}
+/* venue, then a clear gap, then the street */
+.slip .st{display:block;margin-top:8px;}
+.slip .tel{font-size:15px;margin-top:auto;}
+/* the venue is the map link: violet, like everything clickable */
+.slip a.map{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;}
+.slip a.map:hover{text-decoration-thickness:3px;}
+@media (max-width:900px){
+  .board{grid-template-columns:minmax(0,440px);justify-content:center;gap:64px;}
+  .flyer{--drop:0px!important;}
+  .flyer:nth-child(1){--tilt:-1.4deg;} .flyer:nth-child(2){--tilt:1.2deg;} .flyer:nth-child(3){--tilt:-.8deg;}
+}
+@media (max-width:900px){.slip p{font-size:16px;} .slip .tel{font-size:17px;} .slip .lbl{font-size:12px;}}
+@media (max-width:380px){.slip>div{padding:12px;}}
+@media (prefers-reduced-motion:reduce){.paper{animation:none;}}
