@@ -321,8 +321,9 @@ a.gw-day.gw-past{background:var(--c-past);}
 .gw-lbl-up{display:none;}
 
 /* the flyer wall: three posters taped up at slight angles, each over a block of its own ink */
-/* the tilted flyers and their ink blocks lean a few px past the gutter on phones; clip them, not the page */
-.page-groups{overflow-x:clip;}
+/* the tilted flyers and their ink blocks lean a few px past the gutter on phones; clip them, not the page.
+   `hidden` first for Safari before iOS 16, which has no `clip` and let the page slide sideways (2026-10-01) */
+.page-groups{overflow-x:hidden;overflow-x:clip;}
 .gw-board{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,4vw,56px);align-items:start;padding-top:18px;}
 .flyer{--tilt:0deg;--drop:0px;transform:translateY(var(--drop));scroll-margin-top:16px;}
 .flyer:nth-child(1){--tilt:-2deg;}
@@ -364,6 +365,7 @@ a.gw-day.gw-past{background:var(--c-past);}
   .gw-week a.gw-day:first-of-type{border-left:0;}
   .gw-board .flyer{display:none;}
   .gw-board .flyer.on{display:block;}
+  .gw-board{padding-right:12px;}   /* room for the ink block and the tilt, so nothing reaches past the screen edge */
   .gw-day{min-height:136px;padding:12px 10px 14px;gap:10px;}
   .gw-t{font-size:clamp(26px,7.4vw,34px);}
   .gw-nm{font-size:13px;}
