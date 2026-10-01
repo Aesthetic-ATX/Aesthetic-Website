@@ -33,9 +33,9 @@
   --about-page-exp:#EDEBF3; /* approved 2026-09-28, an addition to the guidelines: violet's hue (255deg) lightened */
   --bible-page-exp:#E8F2F7; /* approved 2026-09-28, an addition to the guidelines: sky's hue (200deg) lightened */
   --give-page-exp:#FCFDF2;  /* approved 2026-09-28, an addition to the guidelines: citron's hue (~66deg) lightened */
-  /* PENDING APPROVAL (2026-10-01), additions for the Groups week strip: a group day that has
-     already happened this week prints at 30% of its ink on white, and empty days use a grey
-     that holds 7:1 on white. Shown in the approved prototype E; not yet in the guidelines. */
+  /* approved 2026-10-01 for now (the user may revisit them), additions to the guidelines for the
+     Groups week strip: a group day that has already happened this week prints at 30% of its ink
+     on white, and empty days use a grey that holds 7:1 on white. */
   --green-past-exp:#E0FDB3;
   --citron-past-exp:#F6FFB6;
   --sky-past-exp:#D1F0FF;
