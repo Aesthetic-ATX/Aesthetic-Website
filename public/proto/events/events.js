@@ -47,3 +47,19 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentEl
 ev.watch = (el, cls = "in", t = .3) => el && new IntersectionObserver((es, io) => {
   if (es.some((x) => x.isIntersecting)) { el.classList.add(cls); io.disconnect(); }
 }, { threshold: t }).observe(el);
+
+// The event's label in the strip's own words: Next week, This Sat, Tomorrow, Tonight, On now.
+ev.tag = (e = EVENT) => {
+  const w = eventWhen(e); if (!w) return null;
+  if (w.n === 0) return w.short;
+  const monday = Date.parse(AUSTIN.iso) - AUSTIN.wd * 864e5;
+  const weeks = Math.floor((Date.parse(e.date) - monday) / (7 * 864e5));
+  if (weeks === 0) return w.n === 1 ? "TOMORROW" : `THIS ${e.day}`;
+  return weeks === 1 ? "NEXT WEEK" : `IN ${weeks} WEEKS`;
+};
+// On the day, once the morning's group is over (noon) and until doors open, the event is what's next.
+ev.spotlight = (e = EVENT) => AUSTIN.iso === e.date && AUSTIN.min >= 720 && AUSTIN.min < e.startMin;
+// Where the event falls in the strip's week (0 = Monday), or null if it's another week.
+ev.inWeek = (e = EVENT) => { const d = Math.round((Date.parse(e.date) - (Date.parse(AUSTIN.iso) - AUSTIN.wd * 864e5)) / 864e5); return d >= 0 && d < 7 ? d : null; };
+// From noon on the day until the last song, the evening belongs to the event: no group is "next" in the strip.
+ev.owns = (e = EVENT) => AUSTIN.iso === e.date && AUSTIN.min >= 720 && AUSTIN.min < e.endMin;
