@@ -9,7 +9,7 @@ window.ev = {
       <div><dt>SIGN-UPS</dt><dd>At the door, 6 to 6:15pm</dd></div>
     </dl>`,
   rsvp: (e = EVENT) => `<a class="ev-btn" href="${e.rsvp}" target="_blank" rel="noopener">RSVP on Partiful <span aria-hidden="true">&#8599;</span></a>`,
-  ask: (e = EVENT) => `<p class="sm ev-ask">Questions? Call ${e.contact.name} at <a class="tel" href="tel:${e.contact.tel}">${e.contact.phone}</a></p>`,
+  ask: (e = EVENT) => `<p class="sm ev-ask">Questions?<br>Call ${e.contact.name} at <a class="tel" href="tel:${e.contact.tel}">${e.contact.phone}</a></p>`,
   // phones: the flyer folds behind a tap; desktop shows it in its own column
   flyerToggle: (e = EVENT) => `
     <details class="ev-fold"><summary>See the flyer</summary>
