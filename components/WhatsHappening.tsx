@@ -29,7 +29,8 @@ export function WhatsHappening({ event: e, now }: { event: SiteEvent; now: Now }
     const t = l.querySelector(".tape")!.getBoundingClientRect();
     const x0 = d.left + d.width / 2 - R.left, y0 = d.bottom - R.top, x1 = t.left + t.width / 2 - R.left, y1 = t.top - R.top + 4;
     const bus = y0 + (y1 - y0) * 0.45;
-    p.setAttribute("d", Math.abs(x1 - x0) < 2 ? `M${x0} ${y0}V${y1}` : `M${x0} ${y0}V${bus}H${x1}V${y1}`);
+    // over the tape already: straight down (the tape is 112px wide, so anything inside 40px lands on it)
+    p.setAttribute("d", Math.abs(x1 - x0) < 40 ? `M${x0} ${y0}V${y1}` : `M${x0} ${y0}V${bus}H${x1}V${y1}`);
     p.style.setProperty("--len", String(Math.ceil(p.getTotalLength())));
     const svg = p.ownerSVGElement!;
     svg.classList.remove("draw");
@@ -65,15 +66,15 @@ export function WhatsHappening({ event: e, now }: { event: SiteEvent; now: Now }
     ph === "live" ? (
       <>
         <p className="wh-live">{now.min < e.startMin + 15 ? "Doors are open. Sign-ups close at 6:15." : `Doors are open until ${e.end.replace("pm", "")}.`}</p>
-        <div className="wh-acts"><a className="wh-btn" href={e.directions} target="_blank" rel="noopener">Get directions <span aria-hidden>&#8599;</span></a></div>
+        <div className="wh-acts"><a className="wh-btn" href={e.directions} target="_blank" rel="noopener">Get directions</a></div>
       </>
     ) : (
       <div className="wh-acts">
-        <a className="wh-btn" href={e.rsvp} target="_blank" rel="noopener">RSVP on Partiful <span aria-hidden>&#8599;</span></a>
+        <a className="wh-btn" href={e.rsvp} target="_blank" rel="noopener">RSVP on Partiful</a>
         {ph === "today" ? (
-          <a className="arrow-link" href={e.directions} target="_blank" rel="noopener">Get directions <span aria-hidden>&rarr;</span></a>
+          <a className="arrow-link" href={e.directions} target="_blank" rel="noopener">Get directions</a>
         ) : (
-          <a className="arrow-link" href={e.ics} download>Add to your calendar <span aria-hidden>&rarr;</span></a>
+          <a className="arrow-link" href={e.ics} download>Add to your calendar</a>
         )}
       </div>
     );

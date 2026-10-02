@@ -106,7 +106,8 @@ export function GroupsWeek() {
     const tapeTop = (x: DOMRect) => x.top - R.top - 16;   // the tape sits 16px above the flyer
     const bus = y0 + (Math.min(...shown.map(tapeTop)) - y0) * 0.45;
     const x1 = f.left + f.width / 2 - R.left;
-    const path = Math.abs(x1 - x0) < 2 ? `M${x0} ${y0}V${tapeTop(f) + 4}` : `M${x0} ${y0}V${bus}H${x1}V${tapeTop(f) + 4}`;
+    // if the day sits over the tape, drop straight down; a few px of step reads as a glitch, not a route
+    const path = Math.abs(x1 - x0) < 40 ? `M${x0} ${y0}V${tapeTop(f) + 4}` : `M${x0} ${y0}V${bus}H${x1}V${tapeTop(f) + 4}`;
     p.setAttribute("d", path);
     p.style.setProperty("--len", String(Math.ceil(p.getTotalLength())));
     const svg = p.ownerSVGElement!;
