@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Aesthetic Church//Open Mic Night//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:open-mic-2026-10-10@aestheticatx.org
+DTSTAMP:20261001T120000Z
+DTSTART:20261010T230000Z
+DTEND:20261011T020000Z
+SUMMARY:Open Mic Night at Aesthetic
+LOCATION:2316 Morelos St\, Austin\, TX 78702
+DESCRIPTION:Feature sets from Austin artists and creatives\, with open-mic slots in between. Free\, and the whole family is welcome. Sign up at the door from 6 to 6:15pm. RSVP: https://partiful.com/e/nNwSIpDqjDoj3yqj61AK
+URL:https://partiful.com/e/nNwSIpDqjDoj3yqj61AK?c=C_vEd3x_
+END:VEVENT
+END:VCALENDAR

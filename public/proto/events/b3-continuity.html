@@ -95,7 +95,7 @@ document.getElementById("page").innerHTML = head + `<div id="week"></div>` + ev.
         </div>
         ${ev.setlist()}
         <p class="sl-note">${ev.slNote}</p>
-        <div class="sl-do">${ev.rsvp()}</div>
+        <div class="sl-do">${ev.actions()}</div>
         ${ev.ask()}
       </div>
     </div>
@@ -141,8 +141,8 @@ if (evSec) {
   const cell = wd != null && [...document.querySelectorAll(".week .day")][wd];
   if (cell) {
     const rig = document.getElementById("rig");
-    const tonight = AUSTIN.iso === EVENT.date;
-    rig.insertAdjacentHTML("beforeend", `<button class="ev-chip${tonight ? " tonight" : ""}" aria-label="${EVENT.name}, ${EVENT.dayLong} at ${EVENT.start}: see What's happening below">${tonight ? "TONIGHT · " : "+ "}<span class="lg">${EVENT.start.toUpperCase()} </span>OPEN MIC</button>`);
+    const tonight = AUSTIN.iso === EVENT.date, live = ev.phase() === "live";
+    rig.insertAdjacentHTML("beforeend", `<button class="ev-chip${tonight ? " tonight" : ""}" aria-label="${EVENT.name}, ${EVENT.dayLong} at ${EVENT.start}: see What's happening below">${live ? "ON NOW · " : tonight ? "TONIGHT · " : "+ "}${live ? "" : `<span class="lg">${EVENT.start.toUpperCase()} </span>`}OPEN MIC</button>`);
     const chip = rig.querySelector(".ev-chip"), basePad = parseFloat(getComputedStyle(cell).paddingBottom);
     const place = () => {
       chip.style.width = Math.max(cell.offsetWidth - 16, 60) + "px";

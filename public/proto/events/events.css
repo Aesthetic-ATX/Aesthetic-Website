@@ -11,6 +11,10 @@
 .ev-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:14px 24px;border:var(--key);background:var(--violet);color:var(--white);font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;}
 .ev-btn:hover{text-decoration:none;background:var(--ink);}
 .ev-ask{margin-top:12px;}
+/* the actions: one button, one quieter link beside it (under it on phones) */
+.ev-acts{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;}
+.ev-more{font-size:15px;}
+.ev-live{margin:0 0 12px;font-size:15px;font-weight:700;}
 .ev-ask .tel{font-weight:700;}
 .ev-fold{display:none;margin-top:16px;border:var(--key);background:var(--white);}
 .ev-fold summary{cursor:pointer;list-style:none;padding:12px 16px;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--violet);display:flex;justify-content:space-between;}

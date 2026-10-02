@@ -55,7 +55,7 @@ ev.tag = (e = EVENT) => {
   const monday = Date.parse(AUSTIN.iso) - AUSTIN.wd * 864e5;
   const weeks = Math.floor((Date.parse(e.date) - monday) / (7 * 864e5));
   if (weeks === 0) return w.n === 1 ? "TOMORROW" : `THIS ${e.day}`;
-  return weeks === 1 ? "NEXT WEEK" : `IN ${weeks} WEEKS`;
+  return weeks === 1 ? "NEXT WEEK" : "COMING UP";   // words, not a day count: the date sits right beside it
 };
 // On the day, once the morning's group is over (noon) and until doors open, the event is what's next.
 ev.spotlight = (e = EVENT) => AUSTIN.iso === e.date && AUSTIN.min >= 720 && AUSTIN.min < e.startMin;
@@ -63,3 +63,22 @@ ev.spotlight = (e = EVENT) => AUSTIN.iso === e.date && AUSTIN.min >= 720 && AUST
 ev.inWeek = (e = EVENT) => { const d = Math.round((Date.parse(e.date) - (Date.parse(AUSTIN.iso) - AUSTIN.wd * 864e5)) / 864e5); return d >= 0 && d < 7 ? d : null; };
 // From noon on the day until the last song, the evening belongs to the event: no group is "next" in the strip.
 ev.owns = (e = EVENT) => AUSTIN.iso === e.date && AUSTIN.min >= 720 && AUSTIN.min < e.endMin;
+
+// Where we are in the event's life: "ahead" (any day before), "today" (before doors), "live" (6 to 9pm), or null once over.
+ev.phase = (e = EVENT) => {
+  if (!eventWhen(e)) return null;
+  if (AUSTIN.iso !== e.date) return "ahead";
+  return AUSTIN.min >= e.startMin ? "live" : "today";
+};
+// The one thing to do right now, and the one after it. Days ahead you RSVP and save the date; on the
+// day you RSVP and plan the trip; once doors are open you only need to get there.
+ev.directions = "https://www.google.com/maps/dir/?api=1&destination=2316+Morelos+St%2C+Austin%2C+TX+78702";
+ev.actions = (e = EVENT) => {
+  const ph = ev.phase(e), m = AUSTIN.min;
+  const btn = (href, label, blank) => `<a class="ev-btn" href="${href}"${blank ? ' target="_blank" rel="noopener"' : ""}>${label}</a>`;
+  const more = (href, label, attrs = "") => `<a class="arrow-link ev-more" href="${href}"${attrs}>${label} <span aria-hidden="true">&rarr;</span></a>`;
+  if (ph === "live") return `<p class="ev-live">${m < e.startMin + 15 ? "Doors are open. Sign-ups close at 6:15." : "Doors are open until 9."}</p>
+    <div class="ev-acts">${btn(ev.directions, 'Get directions <span aria-hidden="true">&#8599;</span>', true)}</div>`;
+  if (ph === "today") return `<div class="ev-acts">${ev.rsvp(e)}${more(ev.directions, "Get directions", ' target="_blank" rel="noopener"')}</div>`;
+  return `<div class="ev-acts">${ev.rsvp(e)}${more("open-mic-night.ics", "Add to your calendar", ' download="open-mic-night.ics"')}</div>`;
+};
