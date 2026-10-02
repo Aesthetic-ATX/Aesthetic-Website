@@ -365,6 +365,8 @@ a.gw-day.gw-past{background:var(--c-past);}
   .gw-week a.gw-day:first-of-type{border-left:0;}
   .gw-board .flyer{display:none;}
   .gw-board .flyer.on{display:block;}
+  /* before the clock picks a day, hold one poster's room so the footer doesn't jump (CLS) */
+  .gw-board:not(:has(.flyer.on)) .flyer:first-child{display:block;visibility:hidden;}
   .gw-board{padding-right:12px;}   /* room for the ink block and the tilt, so nothing reaches past the screen edge */
   .gw-day{min-height:136px;padding:12px 10px 14px;gap:10px;}
   .gw-t{font-size:clamp(26px,7.4vw,34px);}
@@ -436,13 +438,6 @@ a.gw-day.gw-past{background:var(--c-past);}
 .wh-ask{margin-top:12px;}
 .wh-ask .tel{font-weight:700;white-space:nowrap;}
 .wh-poster{display:block;width:100%;height:auto;border:var(--key);}
-.wh-fold{display:none;margin-top:28px;border:var(--key);background:var(--white);}
-.wh-fold summary{cursor:pointer;list-style:none;padding:12px 16px;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--violet);display:flex;justify-content:space-between;}
-.wh-fold summary::-webkit-details-marker{display:none;}
-.wh-fold summary::after{content:"+";font-size:20px;line-height:1;}
-.wh-fold[open] summary::after{content:"\2212";}
-.wh-fold[open] summary{border-bottom:var(--key);}
-.wh-fold img{display:block;width:100%;height:auto;}
 /* motion, only when JS says motion is fine: the sheet hangs itself up, each row is written and ruled in
    turn, the highlighter inks the sign-up line, all once */
 .mo .slm .sl-paper{transform:rotate(0deg) translateY(-14px);}
@@ -461,8 +456,7 @@ a.gw-day.gw-past{background:var(--c-past);}
   .wh-lead{font-size:15px;line-height:1.5;margin-bottom:4px;}
   .wh-long{display:none;} .wh-short{display:inline;}
   .wh-wrap{grid-template-columns:1fr;}
-  .wh-side{display:none;}
-  .wh-fold{display:block;}
+  .wh-side{max-width:440px;margin-right:12px;}   /* the flyer, under the set list, never folded away */
   .sl{--tilt:-.6deg;margin-right:12px;}
   .wh-btn{width:100%;}
   .gw-evtab{font-size:10px;letter-spacing:.03em;padding:4px 5px;}

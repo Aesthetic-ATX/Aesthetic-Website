@@ -142,14 +142,10 @@ export function WhatsHappening({ event: e, now }: { event: SiteEvent; now: Now }
               </p>
             </div>
           </div>
-          {/* phones: the flyer folds behind a tap, so it doesn't push the page down */}
-          <details className="wh-fold">
-            <summary>See the flyer</summary>
-            <Image src={e.poster.src} alt={e.poster.alt} width={e.poster.width} height={e.poster.height} sizes="min(440px, 100vw)" />
-          </details>
         </div>
+        {/* beside the set list on wide screens; on phones it stacks under it, always shown */}
         <div className="wh-side">
-          <Image className="wh-poster" src={e.poster.src} alt={e.poster.alt} width={e.poster.width} height={e.poster.height} sizes="300px" />
+          <Image className="wh-poster" src={e.poster.src} alt={e.poster.alt} width={e.poster.width} height={e.poster.height} sizes="(max-width: 900px) min(440px, 100vw), 300px" />
         </div>
       </div>
     </section>
