@@ -2,7 +2,10 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { type Now, austinNow, dayOf, fmt, previewing } from "@/components/austin";
+import { WhatsHappening } from "@/components/WhatsHappening";
 import { groups, type Group } from "@/data/groups";
+import { inStripWeek, owns, phase, upcoming } from "@/data/events";
 
 /* The week strip and the flyer wall (prototypes/groups-2, option E, chosen 2026-10-01).
    The strip is this week, Monday to Sunday, in Austin time. Selecting a group day gives it a black
@@ -10,42 +13,18 @@ import { groups, type Group } from "@/data/groups";
    Phones and small tablets (most visitors, per Vercel Analytics) get the user's design of 2026-10-01:
    the strip keeps only Wed, Sat and Sun, and only the selected group's poster shows.
 
-   Everything that depends on today's date waits for the browser: the server can't know it, and
-   the page is built once. Until then the strip shows days and times with no dates or marks. */
+   Everything that depends on today's date waits for the browser (see austin.ts). Until then the strip
+   shows days and times with no dates or marks. The clock is read again every minute, so a page left
+   open rolls over on time. What's happening renders after the strip and shares its clock; in an
+   event's own week the strip's day carries a tab down to it. */
 
 const DAYS = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
 const sorted = [...groups].sort((a, b) => a.weekday - b.weekday);
 const byDay = new Map(sorted.map((g) => [g.weekday, g]));
 const key = (g: Group) => g.day.toLowerCase();
 
-type Now = { today: Date; iso: string; wd: number; min: number };
-
-/** Austin's date and time, whatever the visitor's clock says. `?now=2026-10-04T15:00` previews another moment. */
-function austinNow(): Now {
-  const q = new URLSearchParams(location.search).get("now");
-  let y: number, m: number, d: number, min: number;
-  if (q && /^\d{4}-\d\d-\d\d(T\d\d:\d\d)?$/.test(q)) {
-    const [date, time = "00:00"] = q.split("T");
-    [y, m, d] = date.split("-").map(Number);
-    const [h, mi] = time.split(":").map(Number);
-    min = h * 60 + mi;
-  } else {
-    const p = Object.fromEntries(
-      new Intl.DateTimeFormat("en-US", {
-        timeZone: "America/Chicago", year: "numeric", month: "numeric", day: "numeric",
-        hour: "numeric", minute: "numeric", hourCycle: "h23",
-      }).formatToParts(new Date()).map((x) => [x.type, x.value]),
-    );
-    [y, m, d, min] = [+p.year, +p.month, +p.day, +p.hour * 60 + +p.minute];
-  }
-  const today = new Date(Date.UTC(y, m - 1, d));
-  return { today, iso: today.toISOString().slice(0, 10), wd: (today.getUTCDay() + 6) % 7, min };
-}
-
 /** A group stays current all of its day, then rolls to next week (user's rule, 2026-10-01). */
 const isPast = (g: Group, now: Now) => g.weekday < now.wd;
-const dayOf = (now: Now, wd: number) => { const d = new Date(now.today); d.setUTCDate(d.getUTCDate() - now.wd + wd); return d; };
-const fmt = (d: Date, o: Intl.DateTimeFormatOptions) => d.toLocaleDateString("en-US", { timeZone: "UTC", ...o });
 
 /** What the slip says about where to go. A moving group names this week's place until that day is over. */
 function whereFor(g: Group, now: Now | null) {
@@ -70,12 +49,47 @@ export function GroupsWeek() {
   const drawn = useRef(false);
 
   const next = now ? sorted.find((g) => !isPast(g, now)) ?? sorted[0] : null;
+  const ev = now ? upcoming(now) : null;
+  // from noon on an event's day to its last song, the evening is the event's: no group is "next"
+  const evOwns = !!(ev && now && owns(ev, now));
+  const tab = !!(ev && now && inStripWeek(ev, now));
+  const tabRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const n = austinNow();
     setNow(n);
     setSel(sorted.find((g) => !isPast(g, n)) ?? sorted[0]);
+    if (previewing()) return;   // a preview stays at the moment asked for
+    const t = setInterval(() => setNow(austinNow()), 60_000);
+    return () => clearInterval(t);
   }, []);
+
+  /* In an event's week its day in the strip carries a tab down to What's happening. The tab sits over the
+     bottom of that day (it can't live inside the day's own link), and the day grows to make room. */
+  useEffect(() => {
+    const r = rig.current, w = week.current, c = tabRef.current;
+    if (!tab || !ev || !r || !w || !c) return;
+    const cell = w.children[ev.weekday] as HTMLElement;
+    const place = () => {
+      cell.style.paddingBottom = "";
+      if (!cell.offsetParent) { c.style.visibility = "hidden"; return; }   // an empty day, hidden on phones
+      c.style.width = Math.max(cell.offsetWidth - 16, 60) + "px";
+      cell.style.paddingBottom = parseFloat(getComputedStyle(cell).paddingBottom) + c.offsetHeight + 12 + "px";
+      const R = r.getBoundingClientRect(), b = cell.getBoundingClientRect();
+      c.style.left = b.left - R.left + 8 + "px";
+      c.style.top = b.bottom - R.top - 18 - c.offsetHeight + "px";   // just above the day's black bar
+      c.style.visibility = "";
+    };
+    place();
+    addEventListener("resize", place);
+    document.fonts?.ready.then(place);
+    return () => { removeEventListener("resize", place); cell.style.paddingBottom = ""; };
+  }, [tab, ev, now]);
+
+  const toEvent = () => {
+    document.getElementById("whats-happening")?.scrollIntoView({ behavior: reduced() ? "auto" : "smooth", block: "start" });
+    setTimeout(() => dispatchEvent(new Event("wh:ping")), reduced() ? 0 : 550);
+  };
 
   /* The line: from the bottom of the selected day down to its flyer's tape. It drops, runs across at a
      height shared by every flyer on show, then drops onto the tape. It aims at the flyer's top centre,
@@ -192,11 +206,11 @@ export function GroupsWeek() {
                 className={`gw-day${today ? " gw-today" : ""}${past ? " gw-past" : ""}`}
                 style={inkVar(g)}
                 aria-current={sel === g ? "true" : undefined}
-                aria-label={`${g.name}, ${g.when}${d ? `. Next: ${fmt(d, { weekday: "long", month: "long", day: "numeric" })}` : ""}${g === next ? ", next up" : ""}`}
+                aria-label={`${g.name}, ${g.when}${d ? `. Next: ${fmt(d, { weekday: "long", month: "long", day: "numeric" })}` : ""}${g === next && !evOwns ? ", next up" : ""}`}
                 onClick={(e) => pick(e, g)}
               >
                 {head}
-                {g === next ? <span className="gw-stamp">NEXT<span className="gw-up"> UP</span></span> : null}
+                {g === next && !evOwns ? <span className="gw-stamp">NEXT<span className="gw-up"> UP</span></span> : null}
                 <span>
                   <span className="gw-t">{g.time.replace(/(am|pm)$/, "")}<small>{g.time.match(/(am|pm)$/)?.[1]}</small></span>
                   <span className="gw-nm">{g.short ?? g.name}</span>
@@ -206,6 +220,21 @@ export function GroupsWeek() {
             );
           })}
         </nav>
+
+        {tab && ev && now ? (
+          <button
+            ref={tabRef}
+            type="button"
+            className={`gw-evtab${phase(ev, now) !== "ahead" ? " tonight" : ""}`}
+            aria-label={`${ev.name}, ${ev.dayLong} at ${ev.start}: see What's happening below`}
+            onClick={toEvent}
+            style={{ visibility: "hidden" }}
+          >
+            {phase(ev, now) === "live" ? "ON NOW · " : phase(ev, now) === "today" ? "TONIGHT · " : "+ "}
+            {phase(ev, now) === "live" ? null : <span className="gw-evtab-t">{ev.start.toUpperCase()} </span>}
+            {ev.short.toUpperCase()}
+          </button>
+        ) : null}
 
         {/* Each poster taped to the board, with one slip under it: where it meets, who to call */}
         <div className="gw-board">
@@ -252,6 +281,7 @@ export function GroupsWeek() {
         </div>
       </div>
 
+      {ev && now ? <WhatsHappening event={ev} now={now} /> : null}
     </>
   );
 }

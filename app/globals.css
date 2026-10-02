@@ -378,6 +378,99 @@ a.gw-day.gw-past{background:var(--c-past);}
   .flyer-paper,.flyer.lit .flyer-paper,.gw-stamp,.gw-wire.draw path{animation:none;stroke-dashoffset:0;}
 }
 
+/* the strip's tab, in an event's own week: a small neutral tag on that day that jumps down to it */
+.gw-evtab{position:absolute;z-index:3;display:block;padding:5px 6px;border:2px solid var(--ink);background:var(--neutral);color:var(--ink);
+  font:inherit;font-size:11px;font-weight:700;letter-spacing:.06em;line-height:1.25;text-align:left;cursor:pointer;}
+.gw-evtab.tonight{background:var(--ink);color:var(--sheet);}
+@media (hover:hover){.gw-evtab:hover{background:var(--ink);color:var(--sheet);}}
+
+/* What's happening: after the week strip, in its grammar (prototypes/events B3, 2026-10-01) ------ */
+.wh{position:relative;margin-top:clamp(72px,9vw,112px);}
+.wh-lbl{margin:0 0 14px;}
+.wh-wire{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;}
+.wh-wire path{fill:none;stroke:var(--ink);stroke-width:3;stroke-linejoin:miter;stroke-linecap:square;}
+.wh-wire.draw path{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:gw-wire .7s var(--feed) forwards;}
+/* the event's day box: one of the strip's days, lifted out (same size, type and black "selected" bar) */
+.wh-row{display:grid;grid-template-columns:20% minmax(0,1fr);gap:clamp(18px,3vw,36px);align-items:end;margin-bottom:clamp(44px,5vw,64px);}
+.wh-day{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:18px;min-width:0;min-height:150px;padding:14px 14px 16px;
+  border:var(--key);background:var(--neutral);box-shadow:inset 0 -10px 0 var(--ink);color:var(--ink);}
+.wh-day.ping{animation:wh-ping .6s var(--press);}
+@keyframes wh-ping{40%{transform:translateY(-6px);}}
+.wh-lead{margin:0 0 6px;font-size:clamp(17px,1.4vw,19px);line-height:1.6;max-width:56ch;}
+.wh-short{display:none;}
+/* the set list, taped up like the flyers, over a neutral ink block */
+.wh-wrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:clamp(28px,4vw,56px);align-items:start;}
+.sl{--tilt:-1deg;position:relative;padding-top:16px;}
+.sl-paper{position:relative;transform:rotate(var(--tilt));transform-origin:50% 0;}
+.sl-ink{position:absolute;inset:0;transform:translate(9px,9px);background:var(--neutral);}
+.sl-sheet{position:relative;background:var(--white);border:var(--key);padding:clamp(22px,3.4vw,40px) clamp(18px,3vw,36px) clamp(20px,3vw,32px);}
+.sl .tape{transform:rotate(2deg);}
+.sl-sheet>.lbl{margin:0;}
+.sl-h{margin:6px 0 4px;font-size:clamp(34px,5vw,54px);font-weight:700;line-height:.95;letter-spacing:-.03em;}
+.sl-sub{margin:0;font-size:16px;font-weight:500;}
+.sl-sub+.sl-sub{margin-top:2px;}
+.sl-sub .nw{white-space:nowrap;}   /* each fact wraps whole, never mid-phrase */
+.sl-list{list-style:none;margin:22px 0 0;padding:0;border-top:var(--key);}
+.sl-list li{position:relative;display:grid;grid-template-columns:76px minmax(0,1fr);gap:14px;align-items:baseline;padding:12px 0 13px;}
+.sl-list li::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--ink);transform-origin:0 50%;}
+.sl-list li:last-child::after{height:3px;}
+.sl-t{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.01em;}
+.sl-t.w{font-size:11px;letter-spacing:.1em;}
+.sl-what{font-size:17px;line-height:1.4;}
+.sl-what b{font-weight:700;}
+.sl-what small{display:block;font-size:14px;line-height:1.45;margin-top:2px;}
+/* the step people miss, inked like a highlighter: a flat green field behind the words, line by line */
+.sl-list li.hi .hl{background-color:var(--green);box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:0 4px;margin-left:-4px;}
+/* on the night: what's over is struck through, what's on is tagged */
+.sl-list li.done .sl-t,.sl-list li.done .sl-what{color:var(--muted-exp);}
+.sl-list li.done .hl{text-decoration:line-through;text-decoration-thickness:2px;background-color:transparent;}
+.sl-now{display:inline-block;margin-left:10px;padding:1px 6px;background:var(--ink);color:var(--sheet);font-style:normal;font-size:10px;font-weight:700;letter-spacing:.1em;vertical-align:3px;animation:sl-on 1.6s ease-in-out infinite;}
+@keyframes sl-on{50%{transform:scale(.9);}}
+.sl-note{margin:14px 0 0;font-size:13px;line-height:1.5;}
+.sl-do{margin-top:24px;}
+.wh-acts{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;}
+.wh-live{margin:0 0 12px;font-size:15px;font-weight:700;}
+/* the RSVP: square-cut card stock in violet, like the site's primary buttons */
+.wh-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:14px 24px;border:var(--key);background:var(--violet);color:var(--white);font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;}
+.wh-btn:hover{text-decoration:none;background:var(--ink);}
+.wh-ask{margin-top:12px;}
+.wh-ask .tel{font-weight:700;white-space:nowrap;}
+.wh-poster{display:block;width:100%;height:auto;border:var(--key);}
+.wh-fold{display:none;margin-top:28px;border:var(--key);background:var(--white);}
+.wh-fold summary{cursor:pointer;list-style:none;padding:12px 16px;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--violet);display:flex;justify-content:space-between;}
+.wh-fold summary::-webkit-details-marker{display:none;}
+.wh-fold summary::after{content:"+";font-size:20px;line-height:1;}
+.wh-fold[open] summary::after{content:"\2212";}
+.wh-fold[open] summary{border-bottom:var(--key);}
+.wh-fold img{display:block;width:100%;height:auto;}
+/* motion, only when JS says motion is fine: the sheet hangs itself up, each row is written and ruled in
+   turn, the highlighter inks the sign-up line, all once */
+.mo .slm .sl-paper{transform:rotate(0deg) translateY(-14px);}
+.mo .slm.in .sl-paper{transform:rotate(var(--tilt));transition:transform .9s var(--press);}
+.mo .slm .sl-list li>*{clip-path:inset(0 100% 0 0);}
+.mo .slm .sl-list li::after{transform:scaleX(0);}
+.mo .slm.in .sl-list li>*{clip-path:inset(0 0 0 0);transition:clip-path .55s var(--feed);transition-delay:calc(.35s + var(--n) * 140ms);}
+.mo .slm.in .sl-list li>*+*{transition-delay:calc(.43s + var(--n) * 140ms);}
+.mo .slm.in .sl-list li::after{transform:none;transition:transform .5s var(--feed);transition-delay:calc(.5s + var(--n) * 140ms);}
+.mo .hlm .sl-list li.hi:not(.done) .hl{background-color:transparent;}
+.mo .hlm.in .sl-list li.hi:not(.done) .hl{background-color:var(--green);transition:background-color .5s var(--feed) 1.45s;}
+@media (max-width:900px){
+  /* the day box is one of the strip's three columns wide, just as it is above */
+  .wh-row{grid-template-columns:calc(100% / 3) minmax(0,1fr);gap:14px;margin-bottom:56px;}
+  .wh-day{min-height:136px;padding:12px 10px 14px;gap:10px;}
+  .wh-lead{font-size:15px;line-height:1.5;margin-bottom:4px;}
+  .wh-long{display:none;} .wh-short{display:inline;}
+  .wh-wrap{grid-template-columns:1fr;}
+  .wh-side{display:none;}
+  .wh-fold{display:block;}
+  .sl{--tilt:-.6deg;margin-right:12px;}
+  .wh-btn{width:100%;}
+  .gw-evtab{font-size:10px;letter-spacing:.03em;padding:4px 5px;}
+  .gw-evtab-t{display:none;}   /* phones: the time is in the event's own box below */
+}
+@media (max-width:600px){.sl-sub .dot{display:none;} .sl-sub .nw{display:block;} .sl-sub .slip-map{display:inline-block;}}
+@media (prefers-reduced-motion:reduce){.wh-wire.draw path,.wh-day.ping,.sl-now{animation:none;stroke-dashoffset:0;}}
+
 /* bulletin furniture, shared by the message card and the Weekly --------- */
 .sheet{background:var(--white);border:var(--key);padding:clamp(18px,3vw,36px);}
 .mast{text-align:center;border-bottom:var(--key);padding-bottom:12px;}
