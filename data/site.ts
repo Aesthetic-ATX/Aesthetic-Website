@@ -13,6 +13,8 @@ export const site = {
   mission: mission,
   vision: vision,
   service: { day: "Sundays", time: "11am", doors: "10:30am" },
+  /** 24-hour times for the Church schema. The service ends by 12:30pm (user, 2026-10-12). */
+  serviceHours: { opens: "11:00", closes: "12:30" },
   address: {
     street: "2316 Morelos St",
     city: "Austin",

@@ -32,6 +32,9 @@ const schema = {
   },
   geo: { "@type": "GeoCoordinates", ...site.geo },
   hasMap: site.mapsUrl,
+  openingHoursSpecification: [
+    { "@type": "OpeningHoursSpecification", dayOfWeek: "https://schema.org/Sunday", ...site.serviceHours },
+  ],
   sameAs: [site.instagram.url, site.youtube.url],
 };
 
