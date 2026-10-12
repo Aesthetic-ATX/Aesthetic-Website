@@ -15,7 +15,7 @@ function Ch({ ch }: { ch: Chapter }) {
         <b aria-hidden>{ch.num}</b>
         <span>
           {ch.label.split("\n").map((line, i) => (
-            <span key={i} style={{ display: "block" }}>{line}</span>
+            <span key={i} style={{ display: "block" }}>{line}{" "}</span>
           ))}
         </span>
       </div>

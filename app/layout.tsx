@@ -15,9 +15,13 @@ export const metadata: Metadata = {
 const schema = {
   "@context": "https://schema.org",
   "@type": "Church",
+  "@id": `${site.origin}/#church`,
   name: site.name,
   url: site.origin,
   email: site.email,
+  slogan: "Come as you are",
+  logo: `${site.origin}/icon.png`,
+  image: `${site.origin}/opengraph-image.png`,
   address: {
     "@type": "PostalAddress",
     streetAddress: site.address.street,
@@ -26,7 +30,9 @@ const schema = {
     postalCode: site.address.postalCode,
     addressCountry: site.address.country,
   },
-  sameAs: [site.instagram.url],
+  geo: { "@type": "GeoCoordinates", ...site.geo },
+  hasMap: site.mapsUrl,
+  sameAs: [site.instagram.url, site.youtube.url],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -20,6 +20,8 @@ export const site = {
     postalCode: "78702",
     country: "US",
   },
+  /** The building at 2316 Morelos St, from OpenStreetMap (2026-10-12). Read by the Church schema. */
+  geo: { latitude: 30.2614835, longitude: -97.7152531 },
   /** The Sapien Center place pin, supplied 2026-09-23 (Google's search tracking parameters removed).
    *  Every Directions link reads this; the footer's embedded map still searches by address. */
   mapsUrl: "https://www.google.com/maps/place/2316+Morelos+St,+Austin,+TX+78702/data=!4m2!3m1!1s0x8644b5c9463fabc9:0x719188c4eae9d70d",

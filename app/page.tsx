@@ -88,7 +88,7 @@ export default function Home() {
             ))}
           </p>
           <div className="highlight-row">
-            <span className="lbl highlight-lbl">FAITH IS NOT MEANT TO FEEL FORCED</span>
+            <span className="lbl highlight-lbl">FAITH IS NOT MEANT TO FEEL FORCED</span>{" "}
             <span className="sp highlight">make room to explore it.</span>
           </div>
         </div>

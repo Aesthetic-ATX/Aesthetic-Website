@@ -26,7 +26,7 @@ export function Message() {
       <header className="mast">
         <p className="lbl">{message.kicker}</p>
         <h2 id="message-title" className="mast-name msg-name">
-          {message.series}
+          {message.series}{" "}
           <span className="msg-sub">{message.episode}</span>
         </h2>
       </header>
