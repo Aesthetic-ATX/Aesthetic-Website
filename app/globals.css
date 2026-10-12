@@ -335,7 +335,7 @@ a.gw-day.gw-past{background:var(--c-past);}
 @keyframes gw-repin{0%{transform:rotate(var(--tilt));}35%{transform:rotate(0deg) translateY(-8px);}100%{transform:rotate(var(--tilt));}}
 /* the ink block is a second flat field printed 9px out of register, not a shadow */
 .flyer-ink{position:absolute;inset:0;transform:translate(9px,9px);background:var(--c);}
-.flyer-sheet{position:relative;background:var(--white);border:var(--key);}
+.flyer-sheet{position:relative;background:var(--white);border:var(--key);container-type:inline-size;}
 .flyer-sheet img{display:block;width:100%;height:auto;}
 /* citron tape, solid ink with torn ends cut by the outline */
 .tape{position:absolute;top:-16px;left:50%;z-index:2;width:112px;height:32px;margin-left:-56px;background:var(--citron);
@@ -352,6 +352,13 @@ a.gw-day.gw-past{background:var(--c-past);}
 .slip-map{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;}  /* the venue opens the map */
 .slip-map:hover{text-decoration-thickness:3px;}
 .slip .tel{margin-top:auto;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;}
+/* a narrow sheet (three across on a small window) can't hold the phone number in half its width:
+   the slip stacks, where over contact, so the number stays inside the frame (2026-10-12) */
+@container (max-width:318px){
+  .slip{grid-template-columns:minmax(0,1fr);}
+  .slip>div+div{border-left:0;border-top:var(--hair);}
+  .slip .tel{margin-top:2px;}
+}
 
 
 @media (max-width:900px){
@@ -359,6 +366,12 @@ a.gw-day.gw-past{background:var(--c-past);}
   .flyer{--drop:0px !important;}
   .flyer:nth-child(1){--tilt:-1.4deg;} .flyer:nth-child(2){--tilt:1.2deg;} .flyer:nth-child(3){--tilt:-.8deg;}
   .slip p{font-size:16px;} .slip .tel{font-size:17px;} .slip .lbl{font-size:12px;}
+  /* the bigger phone type needs a wider sheet before the slip can sit side by side */
+  @container (max-width:345px){
+    .slip{grid-template-columns:minmax(0,1fr);}
+    .slip>div+div{border-left:0;border-top:var(--hair);}
+    .slip .tel{margin-top:2px;}
+  }
   /* three days, one poster: the selected group's (the user's design, 2026-10-01) */
   .gw-week{grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:64px;}
   .gw-off{display:none;}
