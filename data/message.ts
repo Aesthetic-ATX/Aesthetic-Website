@@ -34,11 +34,11 @@ export const message = {
   ],
   byline: "JOHN LEE · PASTOR",
   /** 1-based index into `weeks` of the Sunday this card is about. */
-  current: 3,
+  current: 4,
   weeks: [
     { date: "2026-09-20", title: "Beginning with prayer" },
     { date: "2026-09-27", title: "Practice of reading Scripture" },
     { date: "2026-10-04", title: "Community | Better together" },
-    { date: "2026-10-11", title: null },
+    { date: "2026-10-11", title: "Tithing/Generosity | Open handed living" },
   ] satisfies Week[],   // four Sundays, not five: John shortened the series (2026-09-29)
 } as const;
