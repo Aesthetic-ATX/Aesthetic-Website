@@ -510,6 +510,18 @@ a.gw-day.gw-past{background:var(--c-past);}
 .toc li.now .toc-t{font-weight:700;}
 /* a topic not yet announced prints as a black redaction bar, like a proof
    with the line blacked out; the Sunday it is revealed sits beside it */
+/* liner notes: the finished series as a track list (message.wrapped, 2026-10-12) */
+.ln-lbl{margin:0;}
+.toc.ln li{align-items:start;padding:13px 0;}
+.toc.ln .toc-t b{display:block;font-weight:700;}
+.ln-take{display:block;margin-top:2px;font-size:15px;line-height:1.4;}
+.ln-side{display:flex;flex-direction:column;align-items:flex-end;gap:6px;padding-top:3px;}
+.ln-watch{color:var(--violet);font-size:11px;font-weight:700;letter-spacing:.14em;text-decoration:underline;text-underline-offset:4px;padding:6px 0;margin:-6px 0;}
+.ln-watch:hover{text-decoration-thickness:3px;}
+.ln-next{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.ln-next p{margin:0;font-size:15px;line-height:1.4;}
+.ln-stamp{font-size:11px;font-weight:700;letter-spacing:.12em;line-height:1.5;border:2px solid var(--ink);padding:3px 8px;background:var(--white);transform:rotate(-3deg);}
+@media (max-width:420px){.toc.ln li{grid-template-columns:2.4em 1fr auto;gap:10px;}}
 .toc-hidden{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
 .redact{display:block;width:clamp(96px,14vw,168px);height:.95em;background:var(--ink);}
 .toc-reveal{font-size:11px;font-weight:700;letter-spacing:.14em;}
