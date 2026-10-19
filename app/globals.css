@@ -654,6 +654,12 @@ a.gw-day.gw-past{background:var(--c-past);}
 .nobr{white-space:nowrap;}   /* keeps a hyphenated word on one line */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
 .foot{padding:clamp(64px,7vw,88px) var(--pad) 40px;}
+/* "See you Sunday." across the black, the countdown under it (2026-10-19) */
+.foot-sun{display:flex;flex-direction:column;gap:clamp(12px,1.6vw,20px);margin-bottom:clamp(56px,7vw,96px);}
+.foot-sun-line{margin:0;font-size:clamp(56px,12.5vw,184px);line-height:.92;letter-spacing:-.03em;}
+.foot-sun-see{color:var(--sky);font-size:.9em;}
+.foot-sun-day{font-weight:700;color:var(--sheet);}
+.foot-sun-when{margin:0;font-size:clamp(12px,1.3vw,16px);font-weight:700;letter-spacing:.16em;line-height:1.5;color:var(--sky);}
 .foot-top{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(40px,5vw,72px);align-items:start;margin-bottom:clamp(56px,6vw,80px);}
 .foot-col{display:flex;flex-direction:column;align-items:flex-start;gap:16px;min-width:0;}
 .foot-wm{font-size:34px;line-height:1;color:var(--sky);}
@@ -701,6 +707,9 @@ a.gw-day.gw-past{background:var(--c-past);}
 /* the printed map (components/RisoMap.tsx): flat inks, no Google embed ------ */
 .riso{min-width:0;}
 .riso-frame{position:relative;}
+/* the map as a postcard on a slight tilt (2026-10-19); only the card turns, its caption and button stay level */
+.riso-frame{transform:rotate(-2deg);transform-origin:50% 50%;}
+@media (max-width:600px){.riso-frame{transform:rotate(-1.2deg);}}
 .riso-map{display:block;position:relative;background:var(--sky);border:3px solid var(--sheet);}
 .riso-map svg{display:block;width:100%;height:auto;}
 .riso .road{fill:none;stroke-linecap:round;}

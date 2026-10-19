@@ -2,6 +2,7 @@ import Link from "next/link";
 import { site } from "@/data/site";
 import DecodeHeadline from "@/components/DecodeHeadline";
 import { RisoMap } from "@/components/RisoMap";
+import { SeeYouSunday } from "@/components/SeeYouSunday";
 
 const explore = [
   { href: "/visit", label: "Plan your visit" },
@@ -33,6 +34,9 @@ export function Footer() {
   return (
     <footer className="foot f-ink">
       <div className="wrap">
+        {/* The send-off across the black, with a live countdown to Sunday (2026-10-19). */}
+        <SeeYouSunday />
+
         {/* Left: who we are, then the pages and the inbox. Right: the printed map.
             Laid out by the user, 2026-09-28. */}
         <div className="foot-top">
