@@ -528,39 +528,29 @@ a.gw-day.gw-past{background:var(--c-past);}
 .ser-by{margin-top:18px !important;}
 /* drop cap: Jost 700, three lines deep, black. No colour, no box. */
 .dropcap::first-letter{float:left;font-weight:700;font-size:4.1em;line-height:.8;margin:.07em .09em 0 0;letter-spacing:-.02em;}
-/* Motion (DESIGN.md): plays once on arrival via usePlayOnce. The ticks rule round from twelve
-   o'clock, the words ink in left to right, this Sunday's stamp goes down last. --feed only,
-   durations from the --t-* tokens, about two seconds. Final clip insets are negative so italic
-   overhang is never cut. */
+/* Motion (DESIGN.md): plays once on arrival via usePlayOnce, in the order of the One Year film
+   (video.mp4, chosen 2026-10-19). The ticks rule round from twelve o'clock; the paper ripples from
+   the centre like a blind emboss, lit top left; the words surface inside the ripple as a widening
+   circle; this Sunday's stamp goes down last. --feed and the --t-* tokens only, about three seconds.
+   The emboss is the one place light and shadow are allowed (user's call, option A). */
 .ser-cover.armed line{stroke-dashoffset:1;}
-.ser-cover.armed .ink{clip-path:inset(-20% 100% -20% -10%);}
 .ser-cover.armed .ser-stamp{opacity:0;transform:scale(1.6);}
+.ser-cover.armed .ser-words{clip-path:circle(0% at 50% 50%);opacity:0;}   /* fades as it opens: no blob of letters at the centre */
 .ser-cover.play line{stroke-dashoffset:0;transition:stroke-dashoffset var(--t-base) var(--feed) calc(var(--i) * var(--t-step));}
-.ser-cover.play .ink{clip-path:inset(-20% -10% -20% -10%);transition:clip-path var(--t-slow) var(--feed) calc(4 * var(--t-step));}
-.ser-cover.play .ink+.ink{transition-delay:calc(6 * var(--t-step));}
-.ser-cover.play .ink+.ink+.ink{transition-delay:calc(8 * var(--t-step));}
-.ser-cover.play .ink+.ink+.ink+.ink{transition-delay:calc(10 * var(--t-step));}
-.ser-cover.play .ser-stamp{opacity:1;transform:none;transition:opacity var(--t-quick) linear 1.5s,transform var(--t-base) var(--feed) 1.5s;}
+.ser-cover.play .ser-words{clip-path:circle(75% at 50% 50%);opacity:1;
+  transition:clip-path var(--t-slow) var(--feed) 1.65s,opacity var(--t-base) var(--feed) 1.65s;}
+.ser-cover.play .ser-stamp{opacity:1;transform:none;transition:opacity var(--t-quick) linear 2.65s,transform var(--t-base) var(--feed) 2.65s;}
+/* the emboss: a shallow grey dip with raised rings, shadow below right, highlight above left */
+.ser-emboss{position:absolute;inset:2%;border-radius:50%;pointer-events:none;opacity:0;
+  background:repeating-radial-gradient(circle at 47% 46%,transparent 0 8%,#fff 10.5%,transparent 13.5%),
+    repeating-radial-gradient(circle at 53% 55%,transparent 0 8%,rgba(0,0,0,.34) 11%,transparent 15%),
+    radial-gradient(circle,rgba(0,0,0,.07),rgba(0,0,0,.02) 60%,transparent 70%);
+  -webkit-mask-image:radial-gradient(circle,#000 30%,transparent 70%);mask-image:radial-gradient(circle,#000 30%,transparent 70%);}
+.ser-cover.play .ser-emboss{animation:ser-emboss calc(2 * var(--t-slow)) var(--feed) 1.3s both;}
+@keyframes ser-emboss{0%{transform:scale(.12);opacity:0;}20%{opacity:1;}70%{opacity:.85;}100%{transform:scale(1.2);opacity:0;}}
 .ser-weeks.armed .ser-ticks,.ser-weeks.armed .ink{clip-path:inset(-20% 100% -20% -10%);}
 .ser-weeks.play .ser-ticks,.ser-weeks.play .ink{clip-path:inset(-20% -10% -20% -10%);transition:clip-path var(--t-slow) var(--feed) calc(var(--i) * 4 * var(--t-step));}
 .ser-weeks.play .ink{transition-delay:calc(var(--i) * 4 * var(--t-step) + 4 * var(--t-step));}
-/* PREVIEW ONLY (?ripple=emboss|ink, 2026-10-19): the ripple from the One Year film (video.mp4, 5.5-6.5s),
-   tried two ways. After the ticks finish, a ripple opens from the centre and the words surface inside
-   it as a widening circle; the stamp goes down after. Keep the winner, delete the other before merge. */
-.ser-emboss{position:absolute;inset:6%;border-radius:50%;pointer-events:none;opacity:0;
-  background:repeating-radial-gradient(circle at 47% 46%,transparent 0 9%,rgba(255,255,255,.95) 11%,transparent 14%),
-    repeating-radial-gradient(circle at 53% 55%,transparent 0 8.5%,rgba(0,0,0,.2) 11.5%,transparent 15.5%);
-  -webkit-mask-image:radial-gradient(circle,#000 22%,transparent 68%);mask-image:radial-gradient(circle,#000 22%,transparent 68%);}
-.rip-emboss.play .ser-emboss{animation:ser-emboss 1.2s var(--feed) 1.3s both;}
-@keyframes ser-emboss{0%{transform:scale(.15);opacity:0;}25%{opacity:1;}100%{transform:scale(1.15);opacity:0;}}
-.ser-ripple{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;}
-.ser-ripple circle{fill:none;stroke:var(--muted-exp);stroke-width:1;vector-effect:non-scaling-stroke;transform-box:fill-box;transform-origin:center;opacity:0;}
-.rip-ink.play .ser-ripple circle{animation:ser-ring var(--t-slow) var(--feed) calc(1.3s + var(--k) * 3 * var(--t-step)) both;}
-@keyframes ser-ring{0%{transform:scale(.06);opacity:0;}15%{opacity:1;}100%{transform:scale(1);opacity:0;}}
-.rip .ser-words .ink{clip-path:none !important;transition:none !important;}
-.rip.armed .ser-words{clip-path:circle(0% at 50% 50%);opacity:0;}   /* fades as it opens, so no blob of letters at the centre */
-.rip.play .ser-words{clip-path:circle(75% at 50% 50%);opacity:1;transition:clip-path var(--t-slow) var(--feed) 1.45s,opacity var(--t-base) var(--feed) 1.45s;}
-.rip.play .ser-stamp{transition-delay:2.3s,2.3s;}
 @media (max-width:720px){
   /* phones: the rule runs down the left, each week's days hang off it */
   .ser-weeks{grid-template-columns:minmax(0,1fr);}

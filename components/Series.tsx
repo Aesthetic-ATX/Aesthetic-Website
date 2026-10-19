@@ -27,8 +27,8 @@ const ticks = Array.from({ length: DAYS }, (_, i) => {
 /**
  * The current series (2026-10-19), made from the One Year ring and set inside the homepage's
  * bulletin sheet. Motion follows DESIGN.md: it plays once on arrival (the ticks rule round, the
- * words ink in left to right, this Sunday's green stamp goes down last), with the site's --feed
- * curve and the --t-* durations only. No scroll driving, no blur, no loops.
+ * paper ripples from the centre and the words surface inside it, this Sunday's green stamp goes
+ * down last), with the site's --feed curve and the --t-* durations only. No scroll driving, no loops.
  */
 export function Series() {
   const cover = useRef<HTMLDivElement>(null);
@@ -44,29 +44,15 @@ export function Series() {
     setCur(i === -1 ? series.weeks.length : i);
   }, []);
 
-  // PREVIEW ONLY (2026-10-19): ?ripple=emboss or ?ripple=ink tries the One Year film's ripple two
-  // ways, for the user to choose. Keep the winner, delete this switch and the loser before merging.
-  const [rip, setRip] = useState<"" | "emboss" | "ink">("");
-  useEffect(() => {
-    const r = new URLSearchParams(location.search).get("ripple");
-    if (r === "emboss" || r === "ink") setRip(r);
-  }, []);
-
   const first = series.weeks[0].date, last = series.weeks[series.weeks.length - 1].date;
   const now = cur !== null && cur < series.weeks.length ? cur : null;
   const nowAngle = now !== null ? (now * 7 / DAYS) * 360 : 0;
 
   return (
     <article className="sheet ser" aria-labelledby="series-title">
-      <div ref={cover} className={`ser-cover ${coverPhase}${rip ? ` rip rip-${rip}` : ""}`}>
-        {rip === "emboss" && <div className="ser-emboss" aria-hidden="true" />}
-        {rip === "ink" && (
-          <svg className="ser-ripple" viewBox="0 0 400 400" aria-hidden="true">
-            {[0, 1, 2].map((k) => (
-              <circle key={k} cx="200" cy="200" r="150" style={{ "--k": k } as CSSProperties} />
-            ))}
-          </svg>
-        )}
+      <div ref={cover} className={`ser-cover ${coverPhase}`}>
+        {/* the paper ripples from the centre, as in the One Year film (option A, 2026-10-19) */}
+        <div className="ser-emboss" aria-hidden="true" />
         <svg className="ser-ring" viewBox="0 0 400 400" aria-hidden="true">
           {ticks.map((t, i) => (
             <line
