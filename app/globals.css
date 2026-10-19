@@ -255,6 +255,42 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .highlight-row{margin-top:32px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:16px 24px;}
 .highlight-lbl{letter-spacing:.18em;text-align:center;text-wrap:balance;}
 .highlight{background:var(--green);padding:10px 22px;font-size:clamp(22px,2vw,28px);line-height:1.2;}
+/* About story (2026-10-19, user's mix of prototypes/home-about-footer A + B + C). The finished print is
+   the default (server, reduced motion); .armed hides, .play runs once. Beats, all from the tokens:
+   crop marks frame the heading; the heading inks in; "in life and culture." prints sky then black,
+   landing in register with a hairline sky trap left showing; the paragraph inks in and corrects
+   itself (struck, then inked green); the closing lines ink in last. About four seconds. */
+.ab{--t1:calc(4 * var(--t-step));--t2:calc(8 * var(--t-step));--reg:calc(var(--t-slow) + 8 * var(--t-step));
+  --copy:calc(var(--t-slow) + 4 * var(--t-step));--fix:calc(2 * var(--t-slow));--close:calc(3 * var(--t-slow));}
+.crop{position:relative;display:inline-block;padding:.16em .22em;margin-left:-.22em;}
+.cm{position:absolute;width:clamp(14px,1.6vw,22px);height:clamp(14px,1.6vw,22px);border:0 solid var(--ink);}
+.cm.tl{left:0;top:0;border-left-width:2px;border-top-width:2px;transform-origin:0 0;}
+.cm.tr{right:0;top:0;border-right-width:2px;border-top-width:2px;transform-origin:100% 0;}
+.cm.bl{left:0;bottom:0;border-left-width:2px;border-bottom-width:2px;transform-origin:0 100%;}
+.cm.br{right:0;bottom:0;border-right-width:2px;border-bottom-width:2px;transform-origin:100% 100%;}
+.reg{position:relative;}
+.reg-sky{position:absolute;left:0;top:0;color:var(--sky);white-space:nowrap;transform:translate(.04em,.035em);}
+.reg-ink{position:relative;display:inline-block;}
+.about-copy .bd{position:relative;z-index:0;}
+.pm-x{position:relative;}
+.pm-x::after{content:"";position:absolute;left:-.05em;right:-.05em;top:55%;height:2px;background:var(--ink);transform-origin:left;}
+.pm-y{position:relative;padding:0 .1em;}
+.pm-y::before{content:"";position:absolute;inset:.1em -.02em 0;background:var(--green);z-index:-1;transform-origin:left;}   /* black on green 15.87:1 */
+.ab.armed .cm{transform:scale(0);}
+.ab.armed .about-lbl,.ab.armed .crop .ink,.ab.armed .reg-sky,.ab.armed .about-copy,.ab.armed .statement,.ab.armed .highlight-row{clip-path:inset(-20% 100% -20% -6%);}
+.ab.armed .reg-ink{opacity:0;transform:translate(.22em,-.14em);}
+.ab.armed .pm-x::after,.ab.armed .pm-y::before{transform:scaleX(0);}
+.ab.play .cm{transform:none;transition:transform var(--t-base) var(--feed);}
+.ab.play .cm.tr{transition-delay:calc(2 * var(--t-step));} .ab.play .cm.br{transition-delay:calc(4 * var(--t-step));} .ab.play .cm.bl{transition-delay:calc(6 * var(--t-step));}
+.ab.play .about-lbl,.ab.play .crop .ink,.ab.play .reg-sky,.ab.play .about-copy,.ab.play .statement,.ab.play .highlight-row{clip-path:inset(-20% -6% -20% -6%);transition:clip-path var(--t-slow) var(--feed);}
+.ab.play .crop .ink{transition-delay:var(--t1);}
+.ab.play .reg-sky{transition-delay:var(--t2);}
+.ab.play .reg-ink{opacity:1;transform:translate(0,0);transition:transform var(--t-slow) var(--feed) var(--reg),opacity var(--t-quick) var(--feed) var(--reg);}
+.ab.play .about-copy{transition-delay:var(--copy);}
+.ab.play .pm-x::after{transform:none;transition:transform var(--t-base) var(--feed) calc(var(--fix) + var(--k) * 4 * var(--t-step));}
+.ab.play .pm-y::before{transform:none;transition:transform var(--t-base) var(--feed) calc(var(--fix) + 12 * var(--t-step) + var(--k) * 4 * var(--t-step));}
+.ab.play .statement{transition-delay:var(--close);}
+.ab.play .highlight-row{transition-delay:calc(var(--close) + 4 * var(--t-step));}
 
 /* about page: values as an order of service, beliefs as a wall ---------- */
 /* page grounds: --page also colours anything cut out of the page, like ticket notches */
