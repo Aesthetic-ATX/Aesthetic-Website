@@ -263,17 +263,18 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .ab{--t1:calc(4 * var(--t-step));--t2:calc(8 * var(--t-step));--reg:calc(var(--t-slow) + 8 * var(--t-step));
   --copy:calc(var(--t-slow) + 4 * var(--t-step));--fix:calc(2 * var(--t-slow));--close:calc(3 * var(--t-slow));}
 .crop{position:relative;display:inline-block;padding:.16em .22em;margin-left:-.22em;}
+/* crop marks are hairlines (--hair), as on a press sheet; the strike matches the /about proof marks (.09em) */
 .cm{position:absolute;width:clamp(14px,1.6vw,22px);height:clamp(14px,1.6vw,22px);border:0 solid var(--ink);}
-.cm.tl{left:0;top:0;border-left-width:2px;border-top-width:2px;transform-origin:0 0;}
-.cm.tr{right:0;top:0;border-right-width:2px;border-top-width:2px;transform-origin:100% 0;}
-.cm.bl{left:0;bottom:0;border-left-width:2px;border-bottom-width:2px;transform-origin:0 100%;}
-.cm.br{right:0;bottom:0;border-right-width:2px;border-bottom-width:2px;transform-origin:100% 100%;}
+.cm.tl{left:0;top:0;border-left-width:1px;border-top-width:1px;transform-origin:0 0;}
+.cm.tr{right:0;top:0;border-right-width:1px;border-top-width:1px;transform-origin:100% 0;}
+.cm.bl{left:0;bottom:0;border-left-width:1px;border-bottom-width:1px;transform-origin:0 100%;}
+.cm.br{right:0;bottom:0;border-right-width:1px;border-bottom-width:1px;transform-origin:100% 100%;}
 .reg{position:relative;}
 .reg-sky{position:absolute;left:0;top:0;color:var(--sky);white-space:nowrap;transform:translate(.04em,.035em);}
 .reg-ink{position:relative;display:inline-block;}
 .about-copy .bd{position:relative;z-index:0;}
 .pm-x{position:relative;}
-.pm-x::after{content:"";position:absolute;left:-.05em;right:-.05em;top:55%;height:2px;background:var(--ink);transform-origin:left;}
+.pm-x::after{content:"";position:absolute;left:-.05em;right:-.05em;top:55%;height:.09em;background:var(--ink);transform-origin:left;}
 .pm-y{position:relative;padding:0 .1em;}
 .pm-y::before{content:"";position:absolute;inset:.1em -.02em 0;background:var(--green);z-index:-1;transform-origin:left;}   /* black on green 15.87:1 */
 .ab.armed .cm{transform:scale(0);}
