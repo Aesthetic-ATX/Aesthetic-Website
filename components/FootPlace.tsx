@@ -2,29 +2,23 @@
 
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 import { site } from "@/data/site";
 
 /**
  * The footer's "how to find us", replacing the drawn Riso map (2026-10-19: the user found it
- * amateurish). Two candidates while the user chooses:
- *  - "aerial": the church's own aerial photo of the block (the /visit parking image) as a postcard
- *    on a slight tilt, with one line of wayfinding under it;
- *  - "sign": a wayfinding sign set in type, no picture.
- * /visit always gets the sign, because its own content already shows the aerial.
- * PREVIEW ONLY: ?place=sign shows the sign on any page. Remove the switch once one is chosen.
+ * amateurish): the church's own aerial photo of the block (the /visit parking image) as a postcard on
+ * a slight tilt, taped up like the Groups flyers (user's choice). /visit gets a typeset wayfinding
+ * sign instead, because its own content already shows the aerial.
  */
 export function FootPlace() {
   const onVisit = usePathname() === "/visit";
-  const [preview, setPreview] = useState(false);
-  useEffect(() => { setPreview(new URLSearchParams(location.search).get("place") === "sign"); }, []);
   const go = (
     <a className="riso-go" href={site.directionsUrl} target="_blank" rel="noopener noreferrer">
       Open in Google Maps<span className="sr-only"> for directions to {site.venue}, {site.address.street}</span>
     </a>
   );
 
-  if (onVisit || preview) {
+  if (onVisit) {
     return (
       <div className="sign">
         <p className="lbl sign-lbl">FINDING US ON A SUNDAY</p>
@@ -43,6 +37,8 @@ export function FootPlace() {
     <div className="post">
       {/* the card is a second way to the same directions; the button below is the one in the tab order */}
       <a className="post-card" href={site.directionsUrl} target="_blank" rel="noopener noreferrer" tabIndex={-1} aria-hidden>
+        {/* the citron tape from the Groups flyers, holding the card up */}
+        <span className="tape" />
         <Image
           src="/images/visit-parking-v1.jpg"
           alt=""
