@@ -35,21 +35,28 @@ export function FootPlace() {
 
   return (
     <div className="post">
-      {/* the card is a second way to the same directions; the button below is the one in the tab order */}
-      <a className="post-card" href={site.directionsUrl} target="_blank" rel="noopener noreferrer" tabIndex={-1} aria-hidden>
-        {/* the citron tape from the Groups flyers, holding the card up */}
-        <span className="tape" />
-        <Image
-          src="/images/visit-parking-v1.jpg"
-          alt=""
-          width={1229}
-          height={1280}
-          sizes="(max-width: 900px) 100vw, 660px"
-          loading="lazy"
-        />
-      </a>
-      <p className="sm post-bar">{site.venue}, {site.address.street}, {site.address.city}, {site.address.region} {site.address.postalCode}</p>
-      {go}
+      {/* One object: the photo, and the address and button written on the card's bottom strip. */}
+      <div className="post-card">
+        {/* the Groups flyers' tape, in the brand sky, holding the card up */}
+        <span className="tape" aria-hidden />
+        {/* the photo is a second way to the same directions; the button is the one in the tab order */}
+        <a className="post-photo" href={site.directionsUrl} target="_blank" rel="noopener noreferrer" tabIndex={-1} aria-hidden>
+          <Image
+            src="/images/visit-parking-v1.jpg"
+            alt=""
+            width={1229}
+            height={1280}
+            sizes="(max-width: 900px) 100vw, 660px"
+            loading="lazy"
+          />
+        </a>
+        <div className="post-cap">
+          <p className="post-bar">{site.venue}<br />{site.address.street}, {site.address.city}, {site.address.region} {site.address.postalCode}</p>
+          <a className="post-go" href={site.directionsUrl} target="_blank" rel="noopener noreferrer">
+            Open in Google Maps<span className="sr-only"> for directions to {site.venue}, {site.address.street}</span>
+          </a>
+        </div>
+      </div>
     </div>
   );
 }
