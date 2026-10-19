@@ -655,9 +655,9 @@ a.gw-day.gw-past{background:var(--c-past);}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
 .foot{padding:clamp(64px,7vw,88px) var(--pad) 40px;}
 /* "See you Sunday." as a felt letter board across the top of the black (2026-10-19): a sheet frame,
-   black felt with the board's grooves, letters in sheet, the countdown row in sky. Palette colours only. */
+   plain black felt (the grooves were removed at the user's call), letters in sheet, the countdown row in sky. */
 .lb{border:3px solid var(--sheet);padding:clamp(8px,1.2vw,14px);margin-bottom:clamp(56px,7vw,96px);}
-.lb-felt{background-color:var(--ink);background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjIyIj48cmVjdCB5PSIyMSIgd2lkdGg9IjgiIGhlaWdodD0iMSIgZmlsbD0iIzU5NTk1OSIvPjwvc3ZnPg==");background-repeat:repeat;   /* the board's grooves: flat 1px lines in --muted-exp, an SVG tile, no gradient */
+.lb-felt{background:var(--ink);
   padding:clamp(22px,3.4vw,48px) clamp(10px,2vw,28px);display:flex;flex-direction:column;align-items:center;gap:clamp(10px,1.6vw,22px);}
 .lb-row{margin:0;display:flex;flex-wrap:wrap;justify-content:center;gap:.2em .5em;}
 .lb-word{display:inline-flex;gap:.06em;white-space:nowrap;}
