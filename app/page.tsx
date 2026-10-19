@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Fragment } from "react";
 import { site } from "@/data/site";
-import { Message } from "@/components/Message";
+import { Series } from "@/components/Series";
 import { TaglineBlank } from "@/components/TaglineBlank";
 import { VisitTeaser } from "@/components/VisitTeaser";
 
@@ -94,18 +94,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* This week's message, under the bulletin masthead (2026-09-17). Moved
-          above the tagline so the newest thing on the page comes first. */}
+      {/* The current series (2026-10-19, replaced the weekly message card). Above
+          the tagline so the newest thing on the page comes first. */}
       <section className="sec">
         <div className="wrap">
-          <Message />
+          <Series />
         </div>
       </section>
 
       {/* The tagline, then the invitation to visit. The Aesthetic Weekly was
           removed from the homepage on 2026-09-17: its story became /visit,
           and this card is what hands off to it. */}
-      {/* No top padding: the message section above already ends with a full section gap. */}
+      {/* No top padding: the series section above already ends with a full section gap. */}
       <section className="sec sec-flush-top">
         <div className="wrap">
           <TaglineBlank />
