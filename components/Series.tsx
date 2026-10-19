@@ -51,7 +51,7 @@ export function Series() {
 
   return (
     <article className="sheet ser" aria-labelledby="series-title">
-      <div ref={cover} className={`ser-cover ${coverPhase}`}>
+      <div ref={cover} className={`ser-cover ${coverPhase}`} style={{ "--days": DAYS } as CSSProperties}>
         {/* the paper ripples from the centre, as in the One Year film (option A, 2026-10-19) */}
         <div className="ser-emboss" aria-hidden="true" />
         <svg className="ser-ring" viewBox="0 0 400 400" aria-hidden="true">
