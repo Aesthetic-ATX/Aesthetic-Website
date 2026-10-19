@@ -15,7 +15,7 @@ const RING_LENGTH = 1024;
  * The seal turns slowly and steadily (one turn a minute) so the ring can be read as it
  * passes. Continuous motion over five seconds needs a way to stop it (WCAG 2.2.2), so it
  * has a pause button, it holds while hovered, and it rests while off screen. The proof
- * marks follow the scroll: each old word is struck, then the new one is inserted beside
+ * marks play once on arrival: each old word is struck, then the new one is inserted beside
  * it. Reduced motion gets the finished print: a still seal, every correction made.
  */
 export function MissionVision() {
@@ -38,30 +38,22 @@ export function MissionVision() {
     return () => io.disconnect();
   }, []);
 
-  // Proof marks: progress through the block drives each strike and insertion.
+  // Proof marks play once, in order, when half the block is on screen. They used to follow the
+  // scroll, which left a reader who stopped mid-screen on "boring / disconnected" with the last
+  // correction unmade (2026-10-19). The server renders the finished print; "armed" hides the
+  // corrections without a transition, "play" makes them.
+  const [proofPhase, setProofPhase] = useState<"print" | "armed" | "play">("print");
   useEffect(() => {
     const el = proof.current;
     if (!el || !moving) return;
-    const rows = [...el.querySelectorAll<HTMLElement>(".edit")];
-    let raf = 0;
-    const clamp = (v: number) => Math.min(1, Math.max(0, v));
-    const frame = () => {
-      const r = el.getBoundingClientRect();
-      const h = window.innerHeight;
-      const p = clamp((h * 0.85 - r.top) / (h * 0.55));
-      rows.forEach((row, i) => {
-        const t = clamp(p * rows.length - i);
-        row.style.setProperty("--s", clamp(t / 0.55).toFixed(3));
-        row.style.setProperty("--n", clamp((t - 0.5) / 0.5).toFixed(3));
-      });
-      raf = requestAnimationFrame(frame);
-    };
+    setProofPhase("armed");
     const io = new IntersectionObserver(([e]) => {
-      cancelAnimationFrame(raf);
-      if (e.isIntersecting) raf = requestAnimationFrame(frame);
-    });
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      requestAnimationFrame(() => setProofPhase("play"));
+    }, { threshold: 0.5 });
     io.observe(el);
-    return () => { io.disconnect(); cancelAnimationFrame(raf); };
+    return () => io.disconnect();
   }, [moving]);
 
   const turning = moving && inView && !paused;
@@ -74,16 +66,24 @@ export function MissionVision() {
         <svg viewBox="-10 -10 420 420" aria-hidden="true" className="seal-svg">
           <circle cx="200" cy="200" r="198" fill="var(--green)" stroke="var(--ink)" strokeWidth="3" />
           <circle cx="200" cy="200" r="128" fill="none" stroke="var(--ink)" strokeWidth="3" />
+        </svg>
+        {/* The turning text is its own svg laid over the disc, and the svg element itself turns
+            round the centre of its box. Turning a <g> inside the viewBox left Safari 26 spinning
+            it round the wrong point, so the words drifted off the seal (2026-10-19). */}
+        <svg
+          viewBox="-10 -10 420 420"
+          aria-hidden="true"
+          className="seal-svg seal-ring"
+          style={{ animationPlayState: turning ? "running" : "paused" }}
+        >
           <defs>
             <path id="seal-ring" d="M200 200 m-163 0 a163 163 0 1 1 326 0 a163 163 0 1 1 -326 0" />
           </defs>
-          <g className="seal-ring" style={{ animationPlayState: turning ? "running" : "paused" }}>
-            <text>
-              <textPath href="#seal-ring" textLength={RING_LENGTH} lengthAdjust="spacing">
-                {mission.replace(/\.$/, "").toUpperCase()}&#160;&#8226;&#160;
-              </textPath>
-            </text>
-          </g>
+          <text>
+            <textPath href="#seal-ring" textLength={RING_LENGTH} lengthAdjust="spacing">
+              {mission.replace(/\.$/, "").toUpperCase()}&#160;&#8226;&#160;
+            </textPath>
+          </text>
         </svg>
         <div className="seal-mid" aria-hidden="true">
           <span className="lbl">OUR MISSION AT</span>
@@ -108,10 +108,14 @@ export function MissionVision() {
       <div className="mv-vision">
         <h2 className="lbl">OUR VISION</h2>
         <hr className="rule" style={{ width: 44 }} />
-        <div ref={proof} className={`proof${moving ? "" : " done"}`} aria-hidden="true">
+        <div
+          ref={proof}
+          className={`proof${proofPhase === "armed" ? " armed" : proofPhase === "play" ? " armed play" : ""}`}
+          aria-hidden="true"
+        >
           <span className="proof-lead">{visionEdit.lead}</span>
-          {visionEdit.edits.map((e) => (
-            <span key={e.from} className="edit">
+          {visionEdit.edits.map((e, i) => (
+            <span key={e.from} className="edit" style={{ "--i": i } as React.CSSProperties}>
               <s className="old">{e.from}</s>
               <span className="caret">&#8248;</span>
               <span className="new sp">{e.to}</span>
