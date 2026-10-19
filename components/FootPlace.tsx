@@ -44,7 +44,7 @@ export function FootPlace() {
           alt=""
           width={1229}
           height={1280}
-          sizes="(max-width: 900px) min(480px, 90vw), 480px"
+          sizes="(max-width: 900px) 100vw, 660px"
           loading="lazy"
         />
       </a>
