@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { site } from "@/data/site";
 import { series } from "@/data/series";
@@ -125,8 +126,20 @@ export function Series() {
       </ol>
 
       <div className="ser-note">
-        <p className="lbl">A NOTE FROM OUR PASTOR</p>
+        {series.poster && (
+          <div className="ser-poster">
+            <Image
+              src={series.poster.src}
+              alt={series.poster.alt}
+              width={series.poster.width}
+              height={series.poster.height}
+              sizes="(max-width: 720px) min(420px, 100vw), 400px"
+              fetchPriority="low"   /* below the fold: leave the bandwidth to the hero, the LCP image */
+            />
+          </div>
+        )}
         <div>
+          <p className="lbl">A NOTE FROM OUR PASTOR</p>
           {series.note.map((para, i) => (
             <p key={i} className={i === 0 ? "bd dropcap" : "bd"}>{para}</p>
           ))}

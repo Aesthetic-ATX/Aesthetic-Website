@@ -37,4 +37,12 @@ export const series = {
     "Together, we’ll revisit our “come as you are” heartbeat, explore how we bridge the gap between God and contemporary culture, and discover how each of us can help make room for those not here yet. Whether you’ve been here from the beginning or are just checking things out, you’re invited to be part of the next chapter.",
   ],
   byline: "JOHN LEE · PASTOR",
+  /** Optional (set to null for a series without one). Source: ~/Desktop/New Series Poster - October.png
+   *  (1122x1402), 2026-10-19. Version the filename on every swap: a reused name stays cached. */
+  poster: {
+    src: "/images/series-this-is-aesthetic-v1.jpg",
+    width: 1122,
+    height: 1402,
+    alt: "Series poster: This is Aesthetic. Remember why, October 18. Bridging the gap, October 25. For those not here yet, November 1. Set on a warm plaster wall with leaf shadows and white jasmine flowers.",
+  } as { src: string; width: number; height: number; alt: string } | null,
 };

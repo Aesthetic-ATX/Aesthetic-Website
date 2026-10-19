@@ -521,8 +521,11 @@ a.gw-day.gw-past{background:var(--c-past);}
 .ser-hidden{margin:0;display:flex;flex-direction:column;gap:6px;}
 .redact{display:block;width:clamp(96px,14vw,168px);height:.95em;background:var(--ink);}
 .ser-reveal{font-size:11px;font-weight:700;letter-spacing:.14em;}
-.ser-note{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:12px clamp(16px,3vw,48px);border-top:var(--key);padding-top:clamp(16px,2vw,24px);}
-.ser-note .lbl{margin:0;}
+.ser-note{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:20px clamp(16px,3vw,48px);align-items:start;border-top:var(--key);padding-top:clamp(16px,2vw,24px);}
+.ser-note .lbl{margin:0 0 14px;}
+.ser-note>:only-child{grid-column:2;}   /* no poster: the note keeps its column */
+.ser-poster{border:var(--key);line-height:0;}
+.ser-poster img{width:100%;height:auto;}
 .ser-note .bd{font-size:18px;line-height:1.62;max-width:62ch;}
 .ser-note .bd+.bd{margin-top:1em;}
 .ser-by{margin-top:18px !important;}
@@ -563,6 +566,8 @@ a.gw-day.gw-past{background:var(--c-past);}
   .ser-weeks li.past .ser-ticks i{border-color:var(--muted-exp);}
   .ser-weeks.armed:not(.play) .ser-ticks{clip-path:inset(-10% -20% 100% -20%);}   /* :not(.play), or this later rule would outrank the reveal */
   .ser-note{grid-template-columns:minmax(0,1fr);}
+  .ser-note>:only-child{grid-column:1;}
+  .ser-poster{max-width:420px;width:100%;}
 }
 
 /* plan your visit teaser: heading and copy over two staggered photo plates.
