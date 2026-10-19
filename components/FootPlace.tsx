@@ -53,7 +53,6 @@ export function FootPlace() {
         />
       </a>
       <p className="sm post-bar">{site.venue}, {site.address.street}, {site.address.city}, {site.address.region} {site.address.postalCode}</p>
-      <p className="post-way">Park on Northwestern Ave &middot; walk over to {site.venue} &middot; doors {site.service.doors.replace(/am$/i, "")}</p>
       {go}
     </div>
   );
