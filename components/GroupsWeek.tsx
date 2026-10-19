@@ -6,6 +6,7 @@ import { type Now, austinNow, dayOf, fmt, previewing } from "@/components/austin
 import { WhatsHappening } from "@/components/WhatsHappening";
 import { groups, type Group } from "@/data/groups";
 import { inStripWeek, owns, phase, upcoming } from "@/data/events";
+import { T } from "@/components/motion";
 
 /* The week strip and the flyer wall (prototypes/groups-2, option E, chosen 2026-10-01).
    The strip is this week, Monday to Sunday, in Austin time. Selecting a group day gives it a black
@@ -88,7 +89,7 @@ export function GroupsWeek() {
 
   const toEvent = () => {
     document.getElementById("whats-happening")?.scrollIntoView({ behavior: reduced() ? "auto" : "smooth", block: "start" });
-    setTimeout(() => dispatchEvent(new Event("wh:ping")), reduced() ? 0 : 550);
+    setTimeout(() => dispatchEvent(new Event("wh:ping")), reduced() ? 0 : T.base + T.step);   // once the scroll has landed
   };
 
   /* The line: from the bottom of the selected day down to its flyer's tape. It drops, runs across at a
@@ -156,7 +157,7 @@ export function GroupsWeek() {
       // stay put so the line can be seen landing; scroll only if the strip or the tape is off screen
       const w = week.current!.getBoundingClientRect(), t = f.querySelector(".tape")!.getBoundingClientRect();
       if (w.top < 60 || t.top > innerHeight - 120) rig.current!.scrollIntoView({ behavior: reduced() ? "auto" : "smooth", block: "start" });
-      repin(f, 700);
+      repin(f, T.base + 4 * T.step);
     }
   };
 

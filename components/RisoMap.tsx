@@ -34,8 +34,8 @@ export function RisoMap() {
     if (!el) return;
     const io = new IntersectionObserver(
       ([e]) => {
-        if (e.isIntersecting && e.intersectionRatio > 0.35) setInView(true);
-        else if (!e.isIntersecting) setInView(false);
+        // draws once, the first time it is seen (it redrew on every return until 2026-10-19)
+        if (e.isIntersecting && e.intersectionRatio > 0.35) { setInView(true); io.disconnect(); }
       },
       { threshold: [0, 0.35] },
     );

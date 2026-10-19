@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { type Now, fmt } from "@/components/austin";
 import { type SiteEvent, phase, rowState, spotlight, tag } from "@/data/events";
+import { T } from "@/components/motion";
 
 /* What's happening (prototypes/events, B3, chosen 2026-10-01). It sits after the week strip and reuses
    its grammar: the event gets a day box drawn like the strip's, and the same hanging line runs from it
@@ -46,7 +47,7 @@ export function WhatsHappening({ event: e, now }: { event: SiteEvent; now: Now }
       if (!es.some((x) => x.isIntersecting)) return;
       io.disconnect();
       l.classList.add("in");
-      timer = window.setTimeout(() => { drawn.current = true; draw(true); }, reduced() ? 0 : 950);
+      timer = window.setTimeout(() => { drawn.current = true; draw(true); }, reduced() ? 0 : T.slow);
     }, { threshold: 0.25 });
     io.observe(l);
     let width = s.offsetWidth;

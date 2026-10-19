@@ -2,15 +2,17 @@
 
 import { useEffect, useRef, useState } from "react";
 import { site } from "@/data/site";
+import { T } from "@/components/motion";
 
+/** Reading pace: each word stays long enough to be read. Not a motion speed. */
 const STEP_MS = 760;
-const START_MS = 300;
+const START_MS = 5 * T.step;
 
 /**
  * "come as ___": the blank feeds through the people who walk into a church for the
  * first time, like sheets through the rollers, and lands on "you are" (prototypes/
- * tagline-2.html, Set 1, chosen 2026-09-28). Plays once each time it scrolls into view
- * and lands in about 3.4s, so it stays under WCAG 2.2.2's five seconds and needs no
+ * tagline-2.html, Set 1, chosen 2026-09-28). Plays once, the first time it scrolls into
+ * view (it replayed on every return until the 2026-10-19 motion pass), and lands in about 3.4s, so it stays under WCAG 2.2.2's five seconds and needs no
  * pause button. The server renders the finished line, so without JavaScript, and with
  * reduced motion, it simply reads "come as you are".
  */
@@ -45,8 +47,7 @@ export function TaglineBlank() {
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
-          if (e.isIntersecting && e.intersectionRatio > 0.6) run();
-          else if (!e.isIntersecting) reset();
+          if (e.isIntersecting && e.intersectionRatio > 0.6) { io.disconnect(); run(); }
         }
       },
       { threshold: [0, 0.6] },
