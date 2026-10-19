@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { mission, vision, visionEdit } from "@/data/commitment";
+import { usePlayOnce } from "@/components/usePlayOnce";
 
 /* The ring's circumference is 2 * pi * 163 = 1024. The text runs the whole way round and
    ends in a no-break space, so the bullet sits midway between GOD and WE: the same space
@@ -29,7 +30,9 @@ export function MissionVision() {
     setMoving(!window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   }, []);
 
-  // The seal stamps down on arrival and only turns while it can be seen.
+  // The seal stamps down once, the first time it arrives (it used to re-stamp on every return, with
+  // a bounce; 2026-10-19 motion pass). Separately, it only turns while it can be seen.
+  const stampPhase = usePlayOnce(seal, 0.3);
   useEffect(() => {
     const el = seal.current;
     if (!el) return;
@@ -60,7 +63,7 @@ export function MissionVision() {
 
   return (
     <div className="mv">
-      <div ref={seal} className={`seal${inView || !moving ? " in" : ""}`}>
+      <div ref={seal} className={`seal ${stampPhase}`}>
         <h2 className="sr-only">Our mission at Aesthetic</h2>
         <p className="sr-only">{mission}</p>
         <svg viewBox="-10 -10 420 420" aria-hidden="true" className="seal-svg">
