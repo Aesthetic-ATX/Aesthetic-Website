@@ -745,7 +745,7 @@ a.gw-day.gw-past{background:var(--c-past);}
   font-size:13px;font-weight:700;letter-spacing:.1em;line-height:1.2;color:var(--violet);
   background:var(--sheet);border:3px solid var(--sheet);border-radius:0;transition:background-color var(--t-quick) var(--feed),color var(--t-quick) var(--feed);}
 /* pointing at the map lights the link too, since the map goes to the same place */
-.f-ink a.riso-go:hover,.f-ink .riso:has(.riso-map:hover) .riso-go{background:var(--violet);color:var(--white);text-decoration:none;}
+.f-ink a.riso-go:hover,.f-ink .riso:has(.riso-map:hover) .riso-go,.f-ink .post:has(.post-card:hover) .riso-go{background:var(--violet);color:var(--white);text-decoration:none;}
 @media (prefers-reduced-motion:reduce){.riso-go{transition:none;}}
 .riso-bar{margin:14px 0 0;display:flex;justify-content:space-between;gap:6px 20px;flex-wrap:wrap;}
 .riso-credit{font-size:12px;opacity:.75;}
@@ -916,3 +916,21 @@ a.gw-day.gw-past{background:var(--c-past);}
   .ch-media.two{grid-template-columns:1fr;}
   .foot-pair{grid-template-columns:1fr;}
 }
+
+/* Finding us, in the footer (2026-10-19, replacing the drawn Riso map). The aerial is the church's own
+   photo of the block, set as a postcard on a slight tilt; /visit gets the typeset sign instead. */
+.post{display:flex;flex-direction:column;align-items:flex-start;min-width:0;}
+.post-card{display:block;width:min(100%,480px);background:var(--sheet);padding:10px 10px 34px;line-height:0;
+  transform:rotate(-2deg);transform-origin:50% 50%;transition:transform var(--t-base) var(--feed);}
+.post-card img{width:100%;height:auto;}
+.post-card:hover{transform:rotate(-1deg) translateY(-4px);}
+.post-bar{margin:22px 0 0;color:var(--sheet);}
+.post-way{margin:6px 0 0;font-size:15px;font-weight:700;line-height:1.45;color:var(--sky);}
+@media (max-width:600px){.post-card{transform:rotate(-1.2deg);padding:8px 8px 26px;}}
+.sign{display:flex;flex-direction:column;align-items:flex-start;gap:18px;border:3px solid var(--sheet);padding:clamp(20px,3vw,36px);min-width:0;}
+.sign-lbl{margin:0;color:var(--sheet);letter-spacing:.16em;}
+.sign-where{margin:0;font-size:clamp(34px,4.4vw,60px);font-weight:700;line-height:1;letter-spacing:-.02em;color:var(--sheet);}
+.sign-steps{list-style:none;margin:0;padding:0;width:100%;border-top:1px solid var(--sheet);}
+.sign-steps li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid var(--sheet);font-size:clamp(16px,1.5vw,19px);line-height:1.35;}
+.sign-n{display:grid;place-items:center;width:36px;height:36px;border-radius:9999px;background:var(--sky);color:var(--ink);font-weight:700;}
+.sign .riso-go{margin-top:0;}

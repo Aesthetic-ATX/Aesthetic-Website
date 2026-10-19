@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { site } from "@/data/site";
 import DecodeHeadline from "@/components/DecodeHeadline";
-import { RisoMap } from "@/components/RisoMap";
+import { FootPlace } from "@/components/FootPlace";
 import { SeeYouSunday } from "@/components/SeeYouSunday";
 
 const explore = [
@@ -77,7 +77,7 @@ export function Footer() {
             </div>
           </div>
 
-          <RisoMap />
+          <FootPlace />
         </div>
 
         {/* The moving headline, centred at the foot of the page: brand sky straight on
