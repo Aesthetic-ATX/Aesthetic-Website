@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Aesthetic Church//Next Gen//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:next-gen-2026-11-08@aestheticatx.org
+DTSTAMP:20261019T120000Z
+DTSTART:20261108T190000Z
+DTEND:20261108T210000Z
+SUMMARY:Next Gen: Building Kingdom Movements at Aesthetic
+LOCATION:2316 Morelos St\, Austin\, TX 78702
+DESCRIPTION:Worship\, then a Q&A panel with four young adult leaders building communities\, ministries and movements around Jesus: Reagan Popoff\, Naven Dabria\, Keilani Francisco and Austin Huang. https://aestheticatx.org/events
+URL:https://aestheticatx.org/events
+END:VEVENT
+END:VCALENDAR

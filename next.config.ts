@@ -7,8 +7,8 @@ import type { NextConfig } from "next";
 const wixRedirects = [
   { source: "/learn-more", destination: "/about" },
   { source: "/general-9", destination: "/visit" }, // "Weekend Service"
-  { source: "/events", destination: "/visit" },
-  { source: "/event-details/:slug", destination: "/visit" },
+  // /events is a real page again (2026-10-19); the old Wix event pages land on it.
+  { source: "/event-details/:slug", destination: "/events" },
   { source: "/what-s-coming-up", destination: "/" },
 ];
 

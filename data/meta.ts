@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { site } from "./site";
 
 /** Titles and descriptions come from the approved SEO keyword map. Do not rewrite. */
-type Route = "home" | "about" | "groups" | "give" | "visit";
+type Route = "home" | "about" | "groups" | "events" | "give" | "visit";
 
 /** `shareTitle` overrides the title only in link previews (iMessage, Instagram, Facebook);
  *  search results and the browser tab keep the SEO map's `title`. */
@@ -39,6 +39,13 @@ const copy: Record<Route, { title: string; shareTitle?: string; description: str
     description:
       "What a Sunday at Aesthetic Church looks like, in order. Doors open at 10:30 in East Austin, the service starts at 11am, and you can come exactly as you are.",
     path: "/visit",
+  },
+  /* NOT FROM THE SEO MAP (it defines no Events page). Written by Claude 2026-10-19; needs the user's OK. */
+  events: {
+    title: "Events | Aesthetic Church Austin",
+    description:
+      "What's coming up at Aesthetic Church in East Austin: panels, nights out and celebrations, on top of Sundays at 11am and our weekly groups.",
+    path: "/events",
   },
   give: {
     title: "Give | Aesthetic Church Austin",

@@ -9,6 +9,7 @@ const links = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/groups", label: "Groups" },
+  { href: "/events", label: "Events" },   // added 2026-10-19 (user: main nav)
   { href: "/give", label: "Give" },
 ];
 

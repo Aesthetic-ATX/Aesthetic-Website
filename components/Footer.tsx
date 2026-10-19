@@ -8,6 +8,7 @@ const explore = [
   { href: "/visit", label: "Plan your visit" },
   { href: "/about", label: "About" },
   { href: "/groups", label: "Groups" },
+  { href: "/events", label: "Events" },
   { href: "/give", label: "Give" },
 ];
 
