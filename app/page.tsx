@@ -17,7 +17,7 @@ const heroAlt =
   "A musician plays bass on stage at a table of pedals, in front of green and yellow chevron projections, beside the words come as you are";
 const heroCommon = { alt: heroAlt, sizes: "100vw", loading: "eager" as const, fetchPriority: "high" as const };
 const { props: { srcSet: heroDesktop } } = getImageProps({ ...heroCommon, src: "/images/hero-full-v4.jpg", width: 1672, height: 941 });
-const { props: { srcSet: heroMobile, ...heroRest } } = getImageProps({ ...heroCommon, src: "/images/hero-mobile-v1.jpg", width: 1080, height: 1350 });
+const { props: { srcSet: heroMobile, ...heroRest } } = getImageProps({ ...heroCommon, src: "/images/hero-mobile-v2.jpg", width: 1122, height: 1402 });
 
 export default function Home() {
   // Start the hero download at once, the right one for the screen: it is the largest thing on the page.
@@ -36,7 +36,7 @@ export default function Home() {
               wordmark now reads "Aesthetic", capitalised at Pastor John's request.
               Filename is versioned on every swap: a reused name leaves browsers on the cached copy. */}
           {/* Art direction (mobile-first pass, 2026-10-19): phones get the 4:5 version with larger lettering
-              (~/Desktop/Aesthetic_Mobile_Hero_1080x1350.jpg), wider screens the 16:9 plate. The frame keeps
+              (~/Desktop/Aesthetic Stage_ Come As You Are.png, 1122x1402, the capital-A wordmark), wider screens the 16:9 plate. The frame keeps
               each one's shape, so nothing shifts while it loads. */}
           <picture>
             <source media="(min-width: 601px)" srcSet={heroDesktop} sizes="100vw" />
