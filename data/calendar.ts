@@ -86,10 +86,9 @@ export const calendar: CalendarEvent[] = [
     ps: "Free that morning? Come earlier for the 11am service. Same address.",   // our line, not the Partiful page
     rsvp: "https://partiful.com/e/l6jU7VHP48VSxy1UpQGx",
     ics: "/events/next-gen-2026-11-08.ics",
-    /* TEMPORARY: cropped from a Partiful screenshot (IMG_0875, 708x986). Swap for the original file
-       as poster-next-gen-v2.jpg when it arrives. */
+    /* The original poster: the Partiful page's cover image at full size, with its white side strips trimmed. */
     poster: {
-      src: "/images/poster-next-gen-v1.jpg", width: 708, height: 986,
+      src: "/images/poster-next-gen-v2.jpg", width: 1426, height: 1999,
       alt: "Next Gen: Building Kingdom Movements, at Aesthetic, 2316 Morelos St, Austin. Meet the panelists: Reagan Popoff of Popoff Ministries, Naven Dabria of BSTUD and RVVL, Keilani Francisco of SALT and RVVL, and Austin Huang of GoodNewsRunClub and RVVL. Stories, wisdom, how to kickstart ministry.",
     },
     recap: "Worship and a Q&A panel with four young leaders building movements around Jesus.",

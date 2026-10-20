@@ -1028,7 +1028,7 @@ a.gw-day.gw-past{background:var(--c-past);}
 /* Motion, option B "Pinned up" (user's pick, 2026-10-19). Tokens only, plays once per part. The poster is
    taped up in the brand sky like the Groups flyers and the footer postcard. */
 .ev-poster.pin{position:relative;--tilt:-1.5deg;transform:rotate(var(--tilt));}
-.ev-poster.pin .tape{background:var(--sky);}
+.ev-poster.pin .tape{top:-26px;background:var(--sky);}   /* sits on the top edge: the poster's title starts close to it */
 .ev-poster.pin.armed{transform:translateY(-14px) rotate(0deg);}
 .ev-poster.pin.armed .tape{opacity:0;transform:rotate(calc(var(--tilt) * -2.2)) scale(1.25);}
 .ev-poster.pin.play{transform:rotate(var(--tilt));transition:transform var(--t-slow) var(--feed) var(--t-base);}
