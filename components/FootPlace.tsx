@@ -2,36 +2,19 @@
 
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useRef } from "react";
 import { site } from "@/data/site";
+import { usePlayOnce } from "@/components/usePlayOnce";
 
 /**
  * The footer's "how to find us", replacing the drawn Riso map (2026-10-19: the user found it
  * amateurish): the church's own aerial photo of the block (the /visit parking image) as a postcard on
- * a slight tilt, taped up like the Groups flyers (user's choice). /visit gets a typeset wayfinding
- * sign instead, because its own content already shows the aerial.
+ * a slight tilt, taped up like the Groups flyers (user's choice). /visit gets a text thread instead
+ * (the user's concept, variant C, 2026-10-20), because its own content already shows the aerial.
  */
 export function FootPlace() {
   const onVisit = usePathname() === "/visit";
-  const go = (
-    <a className="riso-go" href={site.directionsUrl} target="_blank" rel="noopener noreferrer">
-      Open in Google Maps<span className="sr-only"> for directions to {site.venue}, {site.address.street}</span>
-    </a>
-  );
-
-  if (onVisit) {
-    return (
-      <div className="sign">
-        <p className="lbl sign-lbl">FINDING US ON A SUNDAY</p>
-        <p className="sign-where">{site.address.street}</p>
-        <ol className="sign-steps">
-          <li><span className="sign-n" aria-hidden>1</span><span>Park on Northwestern Ave, either side of the street</span></li>
-          <li><span className="sign-n" aria-hidden>2</span><span>Walk over to {site.venue} on Morelos St</span></li>
-          <li><span className="sign-n" aria-hidden>3</span><span>Doors open at {site.service.doors.replace(/am$/i, "")}, we start at {site.service.time}</span></li>
-        </ol>
-        {go}
-      </div>
-    );
-  }
+  if (onVisit) return <Thread />;
 
   return (
     <div className="post">
@@ -55,6 +38,65 @@ export function FootPlace() {
           <a className="post-go" href={site.directionsUrl} target="_blank" rel="noopener noreferrer">
             Open in Google Maps<span className="sr-only"> for directions to {site.venue}, {site.address.street}</span>
           </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* The way in, told as a text from a friend (the user's concept, variant C, chosen 2026-10-20). The messages
+   print in one after another when the card arrives (DESIGN.md, Motion: plays once, ink wipe); the server
+   and reduced motion get the whole thread at once. The last message shares the location: the card's one action. */
+const thread: Array<{ from: "us" | "you"; text: string; tag?: string }> = [
+  { from: "us", text: "Hey! So glad you\u2019re coming today." },
+  { from: "us", text: "Park anywhere on Northwestern Ave, either side is fine." },
+  { from: "us", text: `Then walk over to ${site.venue} on Morelos St.` },
+  { from: "you", text: "Got it, what time?" },
+  {
+    from: "us",
+    text: `Doors at ${site.service.doors.replace(/am$/i, "")}, we start at ${site.service.time.replace(/am$/i, "")}. Grab a coffee and`,
+    tag: "come as you are.",
+  },
+];
+
+function Thread() {
+  const ref = useRef<HTMLDivElement>(null);
+  const phase = usePlayOnce(ref, 0.3);
+  return (
+    <div className={`thread ${phase}`} ref={ref}>
+      <div className="thread-in">
+        <div className="thread-l">
+          <p className="lbl thread-lbl">FINDING US ON A SUNDAY</p>
+          <p className="thread-where">{site.address.street}</p>
+          <p className="sp thread-line">Like a friend already saved you a seat and texted you the way in.</p>
+        </div>
+        <div className="thread-r">
+          <div className="thread-who" aria-hidden>
+            <p>AESTHETIC</p>
+            <p className="thread-when">SUNDAY 9:42 AM</p>
+          </div>
+          <ol className="thread-msgs" aria-label="A text from Aesthetic">
+            {thread.map((m, i) => (
+              <li
+                key={i}
+                className={`tm ${m.from}${i > 0 && thread[i - 1].from !== m.from ? " turn" : ""}`}
+                style={{ "--i": i } as React.CSSProperties}
+              >
+                <span className="sr-only">{m.from === "us" ? "Aesthetic: " : "You: "}</span>
+                {m.text}
+                {m.tag ? <> <span className="sp tm-tag">{m.tag}</span></> : null}
+              </li>
+            ))}
+            <li className="tm us tm-place" style={{ "--i": thread.length } as React.CSSProperties}>
+              <span className="sr-only">Aesthetic shared a location: </span>
+              <span className="tm-k" aria-hidden>SHARED A LOCATION</span>
+              <span className="tm-name">{site.venue}</span>
+              <span className="tm-addr">{site.address.street}, {site.address.city}, {site.address.region} {site.address.postalCode}</span>
+              <a className="riso-go" href={site.directionsUrl} target="_blank" rel="noopener noreferrer">
+                Open in Google Maps<span className="sr-only"> for directions to {site.venue}, {site.address.street}</span>
+              </a>
+            </li>
+          </ol>
         </div>
       </div>
     </div>

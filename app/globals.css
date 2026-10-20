@@ -40,6 +40,10 @@
   --citron-past-exp:#F6FFB6;
   --sky-past-exp:#D1F0FF;
   --muted-exp:#595959;
+  /* approved 2026-10-20 for the /visit footer text thread only (variant C, the user's pick): Aesthetic's
+     message bubble, and the timestamp grey above it (#A3A3A3 holds 8.3:1 on ink) */
+  --bubble-exp:#2C2C2E;
+  --quiet-dark-exp:#A3A3A3;
 
   --key:3px solid var(--ink);
   --hair:1px solid var(--ink);   /* nav rule, nav capsule, About edge */
@@ -1045,13 +1049,41 @@ a.gw-day.gw-past{background:var(--c-past);}
 .f-ink a.post-go:hover,.f-ink .post-card:has(.post-photo:hover) a.post-go{background:var(--ink);color:var(--white);}
 .f-ink a.post-go:focus-visible{outline:3px solid var(--sky);outline-offset:3px;}
 @media (max-width:600px){.post-card{--tilt:-1.2deg;height:auto;padding:8px;} .post-photo{height:300px;flex:none;} .post-cap{padding-top:10px;}}
-.sign{display:flex;flex-direction:column;align-items:flex-start;gap:18px;border:3px solid var(--sheet);padding:clamp(20px,3vw,36px);min-width:0;}
-.sign-lbl{margin:0;color:var(--sheet);letter-spacing:.16em;}
-.sign-where{margin:0;font-size:clamp(34px,4.4vw,60px);font-weight:700;line-height:1;letter-spacing:-.02em;color:var(--sheet);}
-.sign-steps{list-style:none;margin:0;padding:0;width:100%;border-top:1px solid var(--sheet);}
-.sign-steps li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid var(--sheet);font-size:clamp(16px,1.5vw,19px);line-height:1.35;}
-.sign-n{display:grid;place-items:center;width:36px;height:36px;border-radius:9999px;background:var(--sky);color:var(--ink);font-weight:700;}
-.sign .riso-go{margin-top:0;}
+/* /visit footer: the way in as a text thread (user's concept, variant C, 2026-10-20). Two DESIGN.md exceptions,
+   recorded there: bubbles take an 18px radius, and Aesthetic's bubble is --bubble-exp, a dark grey off the palette.
+   The card lays itself out by its own width: two columns when it has room, stacked otherwise. */
+.thread{container-type:inline-size;border:3px solid var(--sheet);padding:clamp(20px,3vw,36px);min-width:0;color:var(--sheet);}
+.thread-in{display:grid;grid-template-columns:minmax(0,1fr);gap:24px;}
+.thread-l{display:flex;flex-direction:column;gap:14px;}
+.thread-lbl{margin:0;color:var(--sheet);letter-spacing:.16em;}
+.thread-where{margin:0;font-size:clamp(34px,4.4vw,60px);font-weight:700;line-height:1;letter-spacing:-.02em;color:var(--sheet);}
+.thread-line{margin:0;font-size:clamp(19px,1.8vw,22px);line-height:1.35;max-width:30ch;color:var(--sheet);}
+.thread-r{display:flex;flex-direction:column;border-top:1px solid var(--sheet);padding-top:24px;}
+.thread-who{text-align:center;margin-bottom:18px;}
+.thread-who p{margin:0;font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--sheet);}
+.thread-who .thread-when{margin-top:4px;font-weight:400;letter-spacing:.12em;color:var(--quiet-dark-exp);}
+.thread-msgs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;}
+.tm{box-sizing:border-box;max-width:78%;margin-top:8px;padding:12px 16px;border-radius:18px;font-size:17px;line-height:1.4;}
+.tm:first-child{margin-top:0;}
+.tm.turn{margin-top:16px;}
+.tm.us{align-self:flex-start;background:var(--bubble-exp);color:var(--sheet);}
+.tm.you{align-self:flex-end;background:var(--sky);color:var(--ink);}
+.tm-tag{font-size:1.08em;}
+.tm-place{display:flex;flex-direction:column;gap:6px;width:min(100%,340px);max-width:100%;padding:16px;}
+.tm-k{font-size:12px;font-weight:700;letter-spacing:.14em;}
+.tm-name{font-size:19px;font-weight:700;line-height:1.2;}
+.tm-addr{font-size:15px;line-height:1.35;margin-bottom:8px;}
+.tm-place .riso-go{margin-top:0;justify-content:center;}
+@container (min-width:760px){
+  .thread-in{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:48px;}
+  .thread-l{align-self:center;}
+  .thread-r{border-top:0;padding-top:0;border-left:1px solid var(--sheet);padding-left:48px;}
+}
+@container (max-width:480px){ .tm{max-width:86%;font-size:16px;} .tm-place{width:100%;} }
+/* one message every t-base + t-step (about 3.8s for all six, under the five-second line), each inked in left to right */
+.thread.armed .tm{clip-path:inset(0 100% 0 0);}
+.thread.play .tm{clip-path:inset(0 0 0 0);transition:clip-path var(--t-base) var(--feed);
+  transition-delay:calc(var(--i) * (var(--t-base) + var(--t-step)));}
 
 /* Events (/events, 2026-10-19): the next event as a feature, then Coming up and Earlier lists. Ground is
    the Groups page's tint so the two event surfaces read as one family. No motion on this page. */
