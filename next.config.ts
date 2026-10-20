@@ -19,6 +19,9 @@ const moved = [
 ];
 
 const nextConfig: NextConfig = {
+  /* AVIF first (about a third smaller than WebP), WebP for older browsers. Added 2026-10-19 so the
+     taller 4:5 phone hero loads fast: 80% of visitors are on phones. */
+  images: { formats: ["image/avif", "image/webp"] },
   redirects() {
     return [...wixRedirects, ...moved].map((r) => ({ ...r, permanent: true }));
   },

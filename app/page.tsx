@@ -1,4 +1,5 @@
 import { getImageProps } from "next/image";
+import { preload } from "react-dom";
 import Link from "next/link";
 import { Fragment, type CSSProperties } from "react";
 import { site } from "@/data/site";
@@ -19,6 +20,9 @@ const { props: { srcSet: heroDesktop } } = getImageProps({ ...heroCommon, src: "
 const { props: { srcSet: heroMobile, ...heroRest } } = getImageProps({ ...heroCommon, src: "/images/hero-mobile-v1.jpg", width: 1080, height: 1350 });
 
 export default function Home() {
+  // Start the hero download at once, the right one for the screen: it is the largest thing on the page.
+  preload(heroMobile?.split(" ")[0] ?? "", { as: "image", imageSrcSet: heroMobile, imageSizes: "100vw", fetchPriority: "high", media: "(max-width: 600px)" });
+  preload(heroDesktop?.split(" ")[0] ?? "", { as: "image", imageSrcSet: heroDesktop, imageSizes: "100vw", fetchPriority: "high", media: "(min-width: 601px)" });
   return (
     <>
       {/* Hero: the whole 16:9 photo as a plate, then a caption row on the sky
