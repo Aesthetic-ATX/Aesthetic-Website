@@ -125,7 +125,7 @@ export default function Visit() {
                         clickable and nothing else. */}
                     <dd className={"owed" in r && r.owed ? "need" : undefined}>
                       {"href" in r && r.href ? (
-                        <a href={site.mapsUrl} className="dept-link">
+                        <a href={site.mapsUrl} className="dept-link" target="_blank" rel="noopener noreferrer">
                           {r.value}
                         </a>
                       ) : (
@@ -141,15 +141,8 @@ export default function Visit() {
             </aside>
           </div>
 
-          {/* The Sunday line, no box (user's call, 2026-09-28): the label in violet, and the
-              address itself is the link, opening directions from wherever the reader is. */}
-          <div className="sunday">
-            <p className="lbl sunday-k">THIS SUNDAY, COME JOIN US AT</p>
-            <p className="band-big">
-              <a href={site.directionsUrl} target="_blank" rel="noopener noreferrer">{site.address.street}</a>,
-              doors open at half past ten.
-            </p>
-          </div>
+          {/* The closing Sunday line was cut on 2026-10-20 (user approved): the practical panel above
+              and the footer's "Finding us on a Sunday" card already give the address and the doors time. */}
         </article>
       </div>
     </div>
