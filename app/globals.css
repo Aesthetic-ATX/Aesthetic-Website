@@ -160,7 +160,9 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 /* The photo carries the wordmark, the tagline and the handle, so the plate
    keeps the file's own 1672:941 at every width. Any crop would cut words. */
 .hero-plate{position:relative;aspect-ratio:1672/941;background:var(--ink);}
-.hero-img{object-fit:cover;}
+.hero-plate picture{position:absolute;inset:0;display:block;}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+@media (max-width:600px){.hero-plate{aspect-ratio:4/5;}}   /* the phone art is 4:5 (2026-10-19) */
 /* Two columns: the time on the left, and on the right the address sitting
    directly over the two actions it belongs to (user's call, 2026-09-22). */
 .hero-cap-in{display:grid;grid-template-columns:auto max-content;grid-template-rows:1fr auto auto;

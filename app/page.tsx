@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { getImageProps } from "next/image";
 import Link from "next/link";
 import { Fragment, type CSSProperties } from "react";
 import { site } from "@/data/site";
@@ -11,6 +11,12 @@ import { PlayOnce } from "@/components/PlayOnce";
  *  Both phrases come from the approved .docx. "Take a next step" was cut in the 2026-09-22
  *  anti-slop pass: stock church phrasing, and it was mine, not the church's. */
 const statement = ["Explore faith", "Grow at your own pace"];
+
+const heroAlt =
+  "A musician plays bass on stage at a table of pedals, in front of green and yellow chevron projections, beside the words come as you are";
+const heroCommon = { alt: heroAlt, sizes: "100vw", loading: "eager" as const, fetchPriority: "high" as const };
+const { props: { srcSet: heroDesktop } } = getImageProps({ ...heroCommon, src: "/images/hero-full-v4.jpg", width: 1672, height: 941 });
+const { props: { srcSet: heroMobile, ...heroRest } } = getImageProps({ ...heroCommon, src: "/images/hero-mobile-v1.jpg", width: 1080, height: 1350 });
 
 export default function Home() {
   return (
@@ -25,15 +31,13 @@ export default function Home() {
           {/* Source: ~/Desktop/Aesthetic (09:29) Hero Image.png (1672x941), supplied 2026-09-29: the
               wordmark now reads "Aesthetic", capitalised at Pastor John's request.
               Filename is versioned on every swap: a reused name leaves browsers on the cached copy. */}
-          <Image
-            src="/images/hero-full-v4.jpg"
-            alt="A musician plays bass on stage at a table of pedals, in front of green and yellow chevron projections, beside the words come as you are"
-            fill
-            sizes="100vw"
-            loading="eager"
-            fetchPriority="high"
-            className="hero-img"
-          />
+          {/* Art direction (mobile-first pass, 2026-10-19): phones get the 4:5 version with larger lettering
+              (~/Desktop/Aesthetic_Mobile_Hero_1080x1350.jpg), wider screens the 16:9 plate. The frame keeps
+              each one's shape, so nothing shifts while it loads. */}
+          <picture>
+            <source media="(min-width: 601px)" srcSet={heroDesktop} sizes="100vw" />
+            <img {...heroRest} srcSet={heroMobile} className="hero-img" alt={heroAlt} />
+          </picture>
         </div>
         <div className="hero-cap f-sky">
           <div className="wrap hero-cap-in">
