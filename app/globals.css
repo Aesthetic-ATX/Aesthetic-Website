@@ -1173,4 +1173,6 @@ a.gw-day.gw-past{background:var(--c-past);}
   /* the last short tap targets: the Groups slip links and the /visit closing address */
   .slip a{display:inline-flex;align-items:center;min-height:44px;}
 }
-@media (max-width:1023px){ .burger{flex:none;} }   /* the menu button keeps its 44px beside the call to action */
+@media (max-width:1023px){ .burger{flex:none;} }
+/* touch screens of any width (a phone held sideways is wider than 600px): the slip's links keep a 44px target */
+@media (pointer:coarse){ .slip a{display:inline-flex;align-items:center;min-height:44px;} }   /* the menu button keeps its 44px beside the call to action */

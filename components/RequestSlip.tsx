@@ -27,8 +27,10 @@ export function RequestSlip({ g, venue, onClose }: { g: Group; venue: string; on
 
   useEffect(() => {
     field("name")?.focus({ preventScroll: true });
+    // the back's top edge stops just under the sticky nav (html scroll-padding-top), so the name field is
+    // always in view: on a phone held sideways the form is taller than the screen, and "nearest" hid it
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    form.current?.closest(".flyer-sheet")?.scrollIntoView({ block: "nearest", behavior: reduced ? "auto" : "smooth" });
+    form.current?.closest(".rq")?.scrollIntoView({ block: "start", behavior: reduced ? "auto" : "smooth" });
   }, []);
 
   useEffect(() => { if (done) doneRef.current?.focus(); }, [done]);
