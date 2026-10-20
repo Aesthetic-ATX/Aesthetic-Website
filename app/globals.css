@@ -1027,7 +1027,9 @@ a.gw-day.gw-past{background:var(--c-past);}
   .lb{margin-bottom:40px;}
   .foot{padding-top:48px;}
   .foot-top{gap:32px;margin-bottom:40px;}
-  .post-photo{height:240px;}
+  .post-photo{height:210px;}
+  /* Explore's five links in two columns: three rows instead of five */
+  .foot-ref:first-child .foot-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:16px;}
   .foot-tag{margin-bottom:32px;}
   /* the series date line under the ring never below 12px */
   .ser-when{font-size:12px !important;letter-spacing:.08em;}
