@@ -17,9 +17,30 @@ export function Nav() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const active = links.findIndex((l) => l.href === pathname);
+  const onVisit = pathname === "/visit" ? "page" : undefined;
+  const header = useRef<HTMLElement>(null);
+  const burger = useRef<HTMLButtonElement>(null);
+
+  /* The phone menu closes the ways people expect (audit, 2026-10-20): Escape, a tap anywhere
+     outside the bar, or scrolling the page away. Escape hands focus back to the menu button. */
+  useEffect(() => {
+    if (!open) return;
+    const y = scrollY;
+    const key = (e: KeyboardEvent) => { if (e.key === "Escape") { setOpen(false); burger.current?.focus(); } };
+    const tap = (e: PointerEvent) => { if (!header.current?.contains(e.target as Node)) setOpen(false); };
+    const scroll = () => { if (Math.abs(scrollY - y) > 40) setOpen(false); };   // a little give for iOS rubber-banding
+    addEventListener("keydown", key);
+    addEventListener("pointerdown", tap);
+    addEventListener("scroll", scroll, { passive: true });
+    return () => {
+      removeEventListener("keydown", key);
+      removeEventListener("pointerdown", tap);
+      removeEventListener("scroll", scroll);
+    };
+  }, [open]);
 
   return (
-    <header className="nav">
+    <header className="nav" ref={header}>
       <div className="nav-in">
         {/* Brand primary logotype. WCAG 1.4.3 exempts logotypes from contrast. */}
         <Link
@@ -33,16 +54,18 @@ export function Nav() {
 
         <nav className="nav-desk" aria-label="Main">
           <Capsule active={active} />
-          <Link href="/visit" className="btn btn-v nav-cta">New here?</Link>
+          <Link href="/visit" className="btn btn-v nav-cta" aria-current={onVisit}>New here?</Link>
         </nav>
 
         {/* Phones and tablets: the one call to action stays in the bar beside the menu, not inside it
             (mobile-first pass, 2026-10-19: 80% of visitors are on phones). */}
-        <Link href="/visit" className="btn btn-v nav-cta-mob" onClick={() => setOpen(false)}>New here?</Link>
+        <Link href="/visit" className="btn btn-v nav-cta-mob" aria-current={onVisit} onClick={() => setOpen(false)}>New here?</Link>
 
+        {/* the three bars fold into a cross while the menu is open */}
         <button
+          ref={burger}
           className="burger"
-          aria-label="Menu"
+          aria-label={open ? "Close menu" : "Menu"}
           aria-expanded={open}
           aria-controls="nav-mob"
           onClick={() => setOpen((v) => !v)}
@@ -62,9 +85,6 @@ export function Nav() {
             {l.label}
           </Link>
         ))}
-        <Link href="/visit" className="btn btn-v" onClick={() => setOpen(false)}>
-          New here?
-        </Link>
       </nav>
     </header>
   );
