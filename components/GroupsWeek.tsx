@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { type Now, austinNow, dayOf, fmt, previewing } from "@/components/austin";
 import { WhatsHappening } from "@/components/WhatsHappening";
 import { RequestSlip } from "@/components/RequestSlip";
+import { opener, waLink, waNumber } from "@/components/slip";
 import { groups, type Group } from "@/data/groups";
 import { inStripWeek, owns, phase, upcoming } from "@/data/events";
 import { T } from "@/components/motion";
@@ -251,15 +252,26 @@ export function GroupsWeek() {
                   <span className="flyer-ink" aria-hidden />
                   <span className="tape" aria-hidden />
                   <div className="flyer-sheet">
-                    {g.photo.src ? (
-                      <Image
-                        src={g.photo.src}
-                        alt={g.photo.alt}
-                        width={1320}
-                        height={1983}
-                        sizes="(max-width: 900px) min(440px, 100vw), 360px"
-                      />
-                    ) : null}
+                    {/* the poster and its back share one cell: the email form prints over the poster's space, so the
+                        flyer keeps its height (and grows only if a note makes the form taller than the poster) */}
+                    <div className="flyer-face">
+                      {g.photo.src ? (
+                        <Image
+                          src={g.photo.src}
+                          alt={g.photo.alt}
+                          width={1320}
+                          height={1983}
+                          sizes="(max-width: 900px) min(440px, 100vw), 360px"
+                        />
+                      ) : null}
+                      {asking === g ? (
+                        <RequestSlip
+                          g={g}
+                          venue={w.venue}
+                          onClose={() => { setAsking(null); document.getElementById(`rq-open-${key(g)}`)?.focus(); }}
+                        />
+                      ) : null}
+                    </div>
                     <div className="slip">
                       <div>
                         <p className="lbl">{w.label}</p>
@@ -275,27 +287,32 @@ export function GroupsWeek() {
                       <div>
                         <p className="lbl">CONTACT</p>
                         <p className="slip-v">{g.contact.name}</p>
-                        {/* the number became a button (request slip, 2026-10-20): it opens a form that sends on WhatsApp or by email */}
-                        <button
-                          type="button"
-                          id={`rq-open-${key(g)}`}
-                          className="rq-open"
-                          aria-expanded={asking === g}
-                          aria-controls={`rq-${key(g)}`}
-                          aria-label={`Message ${g.contact.name} about ${g.name}`}
-                          onClick={() => setAsking(asking === g ? null : g)}
-                        >
-                          MESSAGE
-                        </button>
+                        {/* the number became two buttons (2026-10-20): WhatsApp opens the chat with a first line
+                            written; Email turns the poster over to a short form */}
+                        <span className="rq-ways">
+                          <a
+                            className="rq-open rq-wa"
+                            href={waLink(waNumber(g.contact.tel)!, opener(g))}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`WhatsApp ${g.contact.name} about ${g.name}`}
+                          >
+                            WHATSAPP
+                          </a>
+                          <button
+                            type="button"
+                            id={`rq-open-${key(g)}`}
+                            className="rq-open"
+                            aria-expanded={asking === g}
+                            aria-controls={`rq-${key(g)}`}
+                            aria-label={`Email ${g.contact.name} about ${g.name}`}
+                            onClick={() => setAsking(asking === g ? null : g)}
+                          >
+                            EMAIL
+                          </button>
+                        </span>
                       </div>
                     </div>
-                    {asking === g ? (
-                      <RequestSlip
-                        g={g}
-                        venue={w.venue}
-                        onClose={() => { setAsking(null); document.getElementById(`rq-open-${key(g)}`)?.focus(); }}
-                      />
-                    ) : null}
                   </div>
                 </div>
               </article>

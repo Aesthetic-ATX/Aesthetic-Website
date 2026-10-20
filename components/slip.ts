@@ -24,6 +24,10 @@ export const waLink = (number: string, text: string) => `https://wa.me/${number}
 
 export const isEmail = (s: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.trim());
 
+/** The slip's WHATSAPP button: a short opener the visitor can finish in WhatsApp, which already shows the leader their name. */
+export const opener = (g: Group) =>
+  `Hi ${firstName(g.contact.name)}! I saw ${g.name} (${g.when}) on the Aesthetic website.`;
+
 /** What the visitor says to the leader. */
 export function message(g: Group, s: Pick<Slip, "kind" | "name" | "note">) {
   const hi = `Hi ${firstName(g.contact.name)}, this is ${s.name.trim()}.`;

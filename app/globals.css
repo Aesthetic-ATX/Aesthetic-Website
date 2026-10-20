@@ -416,16 +416,33 @@ a.gw-day.gw-past{background:var(--c-past);}
 .slip-st{display:block;margin-top:8px;}   /* venue, a clear gap, then the street (user's call, 2026-10-01) */
 .slip-map{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;}  /* the venue opens the map */
 .slip-map:hover{text-decoration-thickness:3px;}
-/* the request slip (2026-10-20): MESSAGE opens a form under the slip; the sheet hangs straight while it is open */
-.rq-open{margin-top:auto;align-self:stretch;min-height:44px;padding:8px 10px;border:var(--key);border-radius:0;background:var(--white);
-  color:var(--violet);font:inherit;font-size:12px;font-weight:700;letter-spacing:.1em;cursor:pointer;
+/* the request slip (2026-10-20, back-of-the-flyer redesign): two ways in from the slip. WHATSAPP opens the chat;
+   EMAIL turns the poster over to a short form printed in the poster's own space, and the sheet hangs straight */
+/* side by side when the column has room (phones, where the slip stacks), stacked in a narrow desktop column */
+.rq-ways{margin-top:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:6px;}
+.rq-open{display:flex;align-items:center;justify-content:center;min-height:44px;padding:8px 10px;border:var(--key);border-radius:0;
+  background:var(--white);color:var(--violet);font:inherit;font-size:12px;font-weight:700;letter-spacing:.1em;text-decoration:none;cursor:pointer;
   transition:background-color var(--t-quick) var(--feed),color var(--t-quick) var(--feed);}
-.rq-open:hover,.rq-open[aria-expanded="true"]{background:var(--violet);color:var(--white);}
+.rq-open:hover,.rq-open[aria-expanded="true"]{background:var(--violet);color:var(--white);text-decoration:none;}
+.rq-wa{background:var(--violet);color:var(--white);}   /* the quicker way, so it prints solid */
+.rq-wa:hover{background:var(--ink);}
 .flyer.asking{z-index:2;}
 .flyer.asking .flyer-paper{animation:gw-straight var(--t-base) var(--feed) both;}
 @keyframes gw-straight{from{transform:rotate(var(--tilt));}to{transform:rotate(0deg);}}
-.rq{border-top:var(--key);padding:16px;}
-.rq-form{display:flex;flex-direction:column;gap:14px;}
+/* the poster and its back in one grid cell: the cell is as tall as whichever is taller */
+.flyer-face{display:grid;}
+.flyer-face>*{grid-area:1/1;min-width:0;}
+.flyer.asking .flyer-face img{visibility:hidden;}
+.rq{display:flex;flex-direction:column;gap:12px;padding:16px;background:var(--white);
+  transform-origin:50% 50%;animation:rq-turn var(--t-base) var(--feed) both;}
+@keyframes rq-turn{from{transform:perspective(900px) rotateY(-90deg);}to{transform:perspective(900px) rotateY(0deg);}}
+.rq-head{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.rq-head .lbl{margin:0;font-size:12px;}
+.rq-x{flex:none;width:44px;height:44px;display:flex;align-items:center;justify-content:center;padding:0;border:var(--key);border-radius:0;
+  background:var(--white);color:var(--violet);font:inherit;font-size:18px;font-weight:700;line-height:1;cursor:pointer;
+  transition:background-color var(--t-quick) var(--feed),color var(--t-quick) var(--feed);}
+.rq-x:hover{background:var(--violet);color:var(--white);}
+.rq-form{flex:1;display:flex;flex-direction:column;gap:12px;}
 .rq-form[hidden]{display:none;}
 .rq-kind{border:0;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;min-width:0;}
 .rq-kind label{display:block;min-width:0;}
@@ -437,7 +454,6 @@ a.gw-day.gw-past{background:var(--c-past);}
 .rq-kind input:focus-visible+span{outline:3px solid var(--sky);outline-offset:2px;position:relative;}
 .rq-f{display:flex;flex-direction:column;gap:6px;}
 .rq-f .lbl{font-size:12px;}
-.rq-opt{font-weight:400;letter-spacing:.06em;}
 .rq-f input,.rq-f textarea{width:100%;min-width:0;min-height:48px;padding:10px 12px;border:var(--key);border-radius:0;
   background:var(--sheet);color:var(--ink);font:inherit;font-size:16px;line-height:1.4;}
 .rq-f textarea{resize:vertical;}
@@ -445,24 +461,23 @@ a.gw-day.gw-past{background:var(--c-past);}
 .rq-f [aria-invalid="true"]{background:var(--white);border-style:dashed;}
 .rq-hp{position:absolute;left:-9999px;width:1px;height:1px;}
 .rq-err{font-weight:700;}
-.rq-actions{display:flex;flex-direction:column;align-items:stretch;gap:8px;}
-.rq-actions .btn{width:100%;padding:12px 16px;min-height:48px;}
-.rq-actions .btn:disabled{cursor:progress;}
+.rq-send{width:100%;min-height:48px;padding:12px 16px;margin-top:auto;}   /* pinned to the foot of the back */
+.rq-send:disabled{cursor:progress;}
 .rq-link{align-self:flex-start;min-height:44px;background:none;border:0;padding:0;font:inherit;font-size:14px;font-weight:700;
   color:var(--violet);text-decoration:underline;text-underline-offset:4px;cursor:pointer;}
-.rq-open:focus-visible,.rq-link:focus-visible{outline:3px solid var(--sky);outline-offset:2px;}
+.rq-open:focus-visible,.rq-link:focus-visible,.rq-x:focus-visible{outline:3px solid var(--sky);outline-offset:2px;}
 .rq-done{display:flex;flex-direction:column;align-items:flex-start;gap:10px;}
 .rq-done:focus{outline:none;}
 .rq-done p{margin:0;}
 .rq-stamp{font-size:13px;font-weight:700;letter-spacing:.16em;border:var(--key);padding:2px 10px;background:var(--c);transform:rotate(-4deg);}
 .rq-done-t{font-size:18px;font-weight:700;line-height:1.3;}
-@media (prefers-reduced-motion:reduce){.flyer.asking .flyer-paper{animation:none;transform:none;} .rq-open{transition:none;}}
+@media (prefers-reduced-motion:reduce){.flyer.asking .flyer-paper{animation:none;transform:none;} .rq{animation:none;} .rq-open,.rq-x{transition:none;}}
 /* a narrow sheet (three across on a small window) can't hold the slip side by side:
    it stacks, where over contact, so everything stays inside the frame (2026-10-12) */
 @container (max-width:318px){
   .slip{grid-template-columns:minmax(0,1fr);}
   .slip>div+div{border-left:0;border-top:var(--hair);}
-  .rq-open{margin-top:2px;}
+  .rq-ways{margin-top:2px;}
 }
 
 
@@ -475,7 +490,7 @@ a.gw-day.gw-past{background:var(--c-past);}
   @container (max-width:345px){
     .slip{grid-template-columns:minmax(0,1fr);}
     .slip>div+div{border-left:0;border-top:var(--hair);}
-    .rq-open{margin-top:2px;}
+    .rq-ways{margin-top:2px;}
   }
   /* three days, one poster: the selected group's (the user's design, 2026-10-01) */
   .gw-week{grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:64px;}
