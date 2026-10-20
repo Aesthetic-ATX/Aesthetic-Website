@@ -35,6 +35,10 @@ export function Nav() {
           <Link href="/visit" className="btn btn-v nav-cta">New here?</Link>
         </nav>
 
+        {/* Phones and tablets: the one call to action stays in the bar beside the menu, not inside it
+            (mobile-first pass, 2026-10-19: 80% of visitors are on phones). */}
+        <Link href="/visit" className="btn btn-v nav-cta-mob" onClick={() => setOpen(false)}>New here?</Link>
+
         <button
           className="burger"
           aria-label="Menu"

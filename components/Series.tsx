@@ -35,6 +35,7 @@ export function Series() {
   const cover = useRef<HTMLDivElement>(null);
   const list = useRef<HTMLOListElement>(null);
   const coverPhase = usePlayOnce(cover);
+  const [noteOpen, setNoteOpen] = useState(false);
   const listPhase = usePlayOnce(list);
 
   // This Sunday: the first series Sunday on or after today in Austin. Null once the series is over.
@@ -125,7 +126,7 @@ export function Series() {
         })}
       </ol>
 
-      <div className="ser-note">
+      <div className={`ser-note${noteOpen ? " open" : ""}`}>
         {series.poster && (
           <div className="ser-poster">
             <Image
@@ -141,8 +142,14 @@ export function Series() {
         <div>
           <p className="lbl">A NOTE FROM OUR PASTOR</p>
           {series.note.map((para, i) => (
-            <p key={i} className={i === 0 ? "bd dropcap" : "bd"}>{para}</p>
+            <p key={i} className={i === 0 ? "bd dropcap" : "bd ser-more"}>{para}</p>
           ))}
+          {/* phones only: the rest of the note waits behind this, so the page stays short */}
+          {series.note.length > 1 && (
+            <button type="button" className="ser-read" aria-expanded={noteOpen} onClick={() => setNoteOpen((v) => !v)}>
+              {noteOpen ? "Show less" : "Read the full note"}
+            </button>
+          )}
           <p className="lbl ser-by">{series.byline}</p>
         </div>
       </div>

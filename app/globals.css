@@ -134,6 +134,8 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .wm:hover{text-decoration:none;}
 .nav-desk{display:flex;align-items:center;gap:16px;}
 .nav-cta{min-height:48px;padding:12px 24px;}
+.nav-cta-mob{display:none;}
+.ser-read{display:none;}
 
 .capsule{position:relative;display:flex;align-items:center;gap:4px;padding:6px;
   border:var(--hair);border-radius:9999px;background:var(--sheet);}
@@ -988,3 +990,50 @@ a.gw-day.gw-past{background:var(--c-past);}
 .sign-steps li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid var(--sheet);font-size:clamp(16px,1.5vw,19px);line-height:1.35;}
 .sign-n{display:grid;place-items:center;width:36px;height:36px;border-radius:9999px;background:var(--sky);color:var(--ink);font-weight:700;}
 .sign .riso-go{margin-top:0;}
+
+/* ================= MOBILE FIRST (2026-10-19) =================
+   80% of visitors are on phones, 61% on iPhone (Vercel Analytics). Tested at 375px. Desktop is unchanged.
+   This block sits last on purpose: page sections above define their own rules, and a phone rule placed
+   earlier with the same specificity would lose to them. */
+@media (max-width:1023px){
+  /* the one call to action stays in the bar, beside the menu */
+  .nav-cta-mob{display:inline-flex;align-items:center;min-height:44px;padding:10px 14px;margin-left:auto;font-size:12px;letter-spacing:.08em;}
+  .nav-in{gap:12px;}
+}
+@media (max-width:600px){
+  /* readable text: left aligned, no automatic hyphenation (justified lines leave gaps and split words on a phone) */
+  .bl,.bd,.mag-deck,.ch-body p{text-align:left;hyphens:manual;-webkit-hyphens:manual;}
+  /* labels at 12px, not 11 */
+  .dateline,.ser-n,.ser-reveal,.band-k,.dept-k,.dept dt,.slip .lbl,.gw-tag{font-size:12px;}
+  /* every tap target at least 44px tall, without moving the layout around it */
+  .foot-list{gap:0;}
+  .foot-list a,.foot-base a,.dateline a,.hero-where a{display:inline-flex;align-items:center;min-height:44px;}
+  .dateline a{padding:0;margin:-10px 0;}
+  .foot-base{gap:4px;}
+  /* shorter series section: a smaller poster, John's note opens on request */
+  .ser-poster{max-width:260px;}
+  .ser-note:not(.open) .ser-more{display:none;}
+  .ser-read{display:inline-flex;align-items:center;min-height:44px;margin-top:10px;padding:0;border:0;background:none;
+    font:inherit;font-size:15px;font-weight:700;color:var(--violet);text-decoration:underline;text-underline-offset:4px;cursor:pointer;}
+  .ser-read:focus-visible{outline:3px solid var(--sky);outline-offset:3px;}
+  /* the visit teaser's two photos side by side, smaller */
+  .teaser-head{grid-template-columns:minmax(0,1fr);}
+  .plates{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:28px;}
+  .plate:nth-child(2){margin-top:28px;}
+  .plate-title{font-size:18px;margin-top:8px;}
+  /* a tighter footer */
+  .lb{margin-bottom:40px;}
+  .foot{padding-top:48px;}
+  .foot-top{gap:32px;margin-bottom:40px;}
+  .post-photo{height:240px;}
+  .foot-tag{margin-bottom:32px;}
+  /* the series date line under the ring never below 12px */
+  .ser-when{font-size:12px !important;letter-spacing:.08em;}
+  .ser-words{width:62%;}   /* keeps the wrapped date line inside the ring, clear of the stamp */
+  /* /visit running head: two clean items; "Plan your visit" is already the page itself */
+  .runhead{font-size:12px;}
+  .runhead span:nth-child(2){display:none;}
+  /* the last short tap targets: the Groups slip links and the /visit closing address */
+  .slip a,.sunday a{display:inline-flex;align-items:center;min-height:44px;}
+}
+@media (max-width:1023px){ .burger{flex:none;} }   /* the menu button keeps its 44px beside the call to action */
