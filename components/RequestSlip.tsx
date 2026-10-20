@@ -16,7 +16,7 @@ export function RequestSlip({ g, venue, onClose }: { g: Group; venue: string; on
   const k = slipKey(g);
   const leader = firstName(g.contact.name);
   const [kind, setKind] = useState<Kind>("come");
-  const [err, setErr] = useState<{ field: "name" | "reach"; text: string } | null>(null);
+  const [err, setErr] = useState<{ field?: "name" | "reach"; text: string } | null>(null);   // no field: the send failed, not the input
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState<Done>(null);
   const box = useRef<HTMLDivElement>(null);
@@ -66,7 +66,7 @@ export function RequestSlip({ g, venue, onClose }: { g: Group; venue: string; on
       if (!res.ok) throw new Error(String(res.status));
       setDone({ via: "email", name: s.name, kind });
     } catch {
-      setErr({ field: "reach", text: `That didn't send. Try WhatsApp, or email aesthetic.austin.tx@gmail.com.` });
+      setErr({ text: `That didn't send. Try WhatsApp, or email aesthetic.austin.tx@gmail.com.` });
     } finally {
       setBusy(false);
     }

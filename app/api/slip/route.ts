@@ -36,7 +36,10 @@ export async function POST(req: Request) {
   }
 
   const key = process.env.RESEND_API_KEY;
-  if (!key) return Response.json({ error: "not-configured" }, { status: 503 });
+  if (!key) {
+    console.error("slip: RESEND_API_KEY is not set for this deployment");
+    return Response.json({ error: "not-configured" }, { status: 503 });
+  }
 
   const leader = g.contact.name;
   const said = message(g, { kind, name, note });
