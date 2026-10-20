@@ -84,7 +84,7 @@ export const calendar: CalendarEvent[] = [
     hosts: "Hosted by @khoi_gg and @artbyjohnlee.",
     signoff: "Bring a friend. Come expectant. Come as you are.",
     ps: "Free that morning? Come earlier for the 11am service. Same address.",   // our line, not the Partiful page
-    rsvp: null,   // NEEDED: the Partiful link (Instagram says "link in bio")
+    rsvp: "https://partiful.com/e/l6jU7VHP48VSxy1UpQGx",
     ics: "/events/next-gen-2026-11-08.ics",
     /* TEMPORARY: cropped from a Partiful screenshot (IMG_0875, 708x986). Swap for the original file
        as poster-next-gen-v2.jpg when it arrives. */
