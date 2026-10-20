@@ -4,6 +4,7 @@ import { MissionVision } from "@/components/MissionVision";
 import { values, beliefsIntro } from "@/data/commitment";
 import { metaFor } from "@/data/meta";
 import { team } from "@/data/team";
+import { Fold } from "@/components/Fold";
 
 export const metadata = metaFor("about");
 
@@ -79,6 +80,8 @@ export default function About() {
               John Lee&rsquo;s aim is simple: to see the beauty of God and help other people see it
               too. It comes from Psalm 27:4, &ldquo;to gaze upon the beauty of the Lord.&rdquo;
             </p>
+            {/* phones: the rest of the bio behind "Read more" (mobile-first pass, 2026-10-19) */}
+            <Fold more="Read John's story">
             <p className="bd">
               John grew up in Baton Rouge, Louisiana, and surrendered his life to Jesus in his
               freshman dorm room at LSU. From there he studied economics at NYU&rsquo;s Stern School
@@ -96,6 +99,7 @@ export default function About() {
             <p className="bd">
               He lives in Austin with his wife, Tori, and their two dogs, Avery and Gracie.
             </p>
+            </Fold>
             <p className="bd" style={{ fontWeight: 700 }}>John Lee<br />Pastor</p>
           </div>
         </div>
@@ -118,9 +122,14 @@ export default function About() {
               <div className="col" style={{ gap: 18 }}>
                 <h2 className="h2" style={{ fontSize: "clamp(32px,4vw,44px)" }}>{m.role}</h2>
                 <hr className="rule" style={{ width: 180 }} />
-                {m.bio.map((para) => (
-                  <p key={para.slice(0, 24)} className="bd">{para}</p>
-                ))}
+                <p className="bd">{m.bio[0]}</p>
+                {m.bio.length > 1 && (
+                  <Fold>
+                    {m.bio.slice(1).map((para) => (
+                      <p key={para.slice(0, 24)} className="bd">{para}</p>
+                    ))}
+                  </Fold>
+                )}
                 <p className="bd" style={{ fontWeight: 700 }}>{m.name}<br />{m.role}</p>
               </div>
             </div>

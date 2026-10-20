@@ -136,6 +136,8 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .nav-cta{min-height:48px;padding:12px 24px;}
 .nav-cta-mob{display:none;}
 .ser-read{display:none;}
+.fold-btn{display:none;}
+.fold-more{display:flex;flex-direction:column;gap:18px;}   /* same rhythm as the bio column */
 
 .capsule{position:relative;display:flex;align-items:center;gap:4px;padding:6px;
   border:var(--hair);border-radius:9999px;background:var(--sheet);}
@@ -1015,6 +1017,16 @@ a.gw-day.gw-past{background:var(--c-past);}
   /* shorter series section: a smaller poster, John's note opens on request */
   .ser-poster{max-width:260px;}
   .ser-note:not(.open) .ser-more{display:none;}
+  /* About: bios open on request; portraits smaller so the words come sooner */
+  .fold:not(.open) .fold-more{display:none;}
+  .fold-btn{display:inline-flex;align-items:center;min-height:44px;padding:0;border:0;background:none;
+    font:inherit;font-size:15px;font-weight:700;color:var(--violet);text-decoration:underline;text-underline-offset:4px;cursor:pointer;}
+  .fold-btn:focus-visible{outline:3px solid var(--sky);outline-offset:3px;}
+  .bio-photo{max-width:240px;}
+  /* Plan your visit: two photos side by side again, small type up to 12px */
+  .ch-media.two{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+  .ch-num span,.ch-media figcaption b,.foot-pair figcaption b{font-size:12px;}
+  .ch-media figcaption,.foot-pair figcaption{font-size:13px;}
   .ser-read{display:inline-flex;align-items:center;min-height:44px;margin-top:10px;padding:0;border:0;background:none;
     font:inherit;font-size:15px;font-weight:700;color:var(--violet);text-decoration:underline;text-underline-offset:4px;cursor:pointer;}
   .ser-read:focus-visible{outline:3px solid var(--sky);outline-offset:3px;}
