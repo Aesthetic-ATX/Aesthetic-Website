@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { site } from "@/data/site";
 import { calendar, daysTo, phaseOf, type CalendarEvent } from "@/data/calendar";
 import { austinNow } from "@/components/austin";
+import { usePlayOnce } from "@/components/usePlayOnce";
 
 const day = (iso: string, o: Intl.DateTimeFormatOptions) =>
   new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", { timeZone: "UTC", ...o }).toUpperCase();
@@ -77,6 +78,12 @@ export function EventsBoard({ iso: buildIso, min: buildMin }: { iso: string; min
 
 function Feature({ e, iso, min }: { e: CalendarEvent; iso: string; min: number }) {
   const ph = phaseOf(e, iso, min), d = daysTo(e, iso);
+  /* Motion (option B, "Pinned up", user's pick 2026-10-19): the sky tape presses on and the poster settles
+     into a small tilt; further down, the panelists ink in a row at a time as they arrive. Each part
+     plays once when it is itself on screen, which matters on a phone where they are far apart. */
+  const pin = useRef<HTMLDivElement>(null), panel = useRef<HTMLDListElement>(null);
+  const pinPhase = usePlayOnce(pin, 0.5), panelPhase = usePlayOnce(panel, 0.3);
+  const [leadOpen, setLeadOpen] = useState(false);
   /* Words near the day, a number before it. No hour-by-hour countdown: the date sits right beside it. */
   const count =
     ph === "live" ? <p className="ev-count word">ON NOW</p>
@@ -87,7 +94,8 @@ function Feature({ e, iso, min }: { e: CalendarEvent; iso: string; min: number }
   return (
     <article className="ev-feat" aria-labelledby={`ev-${e.slug}`}>
       {e.poster && (
-        <div className="ev-poster">
+        <div ref={pin} className={`ev-poster pin ${pinPhase}`}>
+          <span className="tape" aria-hidden />
           <Image src={e.poster.src} alt={e.poster.alt} width={e.poster.width} height={e.poster.height}
             sizes="(max-width: 900px) min(440px, 100vw), 420px" priority />
         </div>
@@ -109,16 +117,22 @@ function Feature({ e, iso, min }: { e: CalendarEvent; iso: string; min: number }
       </div>
 
       <div className="ev-detail">
-        <div className="ev-lead">
-          {e.lead.map((p) => <p key={p.slice(0, 24)} className="bd">{p}</p>)}
+        <div className={`ev-lead${leadOpen ? " open" : ""}`}>
+          {e.lead.map((p, i) => <p key={p.slice(0, 24)} className={i === 0 ? "bd" : "bd ev-more"}>{p}</p>)}
+          {/* phones only: the rest of the description waits behind this, so the page stays short */}
+          {e.lead.length > 1 && (
+            <button type="button" className="ser-read ev-read" aria-expanded={leadOpen} onClick={() => setLeadOpen((v) => !v)}>
+              {leadOpen ? "Show less" : "Read more"}
+            </button>
+          )}
           {e.signoff && <p className="sp ev-sign">{e.signoff}</p>}
         </div>
         {e.panel && (
           <div>
             <h3 className="lbl">THE PANEL</h3>
-            <dl className="ev-panel">
-              {e.panel.map((p) => (
-                <div key={p.name}>
+            <dl ref={panel} className={`ev-panel ${panelPhase}`}>
+              {e.panel.map((p, r) => (
+                <div key={p.name} style={{ "--r": r } as CSSProperties}>
                   <dt>{p.name}</dt>
                   <dd><b>{p.role}</b>{p.what}</dd>
                 </div>
