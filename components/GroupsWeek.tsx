@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { type Now, austinNow, dayOf, fmt, previewing } from "@/components/austin";
 import { WhatsHappening } from "@/components/WhatsHappening";
+import { RequestSlip } from "@/components/RequestSlip";
 import { groups, type Group } from "@/data/groups";
 import { inStripWeek, owns, phase, upcoming } from "@/data/events";
 import { T } from "@/components/motion";
@@ -44,6 +45,7 @@ const solo = () => matchMedia("(max-width:900px)").matches;   // one poster at a
 export function GroupsWeek() {
   const [now, setNow] = useState<Now | null>(null);
   const [sel, setSel] = useState<Group | null>(null);
+  const [asking, setAsking] = useState<Group | null>(null);   // the flyer whose request slip is open
   const rig = useRef<HTMLDivElement>(null);
   const week = useRef<HTMLElement>(null);
   const wire = useRef<SVGPathElement>(null);
@@ -145,6 +147,7 @@ export function GroupsWeek() {
     const f = document.getElementById(`f-${key(g)}`)!;
     drawn.current = true;
     setSel(g);
+    if (solo()) setAsking(null);
     history.replaceState(null, "", `#f-${key(g)}`);
     if (solo()) {
       // the new poster pins up in place of the old one; the line redraws to it (no jump, no focus move)
@@ -238,12 +241,12 @@ export function GroupsWeek() {
           </button>
         ) : null}
 
-        {/* Each poster taped to the board, with one slip under it: where it meets, who to call */}
+        {/* Each poster taped to the board, with one slip under it: where it meets, who to message */}
         <div className="gw-board">
           {sorted.map((g, i) => {
             const w = whereFor(g, now);
             return (
-              <article key={g.name} id={`f-${key(g)}`} className={`flyer${sel === g ? " on" : ""}`} style={{ ...inkVar(g), "--i": i } as React.CSSProperties} aria-label={`${g.name}, ${g.when}`}>
+              <article key={g.name} id={`f-${key(g)}`} className={`flyer${sel === g ? " on" : ""}${asking === g ? " asking" : ""}`} style={{ ...inkVar(g), "--i": i } as React.CSSProperties} aria-label={`${g.name}, ${g.when}`}>
                 <div className="flyer-paper">
                   <span className="flyer-ink" aria-hidden />
                   <span className="tape" aria-hidden />
@@ -272,9 +275,27 @@ export function GroupsWeek() {
                       <div>
                         <p className="lbl">CONTACT</p>
                         <p className="slip-v">{g.contact.name}</p>
-                        <a className="tel" href={`tel:${g.contact.tel}`}>{g.contact.phone}</a>
+                        {/* the number became a button (request slip, 2026-10-20): it opens a form that sends on WhatsApp or by email */}
+                        <button
+                          type="button"
+                          id={`rq-open-${key(g)}`}
+                          className="rq-open"
+                          aria-expanded={asking === g}
+                          aria-controls={`rq-${key(g)}`}
+                          aria-label={`Message ${g.contact.name} about ${g.name}`}
+                          onClick={() => setAsking(asking === g ? null : g)}
+                        >
+                          MESSAGE
+                        </button>
                       </div>
                     </div>
+                    {asking === g ? (
+                      <RequestSlip
+                        g={g}
+                        venue={w.venue}
+                        onClose={() => { setAsking(null); document.getElementById(`rq-open-${key(g)}`)?.focus(); }}
+                      />
+                    ) : null}
                   </div>
                 </div>
               </article>
