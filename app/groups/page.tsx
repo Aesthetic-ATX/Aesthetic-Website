@@ -7,7 +7,7 @@ export default function Groups() {
   return (
     <section className="sec page-groups">
       <div className="wrap" style={{ display: "flex", flexDirection: "column", gap: "clamp(32px,4vw,44px)" }}>
-        <div className="col" style={{ gap: 18 }}>
+        <div className="col" style={{ gap: 16 }}>
           <span className="lbl">GROUPS</span>
           <h1 className="h1" style={{ fontSize: "clamp(40px,5.6vw,62px)", maxWidth: "19ch" }}>
             Honest questions, in a room with other people.

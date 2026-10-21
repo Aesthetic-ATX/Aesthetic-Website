@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/check-motion.mjs",
+    "prebuild": "node scripts/check-motion.mjs && node scripts/check-spacing.mjs",
     "build": "next build",
     "start": "next start"
   },

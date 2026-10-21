@@ -45,7 +45,7 @@ export default function Events() {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       )}
       <div className="wrap" style={{ display: "flex", flexDirection: "column", gap: "clamp(32px,4vw,48px)" }}>
-        <div className="col" style={{ gap: 18 }}>
+        <div className="col" style={{ gap: 16 }}>
           <span className="lbl">EVENTS</span>
           <h1 className="h1" style={{ fontSize: "clamp(40px,5.6vw,62px)", maxWidth: "16ch" }}>
             What&rsquo;s coming up at Aesthetic.

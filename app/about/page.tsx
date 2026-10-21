@@ -72,7 +72,7 @@ export default function About() {
               sizes="(max-width: 900px) 100vw, 42vw"
             />
           </div>
-          <div className="col" style={{ gap: 18 }}>
+          <div className="col" style={{ gap: 16 }}>
             <span className="lbl">MEET OUR TEAM</span>
             <h2 className="h2" style={{ fontSize: "clamp(32px,4vw,44px)" }}>Pastor</h2>
             <hr className="rule" style={{ width: 180 }} />
@@ -119,7 +119,7 @@ export default function About() {
                   sizes="(max-width: 900px) 100vw, 42vw"
                 />
               </div>
-              <div className="col" style={{ gap: 18 }}>
+              <div className="col" style={{ gap: 16 }}>
                 <h2 className="h2" style={{ fontSize: "clamp(32px,4vw,44px)" }}>{m.role}</h2>
                 <hr className="rule" style={{ width: 180 }} />
                 <p className="bd">{m.bio[0]}</p>
