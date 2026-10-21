@@ -1056,7 +1056,7 @@ a.gw-day.gw-past{background:var(--c-past);}
 .thread-in{display:grid;grid-template-columns:minmax(0,1fr);gap:24px;}
 .thread-l{display:flex;flex-direction:column;gap:16px;}
 .thread-lbl{margin:0;color:var(--sheet);letter-spacing:.16em;}
-.thread-where{margin:0;font-size:clamp(34px,4.4vw,60px);font-weight:700;line-height:1;letter-spacing:-.02em;color:var(--sheet);}
+.thread-where{margin:0;font-size:clamp(34px,4.4vw,60px);font-weight:700;line-height:1;letter-spacing:-.02em;color:var(--sheet);text-wrap:balance;}
 .thread-r{display:flex;flex-direction:column;border-top:1px solid var(--sheet);padding-top:24px;}
 .thread-who{text-align:center;margin-bottom:16px;}
 .thread-who p{margin:0;font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--sheet);}
@@ -1068,11 +1068,13 @@ a.gw-day.gw-past{background:var(--c-past);}
 .tm.us{align-self:flex-start;background:var(--bubble-exp);color:var(--sheet);}
 .tm.you{align-self:flex-end;background:var(--sky);color:var(--ink);}
 .tm-tag{font-size:1.08em;}
-/* the street is the heading right above, so the card carries the venue and the way there, side by side when they fit */
-.tm-place{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;width:min(100%,440px);max-width:100%;padding:16px;}
+/* venue and street on the left, the way there beside them when they fit */
+.tm-place{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;width:min(100%,520px);max-width:100%;padding:16px;}
 .tm-place .tm-k{flex-basis:100%;}
 .tm-k{font-size:12px;font-weight:700;letter-spacing:.14em;}
-.tm-name{flex:1 1 auto;font-size:19px;font-weight:700;line-height:1.2;}
+.tm-where{flex:1 1 auto;display:flex;flex-direction:column;gap:4px;}
+.tm-name{font-size:19px;font-weight:700;line-height:1.2;}
+.tm-addr{font-size:15px;line-height:1.35;}
 .tm-place a.riso-go{margin-top:0;justify-content:center;}   /* a.riso-go, to outrank .f-ink a.riso-go */
 @media (min-width:901px){ .tm{font-size:16px;} }
 @container (min-width:760px){

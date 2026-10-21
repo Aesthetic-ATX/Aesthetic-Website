@@ -67,7 +67,7 @@ function Thread() {
       <div className="thread-in">
         <div className="thread-l">
           <p className="lbl thread-lbl">FINDING US ON A SUNDAY</p>
-          <p className="thread-where">{site.address.street}</p>
+          <p className="thread-where">We saved you a seat.</p>
         </div>
         <div className="thread-r">
           <div className="thread-who" aria-hidden>
@@ -89,7 +89,10 @@ function Thread() {
             <li className="tm us tm-place" style={{ "--i": thread.length } as React.CSSProperties}>
               <span className="sr-only">Aesthetic shared a location: </span>
               <span className="tm-k" aria-hidden>SHARED A LOCATION</span>
-              <span className="tm-name">{site.venue}</span>
+              <span className="tm-where">
+                <span className="tm-name">{site.venue}</span>
+                <span className="tm-addr">{site.address.street}, {site.address.city}, {site.address.region} {site.address.postalCode}</span>
+              </span>
               <a className="riso-go" href={site.directionsUrl} target="_blank" rel="noopener noreferrer">
                 Open in Google Maps<span className="sr-only"> for directions to {site.venue}, {site.address.street}</span>
               </a>
