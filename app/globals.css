@@ -218,7 +218,7 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .mv{--seal:clamp(300px,34vw,440px);display:grid;grid-template-columns:var(--seal) minmax(0,1fr);
   gap:clamp(32px,5vw,72px);align-items:start;}   /* top, so a reflowing text column never moves the seal */
 /* the stamp: presses flat into place once, no bounce, no swing (motion pass 2026-10-19) */
-.seal{position:relative;width:var(--seal);aspect-ratio:1;}
+.seal{position:relative;width:var(--seal);aspect-ratio:1;overflow:clip;}   /* the turning ring's square box swings past a phone's edge; its letters stay inside the circle */
 .seal.armed{transform:scale(1.08);opacity:0;}
 .seal.play{transform:none;opacity:1;transition:transform var(--t-base) var(--feed),opacity var(--t-quick) var(--feed);}
 .seal-svg{width:100%;height:100%;display:block;overflow:visible;}
