@@ -1182,7 +1182,7 @@ a.gw-day.gw-past{background:var(--c-past);}
   .ch-num span,.ch-media figcaption b,.foot-pair figcaption b{font-size:12px;}
   .ch-media figcaption,.foot-pair figcaption{font-size:13px;}
   /* Events: a smaller pinned poster, the description opens on request, a smaller countdown */
-  .ev-poster{max-width:280px;margin:12px auto 0;}
+  .ev-poster{width:100%;max-width:280px;margin:12px auto 0;}   /* width: auto margins alone shrink a grid item to its content, and an image still loading has none (CLS) */
   .ev-lead:not(.open) .ev-more{display:none;}
   .ev-read{display:inline-flex;}
   .ev-count{font-size:76px;}
