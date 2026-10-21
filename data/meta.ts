@@ -21,11 +21,13 @@ const copy: Record<Route, { title: string; shareTitle?: string; description: str
       "Learn about Aesthetic Church Austin, a modern, spirit-filled church helping people experience God in a real, creative, and meaningful way.",
     path: "/about",
   },
-  /* The page is called Groups (2026-09-30); the title keeps the SEO map's search term. */
+  /* The page is called Groups (2026-09-30); the title keeps the SEO map's search term. The map has
+     no description for this page; this one is ours, cut to 153 characters on 2026-10-21 so search
+     results show it whole, one line per group. */
   groups: {
     title: "Bible Study Groups Austin | Aesthetic Church Austin",
     description:
-      "Looking for bible study groups in Austin? Three Aesthetic groups meet through the week for honest conversation, over coffee, on the trail, and on Saturday mornings.",
+      "Looking for bible study groups in Austin? Aesthetic has three each week: a Wednesday Gospel study, a Saturday coffee devotional, and a Sunday trail walk.",
     path: "/groups",
   },
   /**
