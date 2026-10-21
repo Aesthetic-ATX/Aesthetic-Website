@@ -68,7 +68,6 @@ function Thread() {
         <div className="thread-l">
           <p className="lbl thread-lbl">FINDING US ON A SUNDAY</p>
           <p className="thread-where">{site.address.street}</p>
-          <p className="sp thread-line">Like a friend already saved you a seat and texted you the way in.</p>
         </div>
         <div className="thread-r">
           <div className="thread-who" aria-hidden>
@@ -91,7 +90,6 @@ function Thread() {
               <span className="sr-only">Aesthetic shared a location: </span>
               <span className="tm-k" aria-hidden>SHARED A LOCATION</span>
               <span className="tm-name">{site.venue}</span>
-              <span className="tm-addr">{site.address.street}, {site.address.city}, {site.address.region} {site.address.postalCode}</span>
               <a className="riso-go" href={site.directionsUrl} target="_blank" rel="noopener noreferrer">
                 Open in Google Maps<span className="sr-only"> for directions to {site.venue}, {site.address.street}</span>
               </a>
