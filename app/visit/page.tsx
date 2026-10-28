@@ -4,6 +4,8 @@ import { Frame } from "@/components/Frame";
 import { metaFor } from "@/data/meta";
 import { site } from "@/data/site";
 import { visit, type Chapter } from "@/data/visit";
+import { hats } from "@/data/hats";
+import { Hats } from "@/components/Hats";
 
 export const metadata = metaFor("visit");
 
@@ -91,6 +93,9 @@ export default function Visit() {
           <div className="chapters">
             {visit.chapters.map((ch) => <Ch key={ch.num} ch={ch} />)}
           </div>
+
+          {/* The hats (2026-10-28): after the four chapters, before John's line. */}
+          {hats.show && <Hats />}
 
           <blockquote className="pull">
             <p className="sp">&ldquo;{visit.quote.text}&rdquo;</p>

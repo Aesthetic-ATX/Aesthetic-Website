@@ -1156,6 +1156,87 @@ a.gw-day.gw-past{background:var(--c-past);}
   .ev-panel>div,.ev-list li{grid-template-columns:minmax(0,1fr);}
 }
 
+/* ================= THE HATS (2026-10-28) =================
+   Sold in person at the table by the entrance (data/hats.ts). /visit: a stone table with the tent card
+   standing on it, then the four angles in the Groups/Events pinned-flyer frame. Home: one stone strip
+   linking to it. DESIGN.md, "The hats". */
+.hats{border-top:var(--hair);padding:clamp(32px,4vw,56px) 0 clamp(24px,3vw,40px);display:grid;
+  grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "scene" "pins" "foot";gap:24px;scroll-margin-top:96px;}
+.hats-head{grid-area:head;display:flex;flex-direction:column;gap:16px;}
+.hats-h{margin:0;font-size:clamp(36px,5vw,60px);font-weight:700;line-height:1;letter-spacing:-.02em;text-wrap:balance;}
+.hats-foot{grid-area:foot;display:flex;flex-direction:column;align-items:flex-start;gap:16px;}
+.hats-foot p{margin:0;font-size:17px;line-height:1.55;max-width:58ch;}
+@media (min-width:901px){
+  .hats{grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-areas:"head scene" "foot scene" "pins pins";
+    grid-template-rows:auto 1fr auto;column-gap:64px;}
+  .hats-head{align-self:end;}
+}
+/* the table: stone field, the card standing on a black table edge */
+.hats-scene{grid-area:scene;min-width:0;background:var(--neutral);border:var(--key);padding:32px 16px 0;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;}   /* the edge stays at the foot when the row is taller */
+.hats-edge{align-self:stretch;margin:0 -16px;height:24px;background:var(--ink);}
+/* the card: an embroidered patch (sky, white stitching, the wordmark as on the hats) over a white price panel */
+.hats-card{width:min(100%,272px);box-sizing:border-box;background:var(--white);border:var(--key);
+  transform:perspective(800px) rotateX(8deg);transform-origin:50% 100%;}
+.hats-patch{position:relative;background:var(--sky);border-bottom:var(--key);padding:20px 16px 16px;
+  display:flex;flex-direction:column;align-items:center;gap:4px;}
+.hats-stitch{position:absolute;inset:6px;width:calc(100% - 12px);height:calc(100% - 12px);overflow:visible;}
+.hats-stitch rect{fill:none;stroke:var(--white);stroke-width:2;stroke-dasharray:6 5;}
+.hats-stitch .hats-sew{stroke-dasharray:1;stroke-dashoffset:0;stroke-width:6;}
+.hats-wm{position:relative;font-family:'Spectral',Georgia,'Times New Roman',serif;font-style:italic;font-weight:500;font-size:44px;line-height:1.05;}
+.hats-new{position:relative;font-size:12px;font-weight:700;letter-spacing:.2em;}
+.hats-prices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));}
+.hats-price{display:flex;flex-direction:column;gap:4px;padding:12px;}
+.hats-price+.hats-price{border-left:var(--hair);}
+.hats-pn{font-size:12px;font-weight:700;letter-spacing:.12em;line-height:1.25;min-height:2.5em;}
+.hats-pp{font-size:40px;font-weight:700;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;}
+.hats-pay{margin:0;border-top:var(--hair);padding:8px 12px 12px;display:flex;flex-direction:column;gap:4px;
+  font-size:12px;font-weight:700;letter-spacing:.12em;line-height:1.4;}
+@media (min-width:901px){ .hats-scene{padding-top:48px;} .hats-card{width:300px;} }
+/* the four angles in the pinned-flyer frame: white 4:5 sheet, keyline, tilt, sky offset block, stone tape */
+.hats-pins{grid-area:pins;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 24px;padding:20px 12px 8px 4px;}
+.hats-pin{margin:0;display:flex;flex-direction:column;gap:16px;--tilt:-1.6deg;}
+.hats-pin:nth-child(2){--tilt:1.4deg;margin-top:20px;}
+.hats-pin:nth-child(3){--tilt:1deg;}
+.hats-pin:nth-child(4){--tilt:-1.2deg;margin-top:20px;}
+.hats-paper{position:relative;transform:rotate(var(--tilt));transform-origin:50% 0;}
+.hats-block{position:absolute;inset:0;transform:translate(8px,8px);background:var(--sky);}
+.hats-sheet{position:relative;background:var(--white);border:var(--key);aspect-ratio:4/5;max-width:100%;box-sizing:border-box;
+  padding:8px;display:grid;place-items:center;}
+.hats-sheet img{width:100%;height:100%;object-fit:contain;display:block;}
+.hats-pin .tape{top:-12px;width:76px;height:24px;margin-left:-38px;background:var(--neutral);}
+.hats-pin .lbl{font-size:12px;letter-spacing:.1em;line-height:1.35;}
+@media (min-width:901px){
+  .hats-pins{grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;padding-top:32px;}
+  .hats-pin:nth-child(2),.hats-pin:nth-child(4){margin-top:32px;}
+  .hats-pin .tape{width:96px;height:28px;margin-left:-48px;top:-16px;}
+}
+/* motion, once each (usePlayOnce). The card stands up from flat, its stitching sews round the patch, then
+   the prices and payment lines print in. The frames pin up like the Groups flyers, tape pressed last. */
+.hats-scene.armed .hats-card{transform:perspective(800px) rotateX(88deg);}
+.hats-scene.armed .hats-sew{stroke-dashoffset:1;}
+.hats-scene.armed .hats-ink{clip-path:inset(0 100% 0 0);}
+.hats-scene.play .hats-card{transform:perspective(800px) rotateX(8deg);transition:transform var(--t-slow) var(--feed);}
+.hats-scene.play .hats-sew{stroke-dashoffset:0;transition:stroke-dashoffset var(--t-slow) var(--feed) calc(var(--t-slow) * .5);}
+.hats-scene.play .hats-ink{clip-path:inset(0 0 0 0);transition:clip-path var(--t-base) var(--feed);
+  transition-delay:calc(var(--t-slow) + var(--i) * var(--t-step) * 2);}
+.hats-pins.armed .hats-paper{transform:rotate(0deg) translateY(-12px);}
+.hats-pins.armed .tape{opacity:0;transform:rotate(calc(var(--tilt) * -2.2)) scale(1.25);}
+.hats-pins.play .hats-paper{transform:rotate(var(--tilt));transition:transform var(--t-base) var(--feed) calc(var(--i) * 2 * var(--t-step));}
+.hats-pins.play .tape{opacity:1;transform:rotate(calc(var(--tilt) * -2.2));transition:opacity var(--t-quick) var(--feed),transform var(--t-base) var(--feed);
+  transition-delay:calc(var(--t-base) * .6 + var(--i) * 2 * var(--t-step));}
+
+/* the homepage strip */
+.hats-tz{display:grid;grid-template-columns:96px minmax(0,1fr);align-items:center;gap:16px;background:var(--neutral);border:var(--key);
+  padding:12px 16px 12px 12px;color:var(--ink);text-decoration:none;}
+.hats-tz img{width:96px;height:auto;mix-blend-mode:multiply;display:block;}
+.hats-tz-t{display:flex;flex-direction:column;gap:4px;min-width:0;}
+.hats-tz .lbl{font-size:12px;}
+.hats-tz-h{font-size:22px;font-weight:700;line-height:1.1;}
+.hats-tz-go{font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--violet);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;}
+.hats-tz:hover .hats-tz-go{text-decoration-thickness:3px;}
+@media (min-width:601px){ .hats-tz{grid-template-columns:120px minmax(0,1fr);padding:12px 24px 12px 16px;} .hats-tz img{width:120px;} .hats-tz-h{font-size:28px;} }
+
 /* ================= MOBILE FIRST (2026-10-19) =================
    80% of visitors are on phones, 61% on iPhone (Vercel Analytics). Tested at 375px. Desktop is unchanged.
    This block sits last on purpose: page sections above define their own rules, and a phone rule placed

@@ -4,6 +4,8 @@ import { Fragment, type CSSProperties } from "react";
 import { site } from "@/data/site";
 import { Series } from "@/components/Series";
 import { seriesOver } from "@/data/series";
+import { hats } from "@/data/hats";
+import { HatsTeaser } from "@/components/HatsTeaser";
 import { TaglineBlank } from "@/components/TaglineBlank";
 import { VisitTeaser } from "@/components/VisitTeaser";
 import { PlayOnce } from "@/components/PlayOnce";
@@ -139,7 +141,16 @@ export default function Home() {
           removed from the homepage on 2026-09-17: its story became /visit,
           and this card is what hands off to it. */}
       {/* No top padding while the series section above supplies the full section gap. */}
-      <section className={`sec${showSeries ? " sec-flush-top" : ""}`}>
+      {/* The hats teaser (2026-10-28): under the series while one runs, else straight after About. */}
+      {hats.show && (
+        <section className={`sec sec-hats${showSeries ? " sec-flush-top" : ""}`} aria-label="New hats">
+          <div className="wrap">
+            <HatsTeaser />
+          </div>
+        </section>
+      )}
+
+      <section className={`sec${showSeries || hats.show ? " sec-flush-top" : ""}`}>
         <div className="wrap">
           <TaglineBlank />
 
