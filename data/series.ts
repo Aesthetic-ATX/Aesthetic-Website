@@ -46,3 +46,7 @@ export const series = {
     alt: "Series poster: This is Aesthetic. Remember why, October 18. Bridging the gap, October 25. For those not here yet, November 1. Set on a warm plaster wall with leaf shadows and white jasmine flowers.",
   } as { src: string; width: number; height: number; alt: string } | null,
 };
+
+/** The series is over once its last Sunday has passed (Austin date, "YYYY-MM-DD"). The homepage then
+ *  leaves the section out until a new series replaces the object above (user's call, 2026-10-28). */
+export const seriesOver = (todayIso: string) => todayIso > series.weeks[series.weeks.length - 1].date;

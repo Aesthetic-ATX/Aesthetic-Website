@@ -75,6 +75,7 @@ export default function Visit() {
                     fill
                     sizes="(max-width: 820px) 100vw, 45vw"
                     loading="eager"
+                    fetchPriority="high"
                   />
                 </span>
               </figure>

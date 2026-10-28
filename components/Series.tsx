@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { site } from "@/data/site";
-import { series } from "@/data/series";
+import { series, seriesOver } from "@/data/series";
 import { austinNow } from "@/components/austin";
 import { usePlayOnce } from "@/components/usePlayOnce";
 
@@ -40,15 +40,21 @@ export function Series() {
 
   // This Sunday: the first series Sunday on or after today in Austin. Null once the series is over.
   const [cur, setCur] = useState<number | null>(null);
+  const [over, setOver] = useState(false);
   useEffect(() => {
     const today = austinNow().iso;
     const i = series.weeks.findIndex((w) => w.date >= today);
     setCur(i === -1 ? series.weeks.length : i);
+    setOver(seriesOver(today));
   }, []);
 
   const first = series.weeks[0].date, last = series.weeks[series.weeks.length - 1].date;
   const now = cur !== null && cur < series.weeks.length ? cur : null;
   const nowAngle = now !== null ? (now * 7 / DAYS) * 360 : 0;
+
+  // The server leaves the section out once the series is over (app/page.tsx); this covers a page
+  // built before then, and ?now= previews.
+  if (over) return null;
 
   return (
     <article className="sheet ser" aria-labelledby="series-title">
@@ -78,7 +84,9 @@ export function Series() {
           <h2 id="series-title" className="ser-title ink">{series.title}</h2>
           <p className="sp ser-sub ink">{series.subtitle}</p>
           <p className="lbl ser-when ink">
-            {WORDS[series.weeks.length - 1]} SUNDAYS &middot; {long(first)} TO {long(last)}
+            <span className="ser-w">{WORDS[series.weeks.length - 1]} SUNDAYS &middot;</span>{" "}
+            <span className="ser-w">{long(first)}</span>{" "}
+            <span className="ser-w">TO {long(last)}</span>
           </p>
         </div>
       </div>

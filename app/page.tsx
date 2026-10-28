@@ -1,9 +1,9 @@
 import { getImageProps } from "next/image";
-import { preload } from "react-dom";
 import Link from "next/link";
 import { Fragment, type CSSProperties } from "react";
 import { site } from "@/data/site";
 import { Series } from "@/components/Series";
+import { seriesOver } from "@/data/series";
 import { TaglineBlank } from "@/components/TaglineBlank";
 import { VisitTeaser } from "@/components/VisitTeaser";
 import { PlayOnce } from "@/components/PlayOnce";
@@ -19,10 +19,17 @@ const heroCommon = { alt: heroAlt, sizes: "100vw", loading: "eager" as const, fe
 const { props: { srcSet: heroDesktop } } = getImageProps({ ...heroCommon, src: "/images/hero-full-v4.jpg", width: 1672, height: 941 });
 const { props: { srcSet: heroMobile, ...heroRest } } = getImageProps({ ...heroCommon, src: "/images/hero-mobile-v2.jpg", width: 1122, height: 1402 });
 
+/* Rebuilt hourly, so the series section drops out on the Monday after its last Sunday without a deploy. */
+export const revalidate = 3600;
+
+/** Today in Austin as "YYYY-MM-DD", on the server (components/austin.ts is browser-only). */
+const austinToday = () => new Intl.DateTimeFormat("en-CA", { timeZone: "America/Chicago" }).format(new Date());
+
 export default function Home() {
-  // Start the hero download at once, the right one for the screen: it is the largest thing on the page.
-  preload(heroMobile?.split(" ")[0] ?? "", { as: "image", imageSrcSet: heroMobile, imageSizes: "100vw", fetchPriority: "high", media: "(max-width: 600px)" });
-  preload(heroDesktop?.split(" ")[0] ?? "", { as: "image", imageSrcSet: heroDesktop, imageSizes: "100vw", fetchPriority: "high", media: "(min-width: 601px)" });
+  const showSeries = !seriesOver(austinToday());
+  // No preload() for the hero (removed 2026-10-28): every page prefetches "/" for the nav, and the
+  // prefetch carried the hint, so each page downloaded this photo at high priority. The <picture> is
+  // in the first HTML with fetchPriority high, which the browser's preload scanner already finds.
   return (
     <>
       {/* Hero: the whole 16:9 photo as a plate, then a caption row on the sky
@@ -119,18 +126,20 @@ export default function Home() {
       </PlayOnce>
 
       {/* The current series (2026-10-19, replaced the weekly message card). Above
-          the tagline so the newest thing on the page comes first. */}
-      <section className="sec">
-        <div className="wrap">
-          <Series />
-        </div>
-      </section>
+          the tagline so the newest thing on the page comes first. Left out between series. */}
+      {showSeries && (
+        <section className="sec sec-series">
+          <div className="wrap">
+            <Series />
+          </div>
+        </section>
+      )}
 
       {/* The tagline, then the invitation to visit. The Aesthetic Weekly was
           removed from the homepage on 2026-09-17: its story became /visit,
           and this card is what hands off to it. */}
-      {/* No top padding: the series section above already ends with a full section gap. */}
-      <section className="sec sec-flush-top">
+      {/* No top padding while the series section above supplies the full section gap. */}
+      <section className={`sec${showSeries ? " sec-flush-top" : ""}`}>
         <div className="wrap">
           <TaglineBlank />
 
