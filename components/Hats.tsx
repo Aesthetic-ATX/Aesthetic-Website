@@ -66,7 +66,6 @@ export function Hats() {
               </div>
               <span className="tape" aria-hidden="true" />
             </div>
-            <figcaption className="lbl">{p.caption}</figcaption>
           </figure>
         ))}
       </div>

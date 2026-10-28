@@ -6,11 +6,11 @@
  *
  * Photos: crops of the Instagram post until John's originals arrive. Version the filename on every swap.
  */
-export type HatPhoto = { src: string; width: number; height: number; alt: string; caption: string };
+export type HatPhoto = { src: string; width: number; height: number; alt: string };
 
 export const hats = {
   show: true,
-  kicker: "BY THE ENTRANCE · NEW",
+  kicker: "BY THE ENTRANCE",
   heading: "Look for this card on Sunday.",
   text: "The card sits on the table by the entrance at 2316 Morelos St, every Sunday at 11am. Stop by on your way in or out. We’re not selling online yet.",
   prices: [
@@ -20,10 +20,10 @@ export const hats = {
   pay: ["+ TAX", "CASH · CARD · ZELLE · VENMO"],
   teaser: { kicker: "NEW · SOLD ON SUNDAYS", link: "SEE THEM ON PLAN YOUR VISIT" },
   photos: [
-    { src: "/images/hat-trucker-front-v1.jpg", width: 640, height: 600, caption: "TRUCKER · FRONT", alt: "Navy trucker hat from the front, Aesthetic embroidered in light blue" },
-    { src: "/images/hat-trucker-side-v1.jpg", width: 712, height: 610, caption: "TRUCKER · SIDE", alt: "The trucker hat from the side, showing its mesh back panels" },
-    { src: "/images/hat-ponytail-front-v1.jpg", width: 640, height: 610, caption: "PONYTAIL · FRONT", alt: "Washed blue women’s ponytail hat from the front, Aesthetic embroidered in light blue" },
-    { src: "/images/hat-ponytail-back-v1.jpg", width: 640, height: 610, caption: "PONYTAIL · BACK", alt: "The back of the ponytail hat: an opening for a ponytail above an adjustable strap" },
+    { src: "/images/hat-trucker-front-v1.jpg", width: 640, height: 600, alt: "Navy trucker hat from the front, Aesthetic embroidered in light blue" },
+    { src: "/images/hat-trucker-side-v1.jpg", width: 712, height: 610, alt: "The trucker hat from the side, showing its mesh back panels" },
+    { src: "/images/hat-ponytail-front-v1.jpg", width: 640, height: 610, alt: "Washed blue women’s ponytail hat from the front, Aesthetic embroidered in light blue" },
+    { src: "/images/hat-ponytail-back-v1.jpg", width: 640, height: 610, alt: "The back of the ponytail hat: an opening for a ponytail above an adjustable strap" },
   ] satisfies HatPhoto[],
 };
 

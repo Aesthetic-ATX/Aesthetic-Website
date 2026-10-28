@@ -1205,7 +1205,6 @@ a.gw-day.gw-past{background:var(--c-past);}
   padding:8px;display:grid;place-items:center;}
 .hats-sheet img{width:100%;height:100%;object-fit:contain;display:block;}
 .hats-pin .tape{top:-12px;width:76px;height:24px;margin-left:-38px;background:var(--neutral);}
-.hats-pin .lbl{font-size:12px;letter-spacing:.1em;line-height:1.35;}
 @media (min-width:901px){
   .hats-pins{grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;padding-top:32px;}
   .hats-pin:nth-child(2),.hats-pin:nth-child(4){margin-top:32px;}
