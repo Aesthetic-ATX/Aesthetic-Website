@@ -11,13 +11,14 @@ export type HatPhoto = { src: string; width: number; height: number; alt: string
 export const hats = {
   show: true,
   kicker: "BY THE ENTRANCE",
-  heading: "Look for this card on Sunday.",
-  text: "The card sits on the table by the entrance at 2316 Morelos St, every Sunday at 11am. Stop by on your way in or out. We’re not selling online yet.",
+  heading: "Look for this tag on Sunday.",
+  text: "The hats are at the table by the entrance at 2316 Morelos St, every Sunday at 11am. Stop by on your way in or out. We’re not selling online yet.",
   prices: [
-    { name: "TRUCKER", price: "$22" },
-    { name: "WOMEN’S PONYTAIL", price: "$26" },
+    { name: "TRUCKER HAT", price: "22.00" },
+    { name: "PONYTAIL HAT", price: "26.00" },
   ],
-  pay: ["+ TAX", "CASH · CARD · ZELLE · VENMO"],
+  tax: "+ TAX",
+  pay: "CASH · CARD · ZELLE · VENMO",
   teaser: { kicker: "NEW · SOLD ON SUNDAYS", link: "SEE THEM ON PLAN YOUR VISIT" },
   photos: [
     { src: "/images/hat-trucker-front-v1.jpg", width: 640, height: 600, alt: "Navy trucker hat from the front, Aesthetic embroidered in light blue" },
@@ -27,5 +28,5 @@ export const hats = {
   ] satisfies HatPhoto[],
 };
 
-/** The card's words as one sentence, for screen readers (the card itself is drawn). */
-export const hatsCardLabel = "Table card: Aesthetic, new hats. Trucker hat $22, women’s ponytail hat $26, plus tax. Cash, card, Zelle or Venmo.";
+/** The tag's words as one sentence, for screen readers (the tag itself is drawn). */
+export const hatsCardLabel = "Price tag: Aesthetic, new hats. Trucker hat $22, women’s ponytail hat $26, plus tax. Cash, card, Zelle or Venmo.";

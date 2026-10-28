@@ -1171,28 +1171,30 @@ a.gw-day.gw-past{background:var(--c-past);}
     grid-template-rows:auto 1fr auto;column-gap:64px;}
   .hats-head{align-self:end;}
 }
-/* the table: stone field, the card standing on a black table edge */
-.hats-scene{grid-area:scene;min-width:0;background:var(--neutral);border:var(--key);padding:32px 16px 0;overflow:hidden;
-  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;}   /* the edge stays at the foot when the row is taller */
-.hats-edge{align-self:stretch;margin:0 -16px;height:24px;background:var(--ink);}
-/* the card: an embroidered patch (sky, white stitching, the wordmark as on the hats) over a white price panel */
-.hats-card{width:min(100%,272px);box-sizing:border-box;background:var(--white);border:var(--key);
-  transform:perspective(800px) rotateX(8deg);transform-origin:50% 100%;}
-.hats-patch{position:relative;background:var(--sky);border-bottom:var(--key);padding:20px 16px 16px;
-  display:flex;flex-direction:column;align-items:center;gap:4px;}
-.hats-stitch{position:absolute;inset:6px;width:calc(100% - 12px);height:calc(100% - 12px);overflow:visible;}
-.hats-stitch rect{fill:none;stroke:var(--white);stroke-width:2;stroke-dasharray:6 5;}
-.hats-stitch .hats-sew{stroke-dasharray:1;stroke-dashoffset:0;stroke-width:6;}
-.hats-wm{position:relative;font-family:'Spectral',Georgia,'Times New Roman',serif;font-style:italic;font-weight:500;font-size:44px;line-height:1.05;}
-.hats-new{position:relative;font-size:12px;font-weight:700;letter-spacing:.2em;}
-.hats-prices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));}
-.hats-price{display:flex;flex-direction:column;gap:4px;padding:12px;}
-.hats-price+.hats-price{border-left:var(--hair);}
-.hats-pn{font-size:12px;font-weight:700;letter-spacing:.12em;line-height:1.25;min-height:2.5em;}
-.hats-pp{font-size:40px;font-weight:700;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;}
-.hats-pay{margin:0;border-top:var(--hair);padding:8px 12px 12px;display:flex;flex-direction:column;gap:4px;
-  font-size:12px;font-weight:700;letter-spacing:.12em;line-height:1.4;}
-@media (min-width:901px){ .hats-scene{padding-top:48px;} .hats-card{width:300px;} }
+/* the tag: a swing tag drawn as a receipt (user's pick, B + D, 2026-10-28), hung on a string from a strip
+   of tape, straight on the page. A 1px outline like till paper; the torn zigzag foot is an SVG so its edge
+   stays crisp. */
+.hats-scene{grid-area:scene;min-width:0;display:flex;justify-content:center;padding:8px 0 16px;}
+.hats-hang{position:relative;width:min(100%,280px);display:flex;flex-direction:column;align-items:center;--tilt:0deg;}
+.hats-hang .tape{top:0;width:84px;height:24px;margin-left:-42px;background:var(--neutral);}
+.hats-string{width:48px;height:40px;margin-top:12px;}
+.hats-string path{fill:none;stroke:var(--ink);stroke-width:1.5;vector-effect:non-scaling-stroke;}
+.hats-tag{width:100%;margin-top:-8px;transform:rotate(-3deg);transform-origin:50% 0;}
+.hats-tag-in{position:relative;background:var(--white);border:1px solid var(--ink);border-bottom:0;padding:40px 20px 20px;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  font-size:12px;font-weight:700;letter-spacing:.08em;line-height:1.4;font-variant-numeric:tabular-nums;}
+.hats-zz{display:block;width:100%;height:10px;overflow:visible;}
+.hats-zz polygon{fill:var(--white);}
+.hats-zz polyline{fill:none;stroke:var(--ink);stroke-width:1;vector-effect:non-scaling-stroke;}
+.hats-hole{position:absolute;top:12px;left:50%;width:16px;height:16px;margin-left:-8px;border-radius:50%;border:3px solid var(--ink);background:var(--sheet);box-sizing:border-box;}
+.hats-wm{font-family:'Spectral',Georgia,'Times New Roman',serif;font-style:italic;font-weight:500;font-size:40px;letter-spacing:0;line-height:1;}
+.hats-c{text-align:center;}
+.hats-rule{align-self:stretch;border-top:2px dotted var(--ink);}
+.hats-row{align-self:stretch;display:flex;align-items:baseline;gap:8px;font-size:13px;}
+.hats-row i{flex:1;border-bottom:2px dotted var(--ink);}
+.hats-q{color:var(--muted-exp);}
+.hats-payline{font-size:12px;letter-spacing:.04em;white-space:nowrap;}
+@media (min-width:901px){ .hats-scene{align-self:center;padding-top:0;} .hats-hang{width:300px;} }
 /* the four angles in the pinned-flyer frame: white 4:5 sheet, keyline, tilt, sky offset block, stone tape */
 .hats-pins{grid-area:pins;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 24px;padding:20px 12px 8px 4px;}
 .hats-pin{margin:0;display:flex;flex-direction:column;gap:16px;--tilt:-1.6deg;}
@@ -1210,15 +1212,15 @@ a.gw-day.gw-past{background:var(--c-past);}
   .hats-pin:nth-child(2),.hats-pin:nth-child(4){margin-top:32px;}
   .hats-pin .tape{width:96px;height:28px;margin-left:-48px;top:-16px;}
 }
-/* motion, once each (usePlayOnce). The card stands up from flat, its stitching sews round the patch, then
-   the prices and payment lines print in. The frames pin up like the Groups flyers, tape pressed last. */
-.hats-scene.armed .hats-card{transform:perspective(800px) rotateX(88deg);}
-.hats-scene.armed .hats-sew{stroke-dashoffset:1;}
+/* motion, once each (usePlayOnce). The tag drops in on its string and settles at its tilt, then its lines
+   print in. The frames pin up like the Groups flyers, tape pressed last. */
+.hats-scene.armed .hats-tag{transform:rotate(0deg) translateY(-24px);}
+.hats-scene.armed .hats-string{transform:scaleY(.2);transform-origin:50% 0;}
 .hats-scene.armed .hats-ink{clip-path:inset(0 100% 0 0);}
-.hats-scene.play .hats-card{transform:perspective(800px) rotateX(8deg);transition:transform var(--t-slow) var(--feed);}
-.hats-scene.play .hats-sew{stroke-dashoffset:0;transition:stroke-dashoffset var(--t-slow) var(--feed) calc(var(--t-slow) * .5);}
+.hats-scene.play .hats-tag{transform:rotate(-3deg);transition:transform var(--t-slow) var(--feed);}
+.hats-scene.play .hats-string{transform:none;transition:transform var(--t-base) var(--feed);}
 .hats-scene.play .hats-ink{clip-path:inset(0 0 0 0);transition:clip-path var(--t-base) var(--feed);
-  transition-delay:calc(var(--t-slow) + var(--i) * var(--t-step) * 2);}
+  transition-delay:calc(var(--t-slow) * .6 + var(--i) * var(--t-step) * 2);}
 .hats-pins.armed .hats-paper{transform:rotate(0deg) translateY(-12px);}
 .hats-pins.armed .tape{opacity:0;transform:rotate(calc(var(--tilt) * -2.2)) scale(1.25);}
 .hats-pins.play .hats-paper{transform:rotate(var(--tilt));transition:transform var(--t-base) var(--feed) calc(var(--i) * 2 * var(--t-step));}

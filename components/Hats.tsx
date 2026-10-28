@@ -6,10 +6,10 @@ import { hats, hatsCardLabel } from "@/data/hats";
 import { usePlayOnce } from "@/components/usePlayOnce";
 
 /**
- * The hats on /visit (2026-10-28, user's pick from prototypes/hats): a stone table with the tent card
- * standing on it, then the four angles in the pinned-flyer frame from Groups and Events. Two play-once
- * pieces: the card stands up from flat, its stitching sews round the patch and its prices print in; the
- * frames pin up one after another, tape last. Tokens only (DESIGN.md, "The hats").
+ * The hats on /visit (2026-10-28, user's pick from prototypes/hats): a swing tag drawn as a receipt (thin
+ * outline, dotted leaders, torn zigzag foot) hung by a string from a strip of tape, then the four angles in
+ * the pinned-flyer frame from Groups and Events. Two play-once pieces: the tag drops in on its string and
+ * its lines print in; the frames pin up one after another, tape last. Tokens only (DESIGN.md, "The hats").
  */
 export function Hats() {
   const scene = useRef<HTMLDivElement>(null);
@@ -25,34 +25,36 @@ export function Hats() {
       </div>
 
       <div ref={scene} className={`hats-scene ${scenePhase}`}>
-        <div className="hats-card" role="img" aria-label={hatsCardLabel}>
-          <div className="hats-patch" aria-hidden="true">
-            <svg className="hats-stitch">
-              <defs>
-                <mask id="hats-sewn" maskUnits="userSpaceOnUse">
-                  <rect className="hats-sew" x="0" y="0" width="100%" height="100%" pathLength={1} />
-                </mask>
-              </defs>
-              <rect x="0" y="0" width="100%" height="100%" mask="url(#hats-sewn)" />
+        <div className="hats-hang">
+          <span className="tape" aria-hidden="true" />
+          <svg className="hats-string" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M50 2 L36 58 M50 2 L64 58" />
+          </svg>
+          <div className="hats-tag" role="img" aria-label={hatsCardLabel}>
+            <div className="hats-tag-in" aria-hidden="true">
+              <span className="hats-hole" />
+              <span className="hats-wm hats-ink" style={{ "--i": 0 } as CSSProperties}>Aesthetic</span>
+              <span className="hats-c hats-ink" style={{ "--i": 0 } as CSSProperties}>NEW HATS</span>
+              <span className="hats-rule" />
+              {hats.prices.map((p, i) => (
+                <span key={p.name} className="hats-row hats-ink" style={{ "--i": i + 1 } as CSSProperties}>
+                  <span>{p.name}</span><i /><span>{p.price}</span>
+                </span>
+              ))}
+              <span className="hats-row hats-q hats-ink" style={{ "--i": 3 } as CSSProperties}>{hats.tax}</span>
+              <span className="hats-rule" />
+              <span className="hats-c hats-ink" style={{ "--i": 4 } as CSSProperties}>PAY WITH</span>
+              <span className="hats-payline hats-ink" style={{ "--i": 5 } as CSSProperties}>{hats.pay}</span>
+              <span className="hats-rule" />
+              <span className="hats-c hats-ink" style={{ "--i": 6 } as CSSProperties}>SEE YOU SUNDAY</span>
+            </div>
+            {/* the torn foot, drawn so its outline stays a crisp 1px at any width */}
+            <svg className="hats-zz" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true">
+              <polygon points="0,0 2.5,9 5,0 7.5,9 10,0 12.5,9 15,0 17.5,9 20,0 22.5,9 25,0 27.5,9 30,0 32.5,9 35,0 37.5,9 40,0 42.5,9 45,0 47.5,9 50,0 52.5,9 55,0 57.5,9 60,0 62.5,9 65,0 67.5,9 70,0 72.5,9 75,0 77.5,9 80,0 82.5,9 85,0 87.5,9 90,0 92.5,9 95,0 97.5,9 100,0" />
+              <polyline points="0,0 2.5,9 5,0 7.5,9 10,0 12.5,9 15,0 17.5,9 20,0 22.5,9 25,0 27.5,9 30,0 32.5,9 35,0 37.5,9 40,0 42.5,9 45,0 47.5,9 50,0 52.5,9 55,0 57.5,9 60,0 62.5,9 65,0 67.5,9 70,0 72.5,9 75,0 77.5,9 80,0 82.5,9 85,0 87.5,9 90,0 92.5,9 95,0 97.5,9 100,0" />
             </svg>
-            <span className="hats-wm">Aesthetic</span>
-            <span className="hats-new">NEW HATS</span>
           </div>
-          <div className="hats-prices" aria-hidden="true">
-            {hats.prices.map((p, i) => (
-              <div key={p.name} className="hats-price hats-ink" style={{ "--i": i } as CSSProperties}>
-                <span className="hats-pn">{p.name}</span>
-                <span className="hats-pp">{p.price}</span>
-              </div>
-            ))}
-          </div>
-          <p className="hats-pay" aria-hidden="true">
-            {hats.pay.map((line, i) => (
-              <span key={line} className="hats-ink" style={{ "--i": i + 2 } as CSSProperties}>{line}</span>
-            ))}
-          </p>
         </div>
-        <div className="hats-edge" aria-hidden="true" />
       </div>
 
       <div ref={pins} className={`hats-pins ${pinsPhase}`}>
