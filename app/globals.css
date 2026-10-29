@@ -349,7 +349,6 @@ a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-o
 .stone[aria-pressed="true"]{background:var(--citron);}   /* black on citron 18.42:1 */
 .stone:focus-visible{position:relative;z-index:1;}
 .stone.base{padding-block:clamp(24px,2.6vw,32px);font-size:clamp(18px,1.8vw,24px);}
-.found-hint{margin-top:16px;}
 .found-panel{position:relative;border:var(--key);background:var(--white);min-height:100%;
   padding:clamp(24px,3vw,36px) clamp(24px,3vw,36px) clamp(32px,3.6vw,40px);display:flex;flex-direction:column;justify-content:flex-end;gap:16px;}
 .found-panel .lbl{padding-right:56px;}

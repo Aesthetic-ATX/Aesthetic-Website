@@ -113,7 +113,6 @@ export function BeliefsWall() {
             </div>
           ))}
         </div>
-        <p className="sm found-hint">Reading up from the foundation. Tap a stone to stay on it.</p>
       </div>
 
       <div className="found-panel" ref={panel} aria-live={announce ? "polite" : "off"}>
