@@ -9,15 +9,15 @@ import { usePlayOnce } from "@/components/usePlayOnce";
 /**
  * The homepage pointer to the hats on /visit (2026-10-28, user's wording): NEW MERCH / SOLD ON SUNDAYS,
  * "Two hats. / Same Aesthetic." on two lines, and two of the angles (trucker front, ponytail back) in the
- * same pinned-flyer frame as /visit, with the site's violet button under them as the call to action. The whole
- * block is one link; the frames pin up once on arrival.
+ * same pinned-flyer frame as /visit, with the site's violet button under them as the call to action. Only the
+ * button links; the frames pin up once on arrival.
  */
 export function HatsTeaser() {
   const pins = useRef<HTMLSpanElement>(null);
   const phase = usePlayOnce(pins, 0.4);
   const shown = [hats.photos[0], hats.photos[3]];
   return (
-    <Link href="/visit#hats" className="hats-tz">
+    <div className="hats-tz">
       <span className="hats-tz-t">
         <span className="lbl">{hats.teaser.kicker}</span>
         <span className="lbl">{hats.teaser.sub}</span>
@@ -35,9 +35,9 @@ export function HatsTeaser() {
             </span>
           </span>
         ))}
-        {/* the site's button, drawn as a span: the whole block is already the link */}
-        <span className="btn btn-v hats-tz-btn">{hats.teaser.cta}</span>
+        {/* the one link in the block (user, 2026-10-28: not the whole container) */}
+        <Link href="/visit#hats" className="btn btn-v hats-tz-btn">{hats.teaser.cta}</Link>
       </span>
-    </Link>
+    </div>
   );
 }

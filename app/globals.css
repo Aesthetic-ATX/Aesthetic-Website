@@ -1228,14 +1228,13 @@ a.gw-day.gw-past{background:var(--c-past);}
   transition-delay:calc(var(--t-base) * .6 + var(--i) * 2 * var(--t-step));}
 
 /* the homepage teaser: words, then two of the angles in the same pinned frames, a receipt tag as the CTA */
-.hats-tz{display:grid;grid-template-columns:minmax(0,1fr);gap:32px;color:var(--ink);text-decoration:none;}
+.hats-tz{display:grid;grid-template-columns:minmax(0,1fr);gap:32px;}
 .hats-tz-t{display:flex;flex-direction:column;gap:8px;min-width:0;}
 .hats-tz .lbl{font-size:12px;}
 .hats-tz-h{margin-top:8px;font-size:clamp(36px,5vw,56px);font-weight:700;line-height:1;letter-spacing:-.02em;}
 .hats-tz-pins{grid-area:auto;position:relative;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;padding:20px 12px 12px 4px;}
 /* the CTA: the site's violet button on its own row under both frames (user, 2026-10-28) */
 .hats-tz-btn{grid-column:1/-1;justify-self:center;margin-top:16px;}
-.hats-tz:hover .hats-tz-btn{background:var(--ink);}
 @media (min-width:901px){
   .hats-tz{grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:64px;align-items:center;}
   .hats-tz-pins{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px;max-width:560px;}
