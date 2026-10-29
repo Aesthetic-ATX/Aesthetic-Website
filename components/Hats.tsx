@@ -74,7 +74,6 @@ export function Hats() {
 
       <div className="hats-foot">
         <p>{hats.text}</p>
-        <a className="btn btn-v" href="https://www.instagram.com/aesthetic_atx/" target="_blank" rel="noopener noreferrer">CHECK OUT ON INSTAGRAM</a>
       </div>
     </section>
   );
