@@ -74,7 +74,7 @@ export function Hats() {
 
       <div className="hats-foot">
         <p>{hats.text}</p>
-        <a className="arrow-link" href="https://www.instagram.com/aesthetic_atx/" target="_blank" rel="noopener noreferrer">SEE THEM ON INSTAGRAM</a>
+        <a className="btn btn-v" href="https://www.instagram.com/aesthetic_atx/" target="_blank" rel="noopener noreferrer">SEE THEM ON INSTAGRAM</a>
       </div>
     </section>
   );

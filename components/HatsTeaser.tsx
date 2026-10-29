@@ -9,7 +9,7 @@ import { usePlayOnce } from "@/components/usePlayOnce";
 /**
  * The homepage pointer to the hats on /visit (2026-10-28, user's wording): NEW MERCH / SOLD ON SUNDAYS,
  * "Two hats. / Same Aesthetic." on two lines, and two of the angles (trucker front, ponytail back) in the
- * same pinned-flyer frame as /visit, with a small receipt tag on them as the call to action. The whole
+ * same pinned-flyer frame as /visit, with the site's violet button under them as the call to action. The whole
  * block is one link; the frames pin up once on arrival.
  */
 export function HatsTeaser() {
@@ -35,10 +35,8 @@ export function HatsTeaser() {
             </span>
           </span>
         ))}
-        <span className="hats-tz-tag">
-          <span className="hats-hole" aria-hidden="true" />
-          {hats.teaser.cta} <span aria-hidden="true">&rarr;</span>
-        </span>
+        {/* the site's button, drawn as a span: the whole block is already the link */}
+        <span className="btn btn-v hats-tz-btn">{hats.teaser.cta}</span>
       </span>
     </Link>
   );
