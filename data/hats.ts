@@ -19,7 +19,7 @@ export const hats = {
   ],
   tax: "+ TAX",
   pay: "CASH · CARD · ZELLE · VENMO",
-  teaser: { kicker: "NEW · SOLD ON SUNDAYS", link: "SEE THEM ON PLAN YOUR VISIT" },
+  teaser: { kicker: "NEW MERCH", sub: "SOLD ON SUNDAYS", cta: "PRICES & DETAILS" },
   photos: [
     { src: "/images/hat-trucker-front-v1.jpg", width: 640, height: 600, alt: "Navy trucker hat from the front, Aesthetic embroidered in light blue" },
     { src: "/images/hat-trucker-side-v1.jpg", width: 712, height: 610, alt: "The trucker hat from the side, showing its mesh back panels" },

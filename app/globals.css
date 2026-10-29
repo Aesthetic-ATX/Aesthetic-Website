@@ -1227,16 +1227,23 @@ a.gw-day.gw-past{background:var(--c-past);}
 .hats-pins.play .tape{opacity:1;transform:rotate(calc(var(--tilt) * -2.2));transition:opacity var(--t-quick) var(--feed),transform var(--t-base) var(--feed);
   transition-delay:calc(var(--t-base) * .6 + var(--i) * 2 * var(--t-step));}
 
-/* the homepage strip */
-.hats-tz{display:grid;grid-template-columns:96px minmax(0,1fr);align-items:center;gap:16px;background:var(--neutral);border:var(--key);
-  padding:12px 16px 12px 12px;color:var(--ink);text-decoration:none;}
-.hats-tz img{width:96px;height:auto;mix-blend-mode:multiply;display:block;}
-.hats-tz-t{display:flex;flex-direction:column;gap:4px;min-width:0;}
+/* the homepage teaser: words, then two of the angles in the same pinned frames, a receipt tag as the CTA */
+.hats-tz{display:grid;grid-template-columns:minmax(0,1fr);gap:32px;color:var(--ink);text-decoration:none;}
+.hats-tz-t{display:flex;flex-direction:column;gap:8px;min-width:0;}
 .hats-tz .lbl{font-size:12px;}
-.hats-tz-h{font-size:22px;font-weight:700;line-height:1.1;}
-.hats-tz-go{font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--violet);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;}
-.hats-tz:hover .hats-tz-go{text-decoration-thickness:3px;}
-@media (min-width:601px){ .hats-tz{grid-template-columns:120px minmax(0,1fr);padding:12px 24px 12px 16px;} .hats-tz img{width:120px;} .hats-tz-h{font-size:28px;} }
+.hats-tz-h{margin-top:8px;font-size:clamp(36px,5vw,56px);font-weight:700;line-height:1;letter-spacing:-.02em;}
+.hats-tz-pins{grid-area:auto;position:relative;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;padding:20px 12px 40px 4px;}
+.hats-tz-tag{position:absolute;left:50%;bottom:0;transform:translateX(-50%) rotate(-4deg);z-index:3;white-space:nowrap;
+  background:var(--white);border:1px solid var(--ink);padding:12px 16px 12px 36px;
+  font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--violet);
+  text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;}
+.hats-tz-tag .hats-hole{top:50%;left:12px;width:14px;height:14px;margin:-7px 0 0;}
+.hats-tz:hover .hats-tz-tag{text-decoration-thickness:3px;}
+@media (min-width:901px){
+  .hats-tz{grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:64px;align-items:center;}
+  .hats-tz-pins{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px;max-width:560px;}
+  .hats-tz-pins .hats-pin:nth-child(2){margin-top:32px;}
+}
 
 /* ================= MOBILE FIRST (2026-10-19) =================
    80% of visitors are on phones, 61% on iPhone (Vercel Analytics). Tested at 375px. Desktop is unchanged.
