@@ -13,13 +13,15 @@ export type SeriesWeek = {
   line?: string;
   /** The church's full summary for the week, printed under THIS SUNDAY. */
   gist?: string;
-  /** The title as a crossword clue: the words before the blank, then the answer. */
-  clue?: [string, string];
+  /** The title as a crossword clue: the words before the blank, the answer, then any words after it. */
+  clue?: [string, string, string?];
 };
 
-/* Good Company (2026-11-09). Source: the Host Script of Nov 1 and the weekly summaries the church
-   sent on 2026-11-03 (week 3 is "There's room", not the poster's "Make room"). Em dashes in the
-   summaries became commas or full stops. The lead is the last clause of the church's blurb. */
+/* Good Company (2026-11-09). Titles from the final poster; week 3 is "Come and see" (it was "Make room",
+   then "There's room"). Summaries: week 2 from 2026-11-03, weeks 1 and 3 and the series blurb as the user
+   sent them on 2026-11-09. Their em dashes became commas, and "Come and See" inside week 3's summary is
+   set in the site's sentence case. Each `line` is a sentence of that week's own summary. The lead is the
+   last clause of the blurb. */
 export const series = {
   kicker: "A NEW SERIES",
   title: "Good Company",
@@ -29,8 +31,8 @@ export const series = {
       date: "2026-11-08",
       title: "Let’s hang",
       clue: ["Let’s ", "hang"],
-      line: "You don’t need a different personality; you might just need an extra chair.",
-      gist: "Sharing the love of Jesus can begin with sharing your life. We’ll explore how ordinary things like coffee, a meal, or a favorite hobby can create space for genuine friendship and meaningful connection. You don’t need a different personality; you might just need an extra chair.",
+      line: "Jesus meets people where they are, and invites us to do the same.",
+      gist: "Jesus meets people where they are, and invites us to do the same. Through the story of Jesus at Levi’s table, we’ll explore what it means to move beyond our familiar circles, enter someone else’s world, and love people genuinely. Whether we’re sharing a meal, watching a game, or joining in something they enjoy, ordinary time together can become a meaningful expression of Jesus’ love.",
     },
     {
       date: "2026-11-15",
@@ -41,45 +43,50 @@ export const series = {
     },
     {
       date: "2026-11-22",
-      title: "There’s room",
-      clue: ["There’s ", "room"],
-      line: "An invitation is an open door, not an obligation.",
-      gist: "A simple invitation can say something powerful: there’s room for you here. We’ll explore how to invite others into community, help them feel welcome, and keep showing up as a friend, whether they say yes, no, or maybe later. An invitation is an open door, not an obligation.",
+      title: "Come and see",
+      clue: ["", "Come", " and see"],
+      line: "There’s something beautiful about discovering God’s goodness together.",
+      gist: "There’s something beautiful about discovering God’s goodness together. In Come and see, we’ll explore how to invite others into a community learning to know, love, and follow Jesus. More than an invitation to attend a service, it’s an invitation to discover God’s beauty with us, and to offer a genuine welcome as people explore for themselves.",
     },
   ] satisfies SeriesWeek[],
   /** The label over the note. This series' blurb is from the host script, so it is not bylined to John. */
   noteLabel: "ABOUT THE SERIES",
   note: [
-    "Join us for Good Company, a three-week series about making room for friendship, moving beyond small talk, and extending meaningful invitations. Together, we’ll explore how to love people genuinely and talk about Jesus naturally without pressure or pretense.",
+    "Following Jesus moves us toward people, right where they are. Join us for Good Company, a three-week series about sharing everyday life, moving beyond small talk, and inviting others to discover the goodness and beauty of God with us. Together, we’ll explore how to love people genuinely and talk about Jesus naturally, without pressure or pretense.",
   ],
   byline: null as string | null,
-  /** No poster yet: the only file is a 578x383 screenshot crop that still says "Make room" for week 3.
-   *  When the original arrives, save it as /images/series-good-company-v1.jpg and fill this in.
-   *  Version the filename on every swap: a reused name stays cached. */
-  poster: null as { src: string; width: number; height: number; alt: string } | null,
+  /** Optional (set to null for a series without one). Source: the original the user sent on 2026-11-09
+   *  (1535x1024). Version the filename on every swap: a reused name stays cached. */
+  poster: {
+    src: "/images/series-good-company-v1.jpg",
+    width: 1535,
+    height: 1024,
+    alt: "Series poster: Good Company in blue and green lettering on dark green, with neon drawings of an ATX sign, a guitar, an armadillo, a bat and a paddleboarder. November 8, Let’s hang. November 15, More than small talk. November 22, Come and see.",
+  } as { src: string; width: number; height: number; alt: string } | null,
 };
 
 /**
  * The crossword on the homepage (components/SeriesCrossword.tsx, user's pick 2026-11-09, prototype
  * round 4, concept L). GOOD and COMPANY run across; one word from each Sunday's title runs down
- * through them, and they do interlock. Columns 1 to 7, rows 1 to 8; x and y are where a word starts.
+ * through them, and they do interlock. Columns 1 to 7, rows 1 to 9; x and y are where a word starts.
  * `n` is the clue number, counted the way a crossword counts (left to right, top to bottom).
  * `blocks` are the black squares: the cells that the letters round them close off.
  * A new series needs its own grid, or the ring (components/Series.tsx), which is kept for that.
  */
 export const crossword = {
   cols: 7,
-  rows: 8,
+  rows: 9,
   across: [
-    { n: 3, x: 1, y: 4, word: "GOOD" },
-    { n: 5, x: 1, y: 6, word: "COMPANY" },
+    { n: 2, x: 1, y: 4, word: "GOOD" },
+    { n: 4, x: 1, y: 6, word: "COMPANY" },
   ],
+  /* COME starts on the C of COMPANY, so 4 across and 4 down share a square and a number. */
   down: [
     { week: 0, n: 1, x: 1, y: 1, word: "HANG" },
-    { week: 2, n: 2, x: 3, y: 3, word: "ROOM" },
-    { week: 1, n: 4, x: 5, y: 5, word: "TALK" },
+    { week: 1, n: 3, x: 5, y: 5, word: "TALK" },
+    { week: 2, n: 4, x: 1, y: 6, word: "COME" },
   ],
-  blocks: [[2, 3], [2, 5], [4, 5]],
+  blocks: [[1, 5], [2, 5], [3, 5], [4, 5]],
 };
 
 /** The series is over once its last Sunday has passed (Austin date, "YYYY-MM-DD"). The homepage then

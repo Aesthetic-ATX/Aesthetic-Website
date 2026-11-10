@@ -80,6 +80,7 @@ export function SeriesCrossword({ today }: { today: string }) {
         <div ref={root} className={`xw ${phase}`}>
           {/* The grid is a picture of the clues beside it: pointer users can tap a blank square,
               everyone else uses the clue's own button. */}
+          <div className="xw-left">
           <div
             className="xw-grid"
             aria-hidden="true"
@@ -111,10 +112,11 @@ export function SeriesCrossword({ today }: { today: string }) {
             {crossword.blocks.map(([x, y]) => (
               <div key={`${x},${y}`} className="xw-cell block" style={{ "--x": x, "--y": y } as CSSProperties} />
             ))}
-            <div className="xw-key xw-lbl">
-              <span><i className="g" />THIS SUNDAY</span>
-              <span><i />STILL TO COME</span>
-            </div>
+          </div>
+          <div className="xw-key xw-lbl" aria-hidden="true">
+            <span><i className="g" />THIS SUNDAY</span>
+            <span><i />STILL TO COME</span>
+          </div>
           </div>
 
           <div className="xw-side">
@@ -123,7 +125,7 @@ export function SeriesCrossword({ today }: { today: string }) {
             <ol className="xw-clues" aria-label="In this series">
               {series.weeks.map((w, i) => {
                 const d = down.get(i);
-                const [before, answer] = w.clue ?? [w.title ?? "", ""];
+                const [before, answer, after = ""] = w.clue ?? [w.title ?? "", ""];
                 return (
                   <li key={w.date} className={i === now ? "now" : i < cur ? "past" : undefined} aria-current={i === now ? "true" : undefined}>
                     <p className="xw-lbl">
@@ -132,7 +134,7 @@ export function SeriesCrossword({ today }: { today: string }) {
                     </p>
                     {open(i) ? (
                       <>
-                        <h3 className="xw-q">{before}{answer}</h3>
+                        <h3 className="xw-q">{before}{answer}{after}</h3>
                         {w.line && <p className="xw-p">{w.line}</p>}
                       </>
                     ) : (
@@ -141,6 +143,7 @@ export function SeriesCrossword({ today }: { today: string }) {
                         <span className="xw-blank" role="img" aria-label={`blank, ${answer.length} letters`}>
                           {[...answer].map((_, k) => <i key={k} />)}
                         </span>
+                        {after}
                         <span className="xw-lbl xw-go">FILL IT IN</span>
                       </button>
                     )}
