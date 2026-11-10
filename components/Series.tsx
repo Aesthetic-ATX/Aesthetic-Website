@@ -26,6 +26,8 @@ const ticks = Array.from({ length: DAYS }, (_, i) => {
 });
 
 /**
+ * NOT ON THE SITE since 2026-11-09: Good Company uses components/SeriesCrossword.tsx. Kept for the
+ * next series that wants the ring.
  * The current series (2026-10-19), made from the One Year ring and set inside the homepage's
  * bulletin sheet. Motion follows DESIGN.md: it plays once on arrival (the ticks rule round, the
  * paper ripples from the centre and the words surface inside it, this Sunday's green stamp goes

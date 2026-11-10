@@ -2,7 +2,7 @@ import { getImageProps } from "next/image";
 import Link from "next/link";
 import { Fragment, type CSSProperties } from "react";
 import { site } from "@/data/site";
-import { Series } from "@/components/Series";
+import { SeriesCrossword } from "@/components/SeriesCrossword";
 import { seriesOver } from "@/data/series";
 import { hats } from "@/data/hats";
 import { HatsTeaser } from "@/components/HatsTeaser";
@@ -28,7 +28,8 @@ export const revalidate = 3600;
 const austinToday = () => new Intl.DateTimeFormat("en-CA", { timeZone: "America/Chicago" }).format(new Date());
 
 export default function Home() {
-  const showSeries = !seriesOver(austinToday());
+  const today = austinToday();
+  const showSeries = !seriesOver(today);
   // No preload() for the hero (removed 2026-10-28): every page prefetches "/" for the nav, and the
   // prefetch carried the hint, so each page downloaded this photo at high priority. The <picture> is
   // in the first HTML with fetchPriority high, which the browser's preload scanner already finds.
@@ -127,12 +128,12 @@ export default function Home() {
         </div>
       </PlayOnce>
 
-      {/* The current series (2026-10-19, replaced the weekly message card). Above
-          the tagline so the newest thing on the page comes first. Left out between series. */}
+      {/* The current series (2026-10-19, replaced the weekly message card; a crossword for Good
+          Company, 2026-11-09). Above the tagline so the newest thing on the page comes first. Left out between series. */}
       {showSeries && (
         <section className="sec sec-series">
           <div className="wrap">
-            <Series />
+            <SeriesCrossword today={today} />
           </div>
         </section>
       )}
