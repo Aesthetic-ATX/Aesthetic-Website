@@ -8,7 +8,7 @@ import { hats } from "@/data/hats";
 import { HatsTeaser } from "@/components/HatsTeaser";
 import { TaglineBlank } from "@/components/TaglineBlank";
 import { VisitTeaser } from "@/components/VisitTeaser";
-import { PlayOnce } from "@/components/PlayOnce";
+import { AboutViewfinder } from "@/components/AboutViewfinder";
 
 /** DUMMY COPY, drawn from the existing About text until the church writes the final line.
  *  Both phrases come from the approved .docx. "Take a next step" was cut in the 2026-09-22
@@ -77,10 +77,10 @@ export default function Home() {
       {/* About preview. Text only: label left, two-line heading right, paragraph
           under the label, then a centred closing statement. Background #F8FFEF was
           added to the palette (tried 2026-09-16, approved 2026-09-28). */}
-      {/* Motion (2026-10-19, user's mix: option A + B's proof marks + C's crop marks): crop marks
-          frame the heading, the italic line prints in two inks and settles into register, the
-          paragraph corrects itself, the closing lines ink in. Plays once; tokens only. */}
-      <PlayOnce className="about f-about ab" aria-labelledby="about-title">
+      {/* Motion (2026-11-10, user's pick, the viewfinder): the crop marks find the word "beauty",
+          widen to the first line, then to the whole heading, and the type turns to ink as the frame
+          reaches it; the paragraph corrects itself, the closing lines ink in. Plays once; tokens only. */}
+      <AboutViewfinder className="about f-about ab" aria-labelledby="about-title">
         <div className="wrap">
           <div className="about-grid">
             <span className="lbl about-lbl">ABOUT AESTHETIC</span>
@@ -88,9 +88,10 @@ export default function Home() {
               <span className="crop">
                 <i className="cm tl" aria-hidden /><i className="cm tr" aria-hidden /><i className="cm bl" aria-hidden /><i className="cm br" aria-hidden />
                 {/* DUMMY COPY: shortened from the mission so it sets on two lines. */}
-                <span className="ink">The beauty of God,</span>
+                {/* three pieces so the frame can find "beauty" first (vf-line = what it widens to next) */}
+                <span className="vf-line"><span className="vf">The</span> <span className="vf vf-word">beauty</span> <span className="vf">of God,</span></span>
                 <br />
-                {/* two inks: the sky plate prints first, the black lands on it in register */}
+                {/* two inks, in register with a hairline sky trap left showing */}
                 <em className="sp reg">
                   <span className="reg-sky" aria-hidden>in life and culture.</span>
                   <span className="reg-ink">in life and culture.</span>
@@ -126,7 +127,7 @@ export default function Home() {
             <span className="sp highlight">make room to explore it.</span>
           </div>
         </div>
-      </PlayOnce>
+      </AboutViewfinder>
 
       {/* The current series (2026-10-19, replaced the weekly message card; a crossword for Good
           Company, 2026-11-09). Above the tagline so the newest thing on the page comes first. Left out between series. */}
